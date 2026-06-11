@@ -1,0 +1,1961 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>AI Democratization Program | Cohort Hub</title>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<style>
+:root{
+  --navy:#050B3D;--navy2:#07163f;--blue:#126DFF;--blue2:#0040B0;--cyan:#14B8FF;
+  --bg:#F4F7FB;--card:#FFFFFF;--ink:#1D2733;--muted:#667085;--line:#E5E7EB;
+  --soft:#EEF4FF;--green:#166534;--greenBg:#EAF7EF;--orange:#B45309;--orangeBg:#FFF7ED;
+  --red:#B42318;--redBg:#FEF3F2;--purple:#6B21A8;--purpleBg:#F5F0FF;
+  --shadow:0 18px 46px rgba(5,11,61,.10);--radius:18px;
+}
+*{box-sizing:border-box}html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",Roboto,Arial,sans-serif}
+a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+button,input,select,textarea{font:inherit}.hidden{display:none!important}
+
+/* ── LOGIN ── */
+.login-shell{min-height:100vh;display:grid;grid-template-columns:1.1fr .9fr;background:radial-gradient(circle at 15% 20%,rgba(18,109,255,.38),transparent 28%),linear-gradient(135deg,var(--navy),#111827 62%,#07163f)}
+.login-brand{color:#fff;padding:62px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;position:relative}
+.login-brand::after{content:"";position:absolute;width:520px;height:520px;border-radius:50%;right:-160px;top:-120px;background:radial-gradient(circle,rgba(20,184,255,.28),transparent 65%)}
+.login-brand>*{position:relative;z-index:1}
+.eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#B7C9FF;font-weight:800;margin-bottom:14px}
+h1{font-size:48px;line-height:1.03;margin:0 0 18px;letter-spacing:-.045em}
+.brand-copy{font-size:17px;line-height:1.55;color:#E5EDFF;max-width:600px}
+.brand-mini{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:32px}
+.brand-mini div{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);border-radius:18px;padding:16px;backdrop-filter:blur(10px)}
+.brand-mini strong{display:block;font-size:28px;margin-bottom:4px}
+.brand-mini span{font-size:12px;color:#D7E3FF}
+.login-foot{font-size:12px;color:#B7C9FF}
+.login-pane{display:flex;align-items:center;justify-content:center;padding:38px;background:linear-gradient(180deg,#fff,#F7FAFF)}
+.login-card{width:min(480px,100%);background:#fff;border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);padding:32px}
+.login-tabs{display:flex;background:#EEF4FF;border-radius:14px;padding:5px;margin-bottom:24px}
+.login-tabs button{flex:1;border:0;background:transparent;border-radius:11px;padding:12px 14px;font-weight:800;color:#475467;cursor:pointer;transition:.15s}
+.login-tabs button.active{background:#fff;color:var(--navy);box-shadow:0 10px 24px rgba(5,11,61,.10)}
+.field{margin:14px 0}
+.field label{display:flex;justify-content:space-between;gap:10px;font-size:13px;font-weight:800;color:#344054;margin-bottom:7px}
+.field small{font-weight:600;color:#667085}
+.field input,.field select,.field textarea{width:100%;border:1.5px solid #D0D5DD;border-radius:13px;padding:12px 14px;background:#fff;color:#101828;outline:none;transition:.15s}
+.field textarea{min-height:110px;resize:vertical}
+.field textarea.mega{min-height:600px;line-height:1.55;font-family:"Segoe UI",Roboto,Arial,sans-serif}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(18,109,255,.12)}
+.field input.error{border-color:var(--red);box-shadow:0 0 0 3px rgba(180,35,24,.1)}
+.login-err{background:var(--redBg);border:1px solid #FECACA;border-radius:12px;padding:12px 14px;font-size:13px;color:var(--red);margin-bottom:14px;line-height:1.5}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.hint{font-size:13px;color:var(--muted);line-height:1.45}
+.tiny{font-size:12px;color:var(--muted)}
+
+/* ── BUTTONS ── */
+.btn{border:0;border-radius:13px;padding:11px 16px;font-weight:850;cursor:pointer;background:var(--navy);color:#fff;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:.15s;white-space:nowrap;text-decoration:none}
+.btn:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(5,11,61,.15);text-decoration:none}
+.btn.primary{background:linear-gradient(135deg,var(--blue2),var(--blue))}
+.btn.secondary{background:#fff;color:var(--navy);border:1px solid #D0D5DD}
+.btn.ghost{background:transparent;color:var(--navy);border:1px solid #D0D5DD}
+.btn.good{background:var(--green)}
+.btn.warn{background:var(--orange)}
+.btn.bad{background:var(--red)}
+.btn.small{padding:8px 11px;border-radius:10px;font-size:13px}
+.btn:disabled{opacity:.55;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* ── APP SHELL ── */
+.app{min-height:100vh;display:grid;grid-template-columns:292px 1fr}
+.sidebar{background:linear-gradient(180deg,var(--navy),#061236);height:100vh;position:sticky;top:0;color:#fff;padding:22px 16px;display:flex;flex-direction:column;gap:18px;overflow:auto}
+.side-logo{display:flex;align-items:center;gap:12px}
+.logo-mark{width:46px;height:46px;border-radius:15px;background:linear-gradient(135deg,var(--blue2),var(--cyan));display:grid;place-items:center;font-weight:950;box-shadow:0 12px 30px rgba(18,109,255,.3);font-size:15px}
+.side-logo strong{display:block;font-size:16px;line-height:1.1}
+.side-logo span{display:block;color:#ADC2FF;font-size:12px;margin-top:3px}
+.nav{display:flex;flex-direction:column;gap:6px}
+.nav button{border:0;background:transparent;color:#D7E3FF;text-align:left;border-radius:13px;padding:12px 13px;font-weight:800;display:flex;align-items:center;gap:10px;cursor:pointer;transition:.15s;font-size:14px}
+.nav button:hover,.nav button.active{background:rgba(255,255,255,.11);color:#fff}
+.nav button.lock{border:1px solid rgba(255,255,255,.13);margin-top:4px}
+.side-card{margin-top:auto;padding:15px;border-radius:18px;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.08)}
+.side-card .person{font-weight:900;word-break:break-word}
+.side-card .email{font-size:12px;color:#C8D6FF;margin-top:4px;word-break:break-word}
+.side-card .pill{margin-top:10px}
+
+/* ── MAIN ── */
+.main{min-width:0;display:flex;flex-direction:column}
+.topbar{height:76px;position:sticky;top:0;z-index:4;background:rgba(255,255,255,.93);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 28px}
+.topbar h2{margin:0;font-size:22px;letter-spacing:-.025em}
+.top-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.date-sim{display:flex;align-items:center;gap:7px;background:#F8FAFC;border:1px solid #DBE2EE;border-radius:13px;padding:8px 10px;font-size:12px;color:#475467}
+.date-sim input{border:0;background:transparent;padding:0;outline:none;width:126px}
+.content{width:100%;max-width:1480px;margin:0 auto;padding:28px}
+
+/* ── GRID & CARDS ── */
+.grid{display:grid;gap:16px}
+.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+.grid.five{grid-template-columns:repeat(5,minmax(0,1fr))}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 8px 28px rgba(5,11,61,.055);padding:20px}
+.hero{background:radial-gradient(circle at 88% -20%,rgba(18,109,255,.34),transparent 35%),linear-gradient(135deg,var(--navy),#0B235F);color:#fff;border:0;padding:28px;overflow:hidden}
+.hero h3{font-size:32px;line-height:1.05;margin:0 0 10px;letter-spacing:-.035em}
+.hero p{color:#E0E9FF;line-height:1.55;margin:0}
+
+/* ── SECTIONS ── */
+.section-title{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin:0 0 14px}
+.section-title h3{margin:0;font-size:22px;letter-spacing:-.02em}
+.section-title p{margin:5px 0 0;color:var(--muted);font-size:14px}
+
+/* ── KPI ── */
+.kpi{display:flex;justify-content:space-between;gap:14px}
+.kpi .label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:850}
+.kpi .value{font-size:34px;font-weight:950;letter-spacing:-.05em;margin-top:8px}
+.kpi .sub{font-size:12px;color:var(--muted);margin-top:4px}
+.icon-pill{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;background:var(--soft);color:var(--blue);font-weight:950}
+
+/* ── PILLS & BADGES ── */
+.pill,.badge{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:5px 10px;font-size:12px;font-weight:850;border:1px solid transparent;white-space:nowrap}
+.pill.blue,.badge.open{background:#EAF2FF;color:#0C1BA8;border-color:#C7D7FF}
+.pill.green,.badge.done{background:var(--greenBg);color:var(--green);border-color:#BBE7C8}
+.pill.orange,.badge.late{background:var(--orangeBg);color:var(--orange);border-color:#FED7AA}
+.pill.red,.badge.locked{background:var(--redBg);color:var(--red);border-color:#FECACA}
+.pill.gray,.badge.gray{background:#F2F4F7;color:#667085;border-color:#D0D5DD}
+.pill.purple{background:var(--purpleBg);color:var(--purple);border-color:#D8B4FE}
+
+/* ── SCORE CARDS ── */
+.score-card{padding:20px;border-radius:22px;color:#fff;min-height:172px;display:flex;flex-direction:column;justify-content:space-between;border:1px solid rgba(255,255,255,.18)}
+.score-card .score-icon{font-size:34px}
+.score-card h4{margin:12px 0 10px;font-size:20px;line-height:1.1}
+.score-card .pts{font-size:26px;color:#FFD600;font-weight:950}
+.score-card.survey{background:#5F6A72}
+.score-card.async{background:#704217}
+.score-card.sync{background:#173D1C}
+.score-card.activity{background:#284A60}
+.score-card.pitch{background:#64216B}
+
+/* ── TABS ── */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.tabs button{border:1px solid #D0D5DD;background:#fff;color:#344054;border-radius:999px;padding:9px 13px;cursor:pointer;font-weight:850;transition:.15s}
+.tabs button.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+/* ── ITEMS ── */
+.item{border:1px solid #E4E7EC;border-radius:16px;background:#fff;padding:15px;display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center}
+.item.locked{background:#F8FAFC;color:#667085}
+.item h4,.item h5{margin:0 0 5px}
+.meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
+
+/* ── WEEK CARDS ── */
+.week-card{padding:0;overflow:hidden}
+.week-head{display:flex;justify-content:space-between;gap:16px;padding:18px 20px;border-bottom:1px solid var(--line)}
+.week-body{padding:18px 20px;display:grid;gap:12px}
+
+/* ── PROGRESS BAR ── */
+.progress-bar{height:10px;border-radius:999px;background:#E5E7EB;overflow:hidden}
+.progress-bar span{display:block;height:100%;background:linear-gradient(90deg,var(--blue2),var(--cyan));border-radius:inherit;transition:width .5s}
+
+/* ── TABLE ── */
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:16px;background:#fff}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{padding:11px 12px;border-bottom:1px solid #EEF2F6;text-align:left;vertical-align:top}
+th{background:#F8FAFC;color:#344054;font-weight:900;position:sticky;top:0}
+tr:last-child td{border-bottom:0}
+tr:hover td{background:#FAFBFC}
+
+/* ── FORMS ── */
+.matrix{overflow:auto;border:1px solid var(--line);border-radius:16px}
+.matrix table{min-width:720px}
+.matrix td:first-child,.matrix th:first-child{width:270px}
+.scale{display:grid;grid-template-columns:repeat(10,1fr);gap:6px}
+.scale label{border:1px solid #D0D5DD;border-radius:10px;padding:9px;text-align:center;cursor:pointer;background:#fff;transition:.15s}
+.scale input{display:none}
+.scale label:has(input:checked){background:var(--navy);color:#fff;border-color:var(--navy)}
+.check-list,.radio-list{display:grid;gap:7px;margin-top:6px}
+.check-list label,.radio-list label{display:flex;align-items:center;gap:12px;font-size:14px;font-weight:500;color:#344054;padding:11px 14px;border:1.5px solid #E4E7EC;border-radius:12px;cursor:pointer;background:#fff;transition:.15s;line-height:1.4}
+.check-list label:hover,.radio-list label:hover{border-color:var(--blue);background:#F5F9FF}
+.check-list label:has(input:checked),.radio-list label:has(input:checked){border-color:var(--blue);background:#EEF4FF;color:var(--navy);font-weight:700}
+.check-list input[type="checkbox"],.radio-list input[type="radio"]{width:18px;height:18px;flex-shrink:0;accent-color:var(--blue);cursor:pointer;margin:0}
+.form-actions{position:sticky;bottom:0;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:14px 0;margin-top:18px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+/* ── ADMIN ── */
+.admin-lock{max-width:540px;margin:70px auto}
+.admin-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.admin-tabs button{border:1px solid #D0D5DD;background:#fff;border-radius:12px;padding:10px 12px;font-weight:850;cursor:pointer;transition:.15s}
+.admin-tabs button.active{background:var(--navy);color:#fff}
+.cohort-filter{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px;padding:14px;background:#F8FAFC;border:1px solid var(--line);border-radius:14px}
+.cohort-filter label{font-size:13px;font-weight:800;color:#344054}
+.cohort-filter select{border:1.5px solid #D0D5DD;border-radius:10px;padding:8px 12px;font-size:13px;font-weight:700;background:#fff;cursor:pointer}
+
+/* ── MISC ── */
+.toast{position:fixed;right:22px;bottom:22px;background:#101828;color:#fff;padding:12px 14px;border-radius:14px;box-shadow:var(--shadow);z-index:50;max-width:420px;animation:slideUp .2s ease}
+@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.empty{padding:30px;text-align:center;color:#667085;border:1px dashed #CBD5E1;border-radius:18px;background:#F8FAFC}
+.split-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.file-zone{border:2px dashed #94A3B8;background:#F8FAFC;border-radius:18px;padding:22px;text-align:center;cursor:pointer;transition:.15s}
+.file-zone:hover{border-color:var(--blue);background:#EEF4FF}
+.codebox{font-family:Consolas,Monaco,monospace;background:#0B1025;color:#E5EDFF;border-radius:16px;padding:14px;overflow:auto;font-size:12px;white-space:pre-wrap}
+.week-chip{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:7px 10px;background:#EAF2FF;color:#0C1BA8;font-weight:900;font-size:12px}
+.banner{border-left:4px solid var(--blue);background:#F0F7FF;border-radius:14px;padding:14px;color:#344054}
+.banner.warn{border-left-color:var(--orange);background:#FFF7ED}
+.banner.good{border-left-color:var(--green);background:#ECFDF3}
+.banner.red{border-left-color:var(--red);background:var(--redBg)}
+.divider{height:1px;background:var(--line);margin:20px 0}
+
+/* ── CONTENT CLASSES ── */
+.content-grid{display:grid;gap:14px}
+.content-item{border:1px solid #E4E7EC;border-radius:16px;background:#fff;padding:16px;display:flex;align-items:flex-start;gap:14px}
+.content-item .ci-icon{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;font-size:20px;flex-shrink:0}
+.content-item .ci-icon.class{background:#EAF2FF}
+.content-item .ci-icon.recording{background:#FEF3F2}
+.content-item .ci-icon.async{background:#FFF7ED}
+.content-item .ci-icon.material{background:#F5F0FF}
+.content-item .ci-body{flex:1;min-width:0}
+.content-item h5{margin:0 0 4px;font-size:14px}
+.content-item .tiny{margin-bottom:6px}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1100px){
+  .app{grid-template-columns:1fr}
+  .sidebar{position:relative;height:auto}
+  .nav{display:grid;grid-template-columns:repeat(2,1fr)}
+  .grid.five,.grid.four,.grid.three,.grid.two{grid-template-columns:1fr}
+  .topbar{height:auto;align-items:flex-start;padding:16px 20px;gap:12px;flex-direction:column}
+  .content{padding:20px}
+  .row{grid-template-columns:1fr}
+  .scale{grid-template-columns:repeat(5,1fr)}
+  .login-shell{grid-template-columns:1fr}
+  .login-brand{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════ LOGIN ══════════════════════════════════════════ -->
+<section id="loginShell" class="login-shell">
+  <div class="login-brand">
+    <div>
+      <div class="eyebrow">AI Democratization Program</div>
+      <h1>Central Cohort Hub</h1>
+      <p class="brand-copy">One place for weekly content, forms, personal progress, and controlled admin analytics. Your responses are saved per account and kept private.</p>
+      <div class="brand-mini">
+        <div><strong>6</strong><span>program weeks</span></div>
+        <div><strong>5</strong><span>score categories</span></div>
+        <div><strong>70%</strong><span>attendance threshold</span></div>
+      </div>
+    </div>
+    <div class="login-foot">Access requires a registered corporate email and your personal password. Contact Elo if you forgot your password.</div>
+  </div>
+  <div class="login-pane">
+    <div class="login-card">
+      <div class="login-tabs">
+        <button id="tabLogin" class="active" onclick="setLoginMode('login')">Login</button>
+        <button id="tabRegister" onclick="setLoginMode('register')">First access</button>
+      </div>
+      <!-- LOGIN -->
+      <div id="loginBox">
+        <div id="loginErr" class="login-err hidden"></div>
+        <div class="field"><label>Corporate email</label><input id="loginEmail" type="email" autocomplete="email" placeholder="name@patria.com"></div>
+        <div class="field"><label>Password</label><input id="loginPassword" type="password" autocomplete="current-password" placeholder="Your password"></div>
+        <button class="btn primary" style="width:100%;margin-top:10px" onclick="doLogin()">Enter Hub</button>
+        <p class="hint" style="margin-top:14px">If your email is not registered, use <strong>First access</strong> to create your account. If you forgot your password, contact Elo to reset it.</p>
+      </div>
+      <!-- REGISTER -->
+      <div id="registerBox" class="hidden">
+        <div id="regErr" class="login-err hidden"></div>
+        <div class="field"><label>Full name <small>As registered in the program</small></label><input id="regName" placeholder="Your full name (e.g. Maria Silva Santos)" autocomplete="name"></div>
+        <div class="field"><label>Corporate email</label><input id="regEmail" type="email" placeholder="name@patria.com" autocomplete="email"></div>
+        <div class="field"><label>Password <small>Choose a password you will remember</small></label><input id="regPassword" type="password" placeholder="Create a password (min. 6 characters)" autocomplete="new-password"></div>
+        <div class="field"><label>Confirm password</label><input id="regPassword2" type="password" placeholder="Repeat your password" autocomplete="new-password"></div>
+        <div class="field"><label>Starting AI proficiency</label><select id="regLevel"><option>Beginner</option><option>Intermediate</option><option>Advanced</option></select></div>
+        <button class="btn primary" style="width:100%;margin-top:10px" onclick="doRegister()">Create account</button>
+        <p class="hint" style="margin-top:12px">Your cohort, department and position are loaded automatically from the official participant list. If your name or email is not recognized, contact <strong>faq.aidemocratization@patria.com</strong>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ APP ══════════════════════════════════════════ -->
+<section id="app" class="app hidden">
+  <aside class="sidebar">
+    <div class="side-logo">
+      <div class="logo-mark">AI</div>
+      <div><strong>Program Hub</strong><span>AI Democratization</span></div>
+    </div>
+    <nav id="nav" class="nav"></nav>
+    <div class="side-card">
+      <div id="sidePerson" class="person"></div>
+      <div id="sideEmail" class="email"></div>
+      <div id="sideCohort" class="pill blue" style="margin-top:8px"></div>
+      <button class="btn secondary small" style="width:100%;margin-top:12px" onclick="logout()">Log out</button>
+    </div>
+  </aside>
+  <main class="main">
+    <div class="topbar">
+      <div>
+        <h2 id="pageTitle">Home</h2>
+        <div id="topSubtitle" class="tiny"></div>
+      </div>
+      <div class="top-actions">
+        <div class="date-sim">Test date <input id="testDate" type="date" onchange="setTestDate(this.value)"></div>
+        <button class="btn secondary small" onclick="exportMyData()">⬇ Export my data</button>
+      </div>
+    </div>
+    <div id="content" class="content"></div>
+  </main>
+</section>
+<div id="toast" class="toast hidden"></div>
+
+<script>
+// ════════════════════════════════════════════════════════════════
+// DATA — Participants base (Cohort 2 + Cohort 3 · 289 participants from XLSX + admin)
+// ════════════════════════════════════════════════════════════════
+const BASE_PARTICIPANTS = [
+{"name": "ALBERTO LADOS PARRILLA", "email": "Alberto.Lados@patria.com", "emailNormalized": "alberto.lados@patria.com", "department": "PRIVATE EQUITY - INVESTMENT", "position": "ASSOCIATE II", "cohort": "Cohort 2"},
+{"name": "ALEJANDRO JIMENEZ", "email": "alejandro.jimenez@patria.com", "emailNormalized": "alejandro.jimenez@patria.com", "department": "REAL ESTATE LATAM – INVESTMENTS (CORE. SOLUTIONS, OPP)", "position": "ASSOCIATE I", "cohort": "Cohort 2"},
+{"name": "ALEJANDRO MATE", "email": "alejandro.mate@patria.com", "emailNormalized": "alejandro.mate@patria.com", "department": "REAL ESTATE LATAM – INVESTMENTS (CORE. SOLUTIONS, OPP)", "position": "ASSOCIATE II", "cohort": "Cohort 2"},
+{"name": "ALEJANDRO OSORIO", "email": "ALEJANDRO.OSORIO@PATRIA.COM", "emailNormalized": "alejandro.osorio@patria.com", "department": "REAL ESTATE LATAM – INVESTMENTS (CORE. SOLUTIONS, OPP)", "position": "ANALYST II", "cohort": "Cohort 2"},
+{"name": "ALEX MARINI AUN", "email": "Alex.Aun@patria.com", "emailNormalized": "alex.aun@patria.com", "department": "CREDIT - INVESTMENT BRAZIL", "position": "VP II", "cohort": "Cohort 2"},
+{"name": "ALEXIS MANUEL GALINDO PASTRE", "email": "Alexis.Galindo@patria.com", "emailNormalized": "alexis.galindo@patria.com", "department": "CREDIT - INVESTMENT CHILE", "position": "DIRECTOR II", "cohort": "Cohort 2"},
+{"name": "ALLAN AMICO", "email": "Allan.Amico@patria.com", "emailNormalized": "allan.amico@patria.com", "department": "GPMS - INVESTMENTS", "position": "WP", "cohort": "Cohort 2"},
+{"name": "ALVARO MARTIN CHACHQUES", "email": "alvaro.chachques@patria.com", "emailNormalized": "alvaro.chachques@patria.com", "department": "CREDIT - INVESTMENT CHILE", "position": "ASSOCIATE II", "cohort": "Cohort 2"},
+{"name": "ANDRÉ CASTANHEIRA ELIAZAR", "email": "Andre.Eliazar@patria.com", "emailNormalized": "andre.eliazar@patria.com", "department": "PRIVATE EQUITY - INVESTMENT", "position": "ASSOCIATE II", "cohort": "Cohort 2"},
+{"name": "ANDRÉ TIVELLI ALBERTINI", "email": "Andre.Tivelli@patria.com", "emailNormalized": "andre.tivelli@patria.com", "department": "INFRASTRUCTURE - CREDIT BRAZIL", "position": "ASSOCIATE I", "cohort": "Cohort 2"},
+{"name": "ANDREW MCMILLAN", "email": "Andrew.McMillan@patria.com", "emailNormalized": "andrew.mcmillan@patria.com", "department": "GPMS - INVESTMENTS", "position": "VP I", "cohort": "Cohort 2"},
+{"name": "ANTONIO SOUZA BARBEIRO NETO", "email": "antonio.neto@patria.com", "emailNormalized": "antonio.neto@patria.com", "department": "REAL ESTATE BR – INVESTMENTS CREDIT &SECURITIES", "position": "ASSOCIATE II", "cohort": "Cohort 2"},
+{"name": "ARLEX PUERTA QUINTERO", "email": "Arlex.Puerta@patria.com", "emailNormalized": "arlex.puerta@patria.com", "department": "REAL ESTATE LATAM – TECHNICAL", "position": "VP I", "cohort": "Cohort 2"},
+{"name": "ARTHUR CIRO PAWLASKI E CUNHA", "email": "arthur.pawlaski@patria.com", "emailNormalized": "arthur.pawlaski@patria.com", "department": "PRIVATE EQUITY - VENTURE CAPITAL & GROWTH", "position": "INTERN", "cohort": "Cohort 2"},
+{"name": "ARTHUR PIETSCH PICCOLI", "email": "arthur.piccoli@patria.com", "emailNormalized": "arthur.piccoli@patria.com", "department": "PUBLIC EQUITIES - INVESTMENT", "position": "ASSOCIATE II", "cohort": "Cohort 2"},
+{"name": "ASHLEY FREY", "email": "af@wpglobalpartners.com", "emailNormalized": "af@wpglobalpartners.com", "department": "GPMS - INVESTMENTS", "position": "WP", "cohort": "Cohort 2"},
+{"name": "AUDREY ALEXANDER", "email": "Audrey.Alexander@patria.com", "emailNormalized": "audrey.alexander@patria.com", "department": "GPMS - INVESTMENTS", "position": "ASSOCIATE II", "cohort": "Cohort 2"},
+{"name": "AUSTIN REHM", "email": "acr@wpglobalpartners.com", "emailNormalized": "acr@wpglobalpartners.com", "department": "GPMS - INVESTMENTS", "position": "WP", "cohort": "Cohort 2"},
+{"name": "BEATRIZ MARIANA COSTA SOUZA", "email": "beatriz.costa@patria.com", "emailNormalized": "beatriz.costa@patria.com", "department": "INFRASTRUCTURE - CORE", "position": "ANALYST II", "cohort": "Cohort 2"},
+{"name": "BO MERCHANT", "email": "bom@wpglobalpartners.com", "emailNormalized": "bom@wpglobalpartners.com", "department": "GPMS - INVESTMENTS", "position": "WP", "cohort": "Cohort 2"},
+{"name": "BRENO SOLER AMARAL", "email": "breno.amaral@patria.com", "emailNormalized": "breno.amaral@patria.com", "department": "REAL ESTATE BR – INVESTMENTS LOGISTIC & OFFICE & RETAIL", "position": "ANALYST II", "cohort": "Cohort 2"},
+{"name": "BRUNO FADEL CONDINO", "email": "BRUNO.CONDINO@PATRIA.COM", "emailNormalized": "bruno.condino@patria.com", "department": "REAL ESTATE BR – INVESTMENTS CREDIT &SECURITIES", "position": "VP II", "cohort": "Cohort 2"},
+{"name": "CAIO EDUARDO BERTONI", "email": "caio.bertoni@patria.com", "emailNormalized": "caio.bertoni@patria.com", "department": "REAL ESTATE BR – INVESTMENTS LOGISTIC & OFFICE & RETAIL", "position": "VP I", "cohort": "Cohort 2"},
+{"name": "CAIO PIMENTEL DA SILVA", "email": "caio.pimentel@patria.com", "emailNormalized": "caio.pimentel@patria.com", "department": "PRIVATE EQUITY - VENTURE CAPITAL & GROWTH", "position": "ANALYST I", "cohort": "Cohort 2"},
+{"name": "CARLOS GUTIERREZ AGUDELO", "email": "Carlos.Gutierrez@patria.com", "emailNormalized": "carlos.gutierrez@patria.com", "department": "REAL ESTATE LATAM – ASSET MANAGEMENT (PROPERTIES)", "position": "ANALYST III", "cohort": "Cohort 2"},
+{"name": "CAROLINA CAMARGO AFIUNE", "email": "Carolina.Afiune@patria.com", "emailNormalized": "carolina.afiune@patria.com", "department": "CREDIT - INVESTMENT CHILE", "position": "ANALYST I", "cohort": "Cohort 2"},
+{"name": "CAROLINE SIQUEIRA QUEIROZ", "email": "caroline.queiroz@patria.com", "emailNormalized": "caroline.queiroz@patria.com", "department": "REAL ESTATE BR – INVESTMENTS CREDIT &SECURITIES", "position": "VP I", "cohort": "Cohort 2"},
+{"name": "CECILIA GARCIA", "email": "ccg@wpglobalpartners.com", "emailNormalized": "ccg@wpglobalpartners.com", "department": "GPMS - INVESTMENTS", "position": "WP", "cohort": "Cohort 2"},
+{"name": "CHARLES MOWRY", "email": "cem@wpglobalpartners.com", "emailNormalized": "cem@wpglobalpartners.com", "department": "GPMS - INVESTMENTS", "position": "WP", "cohort": "Cohort 2"},
+{"name": "CLEMENTE GARCÍA", "email": "clemente.garcia@moneda.cl", "emailNormalized": "clemente.garcia@moneda.cl", "department": "CREDIT - INVESTMENT CHILE", "position": "ANALYST I", "cohort": "Cohort 2"},
+{"name": "CRISTOPHER ANDRES OLMEDO", "email": "CRISTOPHER.OLMEDO@PATRIA.COM", "emailNormalized": "cristopher.olmedo@patria.com", "department": "ECONOMY & MARKETS CREDIT & EQUITIES", "position": "ANALYST II", "cohort": "Cohort 2"},
+{"name": "DANIEL BARBOSA SILVA", "email": "daniel.silva@patria.com", "emailNormalized": "daniel.silva@patria.com", "department": "REAL ESTATE BR – TECHNICAL", "position": "VP II", "cohort": "Cohort 2"},
+{"name": "DANIEL JOSE MANZUR", "email": "daniel.manzur@patria.com", "emailNormalized": "daniel.manzur@patria.com", "department": "REAL ESTATE LATAM – INVESTMENTS (CORE. SOLUTIONS, OPP)", "position": "ANALYST I", "cohort": "Cohort 2"},
+{"name": "DANIEL NEVES RUSSO", "email": "daniel.russo@patria.com", "emailNormalized": "daniel.russo@patria.com", "department": "REAL ESTATE BR – INVESTMENTS CREDIT &SECURITIES", "position": "ASSOCIATE II", "cohort": "Cohort 2"},
+{"name": "DEBBY ALEJANDRA RIAGA", "email": "debby.riaga@patria.com", "emailNormalized": "debby.riaga@patria.com", "department": "REAL ESTATE LATAM – LEASING", "position": "ANALYST I", "cohort": "Cohort 2"},
+{"name": "DIEGO GIANELLI", "email": "dgianelli@moneda.cl", "emailNormalized": "dgianelli@moneda.cl", "department": "ECONOMY & MARKETS CREDIT & EQUITIES", "position": "DIRECTOR II", "cohort": "Cohort 2"},
+{"name": "DIEGO MUNIZ", "email": "diego.muniz@patria.com", "emailNormalized": "diego.muniz@patria.com", "department": "PUBLIC EQUITIES - INVESTMENT", "position": "ANALYST II", "cohort": "Cohort 2"},
+{"name": "DIOGO FERESIN MASSARO", "email": "diogo.massaro@patria.com", "emailNormalized": "diogo.massaro@patria.com", "department": "REAL ESTATE BR – PRODUCT", "position": "VP I", "cohort": "Cohort 2"},
+{"name": "DOMINIC ROSADO", "email": "drr@wpglobalpartners.com", "emailNormalized": "drr@wpglobalpartners.com", "department": "GPMS - INVESTMENTS", "position": "WP", "cohort": "Cohort 2"},
+{"name": "EDUARD MURRLE", "email": "eduard.murrle@patria.com", "emailNormalized": "eduard.murrle@patria.com", "department": "REAL ESTATE LATAM – INVESTMENTS (CORE. SOLUTIONS, OPP)", "position": "ASSOCIATE II", "cohort": "Cohort 2"},
+{"name": "EDUARDO BERGSON", "email": "Eduardo.Bergson@patria.com", "emailNormalized": "eduardo.bergson@patria.com", "department": "INFRASTRUCTURE - CREDIT BRAZIL", "position": "VP II", "cohort": "Cohort 2"},
+{"name": "EDUARDO MARCOS PEREIRA JUNIOR", "email": "eduardo.pereira@patria.com", "emailNormalized": "eduardo.pereira@patria.com", "department": "REAL ESTATE BR – VALUE CREATION", "position": "VP II", "cohort": "Cohort 2"},
+{"name": "EDUARDO QUEIROZ BRAGANÇA GIL", "email": "eduardo.gil@patria.com", "emailNormalized": "eduardo.gil@patria.com", "department": "PRIVATE EQUITY - INVESTMENT", "position": "VP II", "cohort": "Cohort 2"},
+{"name": "ERIC ASSOUAD", "email": "ea@wpglobalpartners.com", "emailNormalized": "ea@wpglobalpartners.com", "department": "GPMS - INVESTMENTS", "position": "WP", "cohort": "Cohort 2"},
+{"name": "ESTEBAN RAMIREZ CORREA", "email": "Esteban.Ramirez@patria.com", "emailNormalized": "esteban.ramirez@patria.com", "department": "REAL ESTATE LATAM – TECHNICAL", "position": "VP II", "cohort": "Cohort 2"},
+{"name": "FELIPE CONCARI ISTEBOT", "email": "felipe.concari@patria.com", "emailNormalized": "felipe.concari@patria.com", "department": "INFRASTRUCTURE - INVESTMENT", "position": "ASSOCIATE I", "cohort": "Cohort 2"},
+{"name": "FELIPE LUCCHESI FERRARETTO", "email": "felipe.ferraretto@patria.com", "emailNormalized": "felipe.ferraretto@patria.com", "department": "GPMS - INVESTMENTS", "position": "VP I", "cohort": "Cohort 2"},
+{"name": "FELIPE ROCHA TABACCHI", "email": "felipe.tabacchi@patria.com", "emailNormalized": "felipe.tabacchi@patria.com", "department": "CREDIT - INVESTMENT BRAZIL", "position": "ASSOCIATE II", "cohort": "Cohort 2"},
+{"name": "FERNANDA UEMURA FERREIRA", "email": "fernanda.uemura@patria.com", "emailNormalized": "fernanda.uemura@patria.com", "department": "REAL ESTATE BR – TECHNICAL", "position": "DIRECTOR I", "cohort": "Cohort 2"},
+{"name": "FERNANDO MITSUHIRO TOMONAGA MACIEL", "email": "fernando.maciel@patria.com", "emailNormalized": "fernando.maciel@patria.com", "department": "CREDIT - INVESTMENT BRAZIL", "position": "VP I", "cohort": "Cohort 2"},
+{"name": "FRANCISCO BERTIN", "email": "Francisco.Bertin@patria.com", "emailNormalized": "francisco.bertin@patria.com", "department": "CREDIT - INVESTMENT CHILE", "position": "ANALYST III", "cohort": "Cohort 2"},
+{"name": "GABRIEL BLAU LICHAND", "email": "gabriel.lichand@patria.com", "emailNormalized": "gabriel.lichand@patria.com", "department": "REAL ESTATE US – MANAGEMENT", "position": "VP I", "cohort": "Cohort 2"},
+{"name": "GABRIEL SATO CASTORI", "email": "Gabriel.Castori@patria.com", "emailNormalized": "gabriel.castori@patria.com", "department": "GPMS - INVESTMENTS", "position": "ASSOCIATE II", "cohort": "Cohort 2"},
+{"name": "GIAN CARINI", "email": "giancarlo.carini@patria.com", "emailNormalized": "giancarlo.carini@patria.com", "department": "REAL ESTATE LATAM – INVESTMENTS (CORE. SOLUTIONS, OPP)", "position": "ASSOCIATE I", "cohort": "Cohort 2"},
+{"name": "GIOVANNI SIMONETTO NASCIMENTO", "email": "Giovanni.Nascimento@patria.com", "emailNormalized": "giovanni.nascimento@patria.com", "department": "CREDIT - INVESTMENT BRAZIL", "position": "INTERN", "cohort": "Cohort 2"},
+{"name": "GIULIANO RICCI", "email": "giuliano.ricci@patria.com", "emailNormalized": "giuliano.ricci@patria.com", "department": "REAL ESTATE BR – INVESTMENTS LOGISTIC & OFFICE & RETAIL", "position": "DIRECTOR II", "cohort": "Cohort 2"},
+{"name": "GLORIA TRUJILLO MARIN", "email": "Gloria.Trujillo@patria.com", "emailNormalized": "gloria.trujillo@patria.com", "department": "REAL ESTATE LATAM – LEASING", "position": "VP I", "cohort": "Cohort 2"},
+{"name": "GREGOR WILLIAM KIRKWOOD", "email": "gregor.kirkwood@patria.com", "emailNormalized": "gregor.kirkwood@patria.com", "department": "GPMS - INVESTMENTS", "position": "ANALYST I", "cohort": "Cohort 2"},
+{"name": "GREGORIO JARAMILLO", "email": "GREGORIO.JARAMILLO@PATRIA.COM", "emailNormalized": "gregorio.jaramillo@patria.com", "department": "REAL ESTATE LATAM – INVESTMENTS (CORE. SOLUTIONS, OPP)", "position": "ANALYST II", "cohort": "Cohort 2"},
+{"name": "GUILHERME LIBERATORE", "email": "Guilherme.Liberatore@patria.com", "emailNormalized": "guilherme.liberatore@patria.com", "department": "REAL ESTATE BR – ASSET MANAGEMENT (PROPERTIES)", "position": "ANALYST III", "cohort": "Cohort 2"},
+{"name": "GUILHERME MARTINS CARON", "email": "Guilherme.Caron@patria.com", "emailNormalized": "guilherme.caron@patria.com", "department": "INFRASTRUCTURE - CREDIT BRAZIL", "position": "DIRECTOR I", "cohort": "Cohort 2"},
+{"name": "GUILHERME SOUZA ARAUJO", "email": "Guilherme.Araujo@patria.com", "emailNormalized": "guilherme.araujo@patria.com", "department": "CREDIT - INVESTMENT BRAZIL", "position": "ANALYST III", "cohort": "Cohort 2"},
+{"name": "GUSTAVO ADOLFO MATA", "email": "gmata@moneda.cl", "emailNormalized": "gmata@moneda.cl", "department": "ECONOMY & MARKETS CREDIT & EQUITIES", "position": "ASSOCIATE II", "cohort": "Cohort 2"},
+{"name": "GUSTAVO PACILÉO BORBA", "email": "gustavo.borba@patria.com", "emailNormalized": "gustavo.borba@patria.com", "department": "PRIVATE EQUITY - INVESTMENT", "position": "ANALYST I", "cohort": "Cohort 2"},
+{"name": "HELDER SANTO CAVALINI", "email": "helder.cavalini@patria.com", "emailNormalized": "helder.cavalini@patria.com", "department": "PRIVATE EQUITY - INVESTMENT", "position": "DIRECTOR I", "cohort": "Cohort 2"},
+{"name": "IAGO SCHREINER", "email": "IAGO.SCHREINER@PATRIA.COM", "emailNormalized": "iago.schreiner@patria.com", "department": "CREDIT - INVESTMENT BRAZIL", "position": "INTERN", "cohort": "Cohort 2"},
+{"name": "IGNACIO REBOLLEDO", "email": "IGNACIO.REBOLLEDO@PATRIA.COM", "emailNormalized": "ignacio.rebolledo@patria.com", "department": "ECONOMY & MARKETS CREDIT & EQUITIES", "position": "ASSOCIATE II", "cohort": "Cohort 2"},
+{"name": "ISABEL URIBE MURIEL", "email": "Isabel.Uribe@patria.com", "emailNormalized": "isabel.uribe@patria.com", "department": "REAL ESTATE LATAM – INVESTMENTS (CORE. SOLUTIONS, OPP)", "position": "ASSOCIATE I", "cohort": "Cohort 2"},
+{"name": "JAMES WROLSON", "email": "jw@wpglobalpartners.com", "emailNormalized": "jw@wpglobalpartners.com", "department": "GPMS - INVESTMENTS", "position": "WP", "cohort": "Cohort 2"},
+{"name": "JIN YAN STAAL", "email": "jin.yanstaal@patria.com", "emailNormalized": "jin.yanstaal@patria.com", "department": "GPMS - INVESTMENTS", "position": "DIRECTOR I", "cohort": "Cohort 2"},
+{"name": "JOÃO LUIS ALVIM BARRIEU", "email": "Joao.Barrieu@patria.com", "emailNormalized": "joao.barrieu@patria.com", "department": "GPMS - INVESTMENTS", "position": "DIRECTOR I", "cohort": "Cohort 2"},
+{"name": "JOAO PAULO NOVELLO SIQUEIRA", "email": "JOAO.SIQUEIRA@PATRIA.COM", "emailNormalized": "joao.siqueira@patria.com", "department": "REAL ESTATE BR – VALUE CREATION", "position": "VP II", "cohort": "Cohort 2"},
+{"name": "JOÃO PEDRO NEVES LEÃO", "email": "Joao.Leao@patria.com", "emailNormalized": "joao.leao@patria.com", "department": "REAL ESTATE US – MANAGEMENT", "position": "ANALYST III", "cohort": "Cohort 2"},
+{"name": "JOÃO PEDRO PEREIRA BUENO FORMICOLA", "email": "joao.formicola@patria.com", "emailNormalized": "joao.formicola@patria.com", "department": "ECONOMY & MARKETS CREDIT & EQUITIES", "position": "ANALYST III", "cohort": "Cohort 2"},
+{"name": "JOAO VICTOR MARTINS GRECCO", "email": "joao.grecco@patria.com", "emailNormalized": "joao.grecco@patria.com", "department": "REAL ESTATE BR – LEASING", "position": "VP I", "cohort": "Cohort 2"},
+{"name": "JOAQUIM CELIDONIO GOMES DOS REIS FILHO", "email": "joaquim.celidonio@patria.com", "emailNormalized": "joaquim.celidonio@patria.com", "department": "CREDIT - INVESTMENT CHILE", "position": "ANALYST III", "cohort": "Cohort 2"},
+{"name": "JOAQUIN RIESCO", "email": "joaquin.riesco@patria.com", "emailNormalized": "joaquin.riesco@patria.com", "department": "CREDIT - INVESTMENT CHILE", "position": "ANALYST II", "cohort": "Cohort 2"},
+{"name": "JOHN PERKINS", "email": "jpp@wpglobalpartners.com", "emailNormalized": "jpp@wpglobalpartners.com", "department": "GPMS - INVESTMENTS", "position": "WP", "cohort": "Cohort 2"},
+{"name": "JOSE AGUSTIN LIRA", "email": "cotolira@uc.cl", "emailNormalized": "cotolira@uc.cl", "department": "CREDIT - INVESTMENT CHILE", "position": "ANALYST I", "cohort": "Cohort 2"},
+{"name": "JOSE ALBERTO ORLANDINI", "email": "Jose.Orlandini@patria.com", "emailNormalized": "jose.orlandini@patria.com", "department": "INFRASTRUCTURE - INVESTMENT", "position": "DIRECTOR II", "cohort": "Cohort 2"},
+{"name": "JOSEPHINE MENDOZA", "email": "jkm@wpglobalpartners.com", "emailNormalized": "jkm@wpglobalpartners.com", "department": "GPMS - INVESTMENTS", "position": "WP", "cohort": "Cohort 2"},
+{"name": "JUAN CADAVID SANTANA", "email": "Juan.Cadavid@patria.com", "emailNormalized": "juan.cadavid@patria.com", "department": "REAL ESTATE LATAM – ASSET MANAGEMENT (PROPERTIES)", "position": "VP II", "cohort": "Cohort 2"},
+{"name": "JUAN DAVID BERNAL", "email": "Juan.Bernal@patria.com", "emailNormalized": "juan.bernal@patria.com", "department": "CREDIT - INVESTMENT CHILE", "position": "ANALYST II", "cohort": "Cohort 2"},
+{"name": "JUAN FERNANDEZ CASTRILLON", "email": "Juan.Fernandez@patria.com", "emailNormalized": "juan.fernandez@patria.com", "department": "REAL ESTATE LATAM – LEASING", "position": "VP II", "cohort": "Cohort 2"},
+{"name": "JUAN GABRIEL SANCHEZ", "email": "Juan.Sanchez@patria.com", "emailNormalized": "juan.sanchez@patria.com", "department": "REAL ESTATE LATAM – TECHNICAL", "position": "ANALYST III", "cohort": "Cohort 2"},
+{"name": "JUAN JOSE TORRES", "email": "JUAN.TORRES@PATRIA.COM", "emailNormalized": "juan.torres@patria.com", "department": "REAL ESTATE LATAM – INVESTMENTS (CORE. SOLUTIONS, OPP)", "position": "ANALYST III", "cohort": "Cohort 2"},
+{"name": "LAURIVAL SIQUEIRA CALÇADA NETO", "email": "laurival.neto@patria.com", "emailNormalized": "laurival.neto@patria.com", "department": "REAL ESTATE BR – INVESTMENTS LOGISTIC & OFFICE & RETAIL", "position": "VP II", "cohort": "Cohort 2"},
+{"name": "LEON EYZAGUIRRE", "email": "leyzaguirre@moneda.cl", "emailNormalized": "leyzaguirre@moneda.cl", "department": "CREDIT - INVESTMENT CHILE", "position": "ANALYST III", "cohort": "Cohort 2"},
+{"name": "LEONARDO SHOITI MIYASHIRO", "email": "leonardo.miyashiro@patria.com", "emailNormalized": "leonardo.miyashiro@patria.com", "department": "REAL ESTATE BR – ASSET MANAGEMENT (PROPERTIES)", "position": "ANALYST III", "cohort": "Cohort 2"},
+{"name": "LETICIA SOUZA MUNHOZ", "email": "leticia.munhoz@patria.com", "emailNormalized": "leticia.munhoz@patria.com", "department": "INFRASTRUCTURE - INVESTMENT", "position": "VP I", "cohort": "Cohort 2"},
+{"name": "LUCAS CARVALHO MEIRELLES", "email": "Lucas.Meirelles@patria.com", "emailNormalized": "lucas.meirelles@patria.com", "department": "INFRASTRUCTURE - TECHNICAL", "position": "ASSOCIATE I", "cohort": "Cohort 2"},
+{"name": "LUCAS GABRIEL VIEIRA DE ALMEIDA", "email": "lucas.almeida@patria.com", "emailNormalized": "lucas.almeida@patria.com", "department": "INFRASTRUCTURE - INVESTMENT", "position": "ASSOCIATE II", "cohort": "Cohort 2"},
+{"name": "LUIS FELIPE BARTESAGHI", "email": "Felipe.Bartesaghi@patria.com", "emailNormalized": "felipe.bartesaghi@patria.com", "department": "ECONOMY & MARKETS CREDIT & EQUITIES", "position": "INTERN", "cohort": "Cohort 2"},
+{"name": "LUIZ MALCOLM MANO DE MELLO FILHO", "email": "Malcolm.Mello@patria.com", "emailNormalized": "malcolm.mello@patria.com", "department": "CREDIT - INVESTMENT BRAZIL", "position": "DIRECTOR I", "cohort": "Cohort 2"},
+{"name": "MARIA CAMILA GIRALDO LOPEZ", "email": "Maria.Giraldo@patria.com", "emailNormalized": "maria.giraldo@patria.com", "department": "REAL ESTATE LATAM – LEASING", "position": "ANALYST II", "cohort": "Cohort 2"},
+{"name": "MARIA JOSE VESGA", "email": "MARIA.VESGA@PATRIA.COM", "emailNormalized": "maria.vesga@patria.com", "department": "REAL ESTATE LATAM – INVESTMENTS (CORE. SOLUTIONS, OPP)", "position": "ANALYST II", "cohort": "Cohort 2"},
+{"name": "MARIANA DE OLIVEIRA MARTINS", "email": "mdeoliveira@moneda.cl", "emailNormalized": "mdeoliveira@moneda.cl", "department": "CREDIT - INVESTMENT CHILE", "position": "DIRECTOR I", "cohort": "Cohort 2"},
+{"name": "MARINA GONDIM GRIPP", "email": "marina.gripp@patria.com", "emailNormalized": "marina.gripp@patria.com", "department": "PRIVATE EQUITY - VENTURE CAPITAL & GROWTH", "position": "VP I", "cohort": "Cohort 2"},
+{"name": "MARK LEMOND", "email": "mark.lemond@patria.com", "emailNormalized": "mark.lemond@patria.com", "department": "GPMS - INVESTMENTS", "position": "VP II", "cohort": "Cohort 2"},
+{"name": "MARTIELO CABELO BORELLI FRANCO", "email": "martielo.franco@patria.com", "emailNormalized": "martielo.franco@patria.com", "department": "INFRASTRUCTURE - CORE", "position": "DIRECTOR II", "cohort": "Cohort 2"},
+{"name": "MARTIN FERNANDEZ", "email": "mfernandez@moneda.cl", "emailNormalized": "mfernandez@moneda.cl", "department": "CREDIT - INVESTMENT CHILE", "position": "VP I", "cohort": "Cohort 2"},
+{"name": "MARY EMERSON", "email": "mee@wpglobalpartners.com", "emailNormalized": "mee@wpglobalpartners.com", "department": "GPMS - INVESTMENTS", "position": "WP", "cohort": "Cohort 2"},
+{"name": "MATEUS DIAS CARDOSO POLESELLI SOUZA", "email": "mateus.poleselli@patria.com", "emailNormalized": "mateus.poleselli@patria.com", "department": "PRIVATE EQUITY - VENTURE CAPITAL & GROWTH", "position": "VP I", "cohort": "Cohort 2"},
+{"name": "MATIAS MOREY", "email": "MATIAS.MOREY@PATRIA.COM", "emailNormalized": "matias.morey@patria.com", "department": "CREDIT - INVESTMENT CHILE", "position": "ANALYST II", "cohort": "Cohort 2"},
+{"name": "MATIAS ONETO", "email": "Matias.oneto@patria.com", "emailNormalized": "matias.oneto@patria.com", "department": "PRIVATE EQUITY - INVESTMENT", "position": "ASSOCIATE I", "cohort": "Cohort 2"},
+{"name": "MATIAS RIQUELME JUNYENT", "email": "matias.riquelme@patria.com", "emailNormalized": "matias.riquelme@patria.com", "department": "CREDIT - INVESTMENT CHILE", "position": "ANALYST I", "cohort": "Cohort 2"},
+{"name": "MATTHEW WILLIAM ENGLISH", "email": "Matthew.English@patria.com", "emailNormalized": "matthew.english@patria.com", "department": "GPMS - INVESTMENTS", "position": "ASSOCIATE II", "cohort": "Cohort 2"},
+{"name": "MAURICIO UBIRATA PANTALEAO", "email": "mauricio.pantaleao@patria.com", "emailNormalized": "mauricio.pantaleao@patria.com", "department": "REAL ESTATE BR – LEASING", "position": "VP I", "cohort": "Cohort 2"},
+{"name": "MICHELL FONTES SOUZA", "email": "michell.fontes@patria.com", "emailNormalized": "michell.fontes@patria.com", "department": "INFRASTRUCTURE - INVESTMENT", "position": "MD", "cohort": "Cohort 2"},
+{"name": "MIGUEL ANGEL CARVAJAL", "email": "miguel.carvajal@patria.com", "emailNormalized": "miguel.carvajal@patria.com", "department": "REAL ESTATE LATAM – LEASING", "position": "ASSOCIATE II", "cohort": "Cohort 2"},
+{"name": "MONICA DE LIMA FABRIS", "email": "monica.fabris@patria.com", "emailNormalized": "monica.fabris@patria.com", "department": "REAL ESTATE BR – INVESTMENTS CREDIT &SECURITIES", "position": "ASSOCIATE II", "cohort": "Cohort 2"},
+{"name": "NATALIA CANTON LANDI", "email": "natalia.landi@patria.com", "emailNormalized": "natalia.landi@patria.com", "department": "REAL ESTATE BR – INVESTMENTS LOGISTIC & OFFICE & RETAIL", "position": "VP II", "cohort": "Cohort 2"},
+{"name": "NEDER ABDUL NASSER SAADA", "email": "neder.saada@patria.com", "emailNormalized": "neder.saada@patria.com", "department": "REAL ESTATE BR – INVESTMENTS LOGISTIC & OFFICE & RETAIL", "position": "ANALYST I", "cohort": "Cohort 2"},
+{"name": "NICOLAS DARIO FERDMAN", "email": "nferdman@moneda.cl", "emailNormalized": "nferdman@moneda.cl", "department": "CREDIT - INVESTMENT CHILE", "position": "ASSOCIATE II", "cohort": "Cohort 2"},
+{"name": "NICOLAS EDUARDO PAROT", "email": "NICOLAS.PAROT@PATRIA.COM", "emailNormalized": "nicolas.parot@patria.com", "department": "CREDIT - INVESTMENT CHILE", "position": "VP II", "cohort": "Cohort 2"},
+{"name": "PABLO CANO", "email": "pablo.cano@patria.com", "emailNormalized": "pablo.cano@patria.com", "department": "INFRASTRUCTURE - INVESTMENT", "position": "MD", "cohort": "Cohort 2"},
+{"name": "PEDRO ROSA COSTA", "email": "pedro.rosa@patria.com", "emailNormalized": "pedro.rosa@patria.com", "department": "REAL ESTATE BR – INVESTMENTS CREDIT &SECURITIES", "position": "ASSOCIATE II", "cohort": "Cohort 2"},
+{"name": "PEDRO BAKKER BERGANTON", "email": "Pedro.Berganton@patria.com", "emailNormalized": "pedro.berganton@patria.com", "department": "PRIVATE EQUITY - INVESTMENT", "position": "INTERN", "cohort": "Cohort 2"},
+{"name": "PEDRO HENRIQUE CAMPOS DINI", "email": "Pedro.Dini@patria.com", "emailNormalized": "pedro.dini@patria.com", "department": "PRIVATE EQUITY - INVESTMENT", "position": "ANALYST II", "cohort": "Cohort 2"},
+{"name": "PEDRO JOSE ARRAU", "email": "pedro.arrau@moneda.cl", "emailNormalized": "pedro.arrau@moneda.cl", "department": "CREDIT - INVESTMENT CHILE", "position": "ANALYST I", "cohort": "Cohort 2"},
+{"name": "RAFAEL CAMARGO MASSAGLI", "email": "Rafael.Massagli@patria.com", "emailNormalized": "rafael.massagli@patria.com", "department": "CREDIT - INVESTMENT CHILE", "position": "ANALYST I", "cohort": "Cohort 2"},
+{"name": "RAFAEL MENDES DE LIMA", "email": "rafael.lima@patria.com", "emailNormalized": "rafael.lima@patria.com", "department": "PUBLIC EQUITIES - INVESTMENT", "position": "ANALYST III", "cohort": "Cohort 2"},
+{"name": "RAMONE MOODY", "email": "ramone.moody@patria.com", "emailNormalized": "ramone.moody@patria.com", "department": "GPMS - INVESTMENTS", "position": "VP I", "cohort": "Cohort 2"},
+{"name": "RAPHAEL MIRANDA PIROLI", "email": "RAPHAEL.PIROLI@PATRIA.COM", "emailNormalized": "raphael.piroli@patria.com", "department": "PRIVATE EQUITY - VENTURE CAPITAL & GROWTH", "position": "ANALYST I", "cohort": "Cohort 2"},
+{"name": "RAUL CASTELO BRANCO ARAUJO", "email": "raul.castelo@patria.com", "emailNormalized": "raul.castelo@patria.com", "department": "REAL ESTATE BR – INVESTMENTS LOGISTIC & OFFICE & RETAIL", "position": "ANALYST III", "cohort": "Cohort 2"},
+{"name": "RAUL GONZALEZ GUZMAN", "email": "Raul.Gonzalez@patria.com", "emailNormalized": "raul.gonzalez@patria.com", "department": "REAL ESTATE LATAM – TECHNICAL", "position": "VP I", "cohort": "Cohort 2"},
+{"name": "RICARDO VIEIRA", "email": "ricardo.vieira@patria.com", "emailNormalized": "ricardo.vieira@patria.com", "department": "REAL ESTATE BR – INVESTMENTS CREDIT &SECURITIES", "position": "DIRECTOR II", "cohort": "Cohort 2"},
+{"name": "RICARDO AGUIAR DE ANDRADE", "email": "RICARDO.ANDRADE@PATRIA.COM", "emailNormalized": "ricardo.andrade@patria.com", "department": "PUBLIC EQUITIES - INVESTMENT", "position": "ANALYST II", "cohort": "Cohort 2"},
+{"name": "RICARDO BERNSTEIN", "email": "RICARDO.BERNSTEIN@PATRIA.COM", "emailNormalized": "ricardo.bernstein@patria.com", "department": "PUBLIC EQUITIES - INVESTMENT", "position": "ASSOCIATE I", "cohort": "Cohort 2"},
+{"name": "ROBERT YOUNG", "email": "robert.young@patria.com", "emailNormalized": "robert.young@patria.com", "department": "GPMS - INVESTMENTS", "position": "DIRECTOR II", "cohort": "Cohort 2"},
+{"name": "RODRIGO ANDUEZA", "email": "rodrigo.andueza@moneda.cl", "emailNormalized": "rodrigo.andueza@moneda.cl", "department": "CREDIT - INVESTMENT CHILE", "position": "ANALYST I", "cohort": "Cohort 2"},
+{"name": "RYAN LLOYD", "email": "Ryan.Lloyd@patria.com", "emailNormalized": "ryan.lloyd@patria.com", "department": "GPMS - INVESTMENTS", "position": "ASSOCIATE I", "cohort": "Cohort 2"},
+{"name": "RYAN PHILLIPS", "email": "rp@wpglobalpartners.com", "emailNormalized": "rp@wpglobalpartners.com", "department": "GPMS - INVESTMENTS", "position": "WP", "cohort": "Cohort 2"},
+{"name": "SAMUEL DAVID ÁVILA", "email": "Samuel.Avila@patria.com", "emailNormalized": "samuel.avila@patria.com", "department": "REAL ESTATE LATAM – INVESTMENTS (CORE. SOLUTIONS, OPP)", "position": "ANALYST I", "cohort": "Cohort 2"},
+{"name": "SANTIAGO ACOSTA SOTO", "email": "Santiago.Acosta@patria.com", "emailNormalized": "santiago.acosta@patria.com", "department": "REAL ESTATE LATAM – INVESTMENTS (CORE. SOLUTIONS, OPP)", "position": "ASSOCIATE II", "cohort": "Cohort 2"},
+{"name": "SEBASTIAN SEPULVEDA", "email": "Sebastian.Sepulveda@patria.com", "emailNormalized": "sebastian.sepulveda@patria.com", "department": "CREDIT - INVESTMENT CHILE", "position": "ANALYST I", "cohort": "Cohort 2"},
+{"name": "SHAAN PRADIP JOSHI", "email": "SHAAN.JOSHI@PATRIA.COM", "emailNormalized": "shaan.joshi@patria.com", "department": "GPMS - INVESTMENTS", "position": "VP II", "cohort": "Cohort 2"},
+{"name": "SHIRI DVASH TSAL SELA", "email": "SHIRI.TSALSELA@PATRIA.COM", "emailNormalized": "shiri.tsalsela@patria.com", "department": "GPMS - INVESTMENTS", "position": "ANALYST II", "cohort": "Cohort 2"},
+{"name": "SIMON TYSZKO", "email": "simon.tyszko@patria.com", "emailNormalized": "simon.tyszko@patria.com", "department": "GPMS - INVESTMENTS", "position": "DIRECTOR I", "cohort": "Cohort 2"},
+{"name": "SOFIA GRAND", "email": "sofia.grand@moneda.cl", "emailNormalized": "sofia.grand@moneda.cl", "department": "CREDIT - INVESTMENT CHILE", "position": "ANALYST I", "cohort": "Cohort 2"},
+{"name": "SOFÍA YEPES", "email": "Sofia.Yepes@patria.com", "emailNormalized": "sofia.yepes@patria.com", "department": "REAL ESTATE LATAM – LEASING", "position": "INTERN", "cohort": "Cohort 2"},
+{"name": "TATIANA URIBE LA ROTA", "email": "Tatiana.Uribe@patria.com", "emailNormalized": "tatiana.uribe@patria.com", "department": "REAL ESTATE LATAM – INVESTMENTS (CORE. SOLUTIONS, OPP)", "position": "VP I", "cohort": "Cohort 2"},
+{"name": "TRACI BREEN", "email": "tgb@wpglobalpartners.com", "emailNormalized": "tgb@wpglobalpartners.com", "department": "GPMS - INVESTMENTS", "position": "WP", "cohort": "Cohort 2"},
+{"name": "VINICIUS ARAUJO DA COSTA", "email": "Vinicius.Araujo@patria.com", "emailNormalized": "vinicius.araujo@patria.com", "department": "INFRASTRUCTURE - CORE", "position": "ANALYST III", "cohort": "Cohort 2"},
+{"name": "WILLIAM PINTO PEREIRA LEITE", "email": "william.leite@patria.com", "emailNormalized": "william.leite@patria.com", "department": "PUBLIC EQUITIES - INVESTMENT", "position": "DIRECTOR II", "cohort": "Cohort 2"},
+{"name": "WILLIAM GONZALES", "email": "wdg@wpglobalpartners.com", "emailNormalized": "wdg@wpglobalpartners.com", "department": "GPMS - INVESTMENTS", "position": "WP", "cohort": "Cohort 2"},
+{"name": "YASMIN BEZERRA FREITAS", "email": "yasmin.freitas@patria.com", "emailNormalized": "yasmin.freitas@patria.com", "department": "REAL ESTATE BR – INVESTMENTS CREDIT &SECURITIES", "position": "ANALYST I", "cohort": "Cohort 2"},
+{"name": "ABRYL DANIELLA HERNANDEZ AMBRIZ", "email": "Abryl.Ambriz@patria.com", "emailNormalized": "abryl.ambriz@patria.com", "department": "CORPORATE - HUMAN RESOURCES", "position": "VP I", "cohort": "Cohort 3"},
+{"name": "ALICE BEVERIDGE", "email": "Alice.Beveridge@patria.com", "emailNormalized": "alice.beveridge@patria.com", "department": "GPMS - CORPORATE FUNDS ADMINISTRATION", "position": "ASSOCIATE I", "cohort": "Cohort 3"},
+{"name": "ALISTAIR BONN", "email": "Alistair.Bonn@patria.com", "emailNormalized": "alistair.bonn@patria.com", "department": "GPMS - CORPORATE FUNDS ADMINISTRATION", "position": "VP I", "cohort": "Cohort 3"},
+{"name": "ALISTER MALOUMI", "email": "alister.maloumi@patria.com", "emailNormalized": "alister.maloumi@patria.com", "department": "GPMS - CORPORATE FUNDS ADMINISTRATION", "position": "ASSOCIATE II", "cohort": "Cohort 3"},
+{"name": "AMANDA CARNEIRO BARROS DA LUZ", "email": "Amanda.carneiro@patria.com", "emailNormalized": "amanda.carneiro@patria.com", "department": "CORPORATE - FUNDS ADMINISTRATION", "position": "VP I", "cohort": "Cohort 3"},
+{"name": "ANA CAROLINA NAKAMURA BREVES DE TOLEDO", "email": "Ana.Nakamura@patria.com", "emailNormalized": "ana.nakamura@patria.com", "department": "CORPORATE - LEGAL", "position": "DIRECTOR II", "cohort": "Cohort 3"},
+{"name": "ANA CLARA DUARTE", "email": "Ana.Duarte@patria.com", "emailNormalized": "ana.duarte@patria.com", "department": "INFRASTRUCTURE - INVESTOR RELATIONS", "position": "ANALYST III", "cohort": "Cohort 3"},
+{"name": "ANDRE PULICANO LACERDA", "email": "andre.lacerda@patria.com", "emailNormalized": "andre.lacerda@patria.com", "department": "INFRASTRUCTURE - INVESTOR RELATIONS", "position": "VP I", "cohort": "Cohort 3"},
+{"name": "ANDRE SOUZA SOARES", "email": "andre.soares@patria.com", "emailNormalized": "andre.soares@patria.com", "department": "GPMS - INVESTMENTS", "position": "ASSOCIATE II", "cohort": "Cohort 3"},
+{"name": "ANDREA MARTA VALLEJOS", "email": "Andrea.Vallejos@patria.com", "emailNormalized": "andrea.vallejos@patria.com", "department": "CORPORATE - FINANCE", "position": "VP I", "cohort": "Cohort 3"},
+{"name": "ARTHUR DE OLIVEIRA TANI", "email": "arthur.tani@patria.com", "emailNormalized": "arthur.tani@patria.com", "department": "COMMERCIAL - MARKETING", "position": "ANALYST II", "cohort": "Cohort 3"},
+{"name": "BRUNO FINELLI SHAYANI", "email": "bruno.finelli@patria.com", "emailNormalized": "bruno.finelli@patria.com", "department": "CORPORATE - FUNDS ADMINISTRATION", "position": "ANALYST III", "cohort": "Cohort 3"},
+{"name": "BRUNO RIBEIRO GIMENEZ", "email": "bruno.gimenez@patria.com", "emailNormalized": "bruno.gimenez@patria.com", "department": "CORPORATE - INFORMATION TECHNOLOGY", "position": "ASSOCIATE II", "cohort": "Cohort 3"},
+{"name": "CAMILA BARRETO SOUZA", "email": "camila.souza@patria.com", "emailNormalized": "camila.souza@patria.com", "department": "CORPORATE - FUNDS ADMINISTRATION", "position": "ANALYST I", "cohort": "Cohort 3"},
+{"name": "CAMILA AGOSTI ROJAS MALGOR", "email": "camila.agosti@patria.com", "emailNormalized": "camila.agosti@patria.com", "department": "PRIVATE EQUITY - INVESTOR RELATIONS", "position": "ASSOCIATE I", "cohort": "Cohort 3"},
+{"name": "CARLOS GUNDERSEN", "email": "CARLOS.GUNDERSEN@PATRIA.COM", "emailNormalized": "carlos.gundersen@patria.com", "department": "CREDIT - IR", "position": "DIRECTOR II", "cohort": "Cohort 3"},
+{"name": "CAROLINA CAMILA ALVAREZ MULLER", "email": "carolina.alvarez@moneda.cl", "emailNormalized": "carolina.alvarez@moneda.cl", "department": "COMMERCIAL - SALES WEALTH MANAGEMENT", "position": "ANALYST II", "cohort": "Cohort 3"},
+{"name": "CAROLINA DORTA", "email": "carolina.dorta@patria.com", "emailNormalized": "carolina.dorta@patria.com", "department": "COMMERCIAL - COMMERCIAL", "position": "DIRECTOR I", "cohort": "Cohort 3"},
+{"name": "CAROLINA ROSA DA SILVA DE OLIVEIRA", "email": "Carolina.Oliveira@patria.com", "emailNormalized": "carolina.oliveira@patria.com", "department": "COMMERCIAL - PRODUCT", "position": "DIRECTOR II", "cohort": "Cohort 3"},
+{"name": "CATHERINE LEIGH", "email": "Catherine.Leigh@patria.com", "emailNormalized": "catherine.leigh@patria.com", "department": "GPMS - CORPORATE FUNDS ADMINISTRATION", "position": "ASSOCIATE I", "cohort": "Cohort 3"},
+{"name": "CLAIRE PARK", "email": "Claire.Park@patria.com", "emailNormalized": "claire.park@patria.com", "department": "GPMS - CORPORATE FUNDS ADMINISTRATION", "position": "ASSOCIATE I", "cohort": "Cohort 3"},
+{"name": "CRAIG BROWN", "email": "Craig.Brown@patria.com", "emailNormalized": "craig.brown@patria.com", "department": "GPMS - CORPORATE FUNDS ADMINISTRATION", "position": "ANALYST II", "cohort": "Cohort 3"},
+{"name": "CRISTIAN ANDRES SOLAN", "email": "CRISTIAN.SOLAN@PATRIA.COM", "emailNormalized": "cristian.solan@patria.com", "department": "CORPORATE - FINANCE ACCOUNTING", "position": "ASSOCIATE II", "cohort": "Cohort 3"},
+{"name": "DANIEL STEVEN ECHEVERRI", "email": "daniel.echeverri@patria.com", "emailNormalized": "daniel.echeverri@patria.com", "department": "CORPORATE - FINANCE ACCOUNTING", "position": "ASSOCIATE I", "cohort": "Cohort 3"},
+{"name": "DAVID MCCALLUM", "email": "David.Mccallum@patria.com", "emailNormalized": "david.mccallum@patria.com", "department": "GPMS - CORPORATE FUNDS ADMINISTRATION", "position": "DIRECTOR I", "cohort": "Cohort 3"},
+{"name": "DIANA ALEJO TORRIJOS", "email": "Diana.Alejo@patria.com", "emailNormalized": "diana.alejo@patria.com", "department": "CORPORATE - FINANCE", "position": "ASSOCIATE I", "cohort": "Cohort 3"},
+{"name": "DIEGO LANCELLOTTI DE SOUZA", "email": "Diego.Lancellotti@patria.com", "emailNormalized": "diego.lancellotti@patria.com", "department": "CORPORATE - HUMAN RESOURCES", "position": "ASSOCIATE II", "cohort": "Cohort 3"},
+{"name": "DONNA URQUHART", "email": "DONNA.URQUHART@PATRIA.COM", "emailNormalized": "donna.urquhart@patria.com", "department": "GPMS - CORPORATE FUNDS ADMINISTRATION", "position": "ASSOCIATE I", "cohort": "Cohort 3"},
+{"name": "DOUGLAS MAGNO CAFFAGNI DO OURO", "email": "DOUGLAS.OURO@PATRIA.COM", "emailNormalized": "douglas.ouro@patria.com", "department": "CORPORATE - FINANCE ACCOUNTING", "position": "VP II", "cohort": "Cohort 3"},
+{"name": "EDUARDO DOS SANTOS CRUZ", "email": "eduardo.cruz@patria.com", "emailNormalized": "eduardo.cruz@patria.com", "department": "CORPORATE - FUNDS ADMINISTRATION", "position": "ASSOCIATE II", "cohort": "Cohort 3"},
+{"name": "EDUARDO FRAJDRACH TEIXEIRA", "email": "EDUARDO.TEIXEIRA@PATRIA.COM", "emailNormalized": "eduardo.teixeira@patria.com", "department": "COMMERCIAL - COMMERCIAL PLANNING", "position": "ANALYST I", "cohort": "Cohort 3"},
+{"name": "EMMA SHEK", "email": "Emma.Shek@patria.com", "emailNormalized": "emma.shek@patria.com", "department": "GPMS - CORPORATE FUNDS ADMINISTRATION", "position": "ASSOCIATE I", "cohort": "Cohort 3"},
+{"name": "ESTEBAN LUIS ZEPEDA", "email": "Esteban.Zepeda@patria.com", "emailNormalized": "esteban.zepeda@patria.com", "department": "CORPORATE - INTERNAL AUDIT", "position": "INTERN", "cohort": "Cohort 3"},
+{"name": "FEDERICO ALLEN", "email": "FEDERICO.ALLEN@PATRIA.COM", "emailNormalized": "federico.allen@patria.com", "department": "CORPORATE - INFORMATION TECHNOLOGY", "position": "DIRECTOR I", "cohort": "Cohort 3"},
+{"name": "FEDERICO BONDONI", "email": "Federico.Bondoni@patria.com", "emailNormalized": "federico.bondoni@patria.com", "department": "PRIVATE EQUITY - INVESTOR RELATIONS", "position": "VP II", "cohort": "Cohort 3"},
+{"name": "FELIPE COLLESI", "email": "Felipe.Collesi@patria.com", "emailNormalized": "felipe.collesi@patria.com", "department": "CORPORATE - HUMAN RESOURCES", "position": "MD", "cohort": "Cohort 3"},
+{"name": "FELIPE LAGES BALESTRIN DE ANDRADE", "email": "felipe.balestrin@patria.com", "emailNormalized": "felipe.balestrin@patria.com", "department": "PUBLIC EQUITIES - IR", "position": "VP I", "cohort": "Cohort 3"},
+{"name": "FERNANDA ARECHAVALETA LEITES", "email": "fernanda.arechavaleta@patria.com", "emailNormalized": "fernanda.arechavaleta@patria.com", "department": "COMMERCIAL - MARKETING", "position": "DIRECTOR I", "cohort": "Cohort 3"},
+{"name": "FILIPE FIGUEIREDO BASTOS SOUZA", "email": "filipe.bastos@patria.com", "emailNormalized": "filipe.bastos@patria.com", "department": "CORPORATE - FUNDS ADMINISTRATION", "position": "ASSOCIATE I", "cohort": "Cohort 3"},
+{"name": "FLAVIA PIRAS LODI", "email": "flavia.lodi@patria.com", "emailNormalized": "flavia.lodi@patria.com", "department": "CORPORATE - LEGAL", "position": "VP I", "cohort": "Cohort 3"},
+{"name": "FRANCISCA ABURTO", "email": "FRANCISCA.ABURTO@PATRIA.COM", "emailNormalized": "francisca.aburto@patria.com", "department": "CORPORATE - FINANCE ACCOUNTING", "position": "ANALYST III", "cohort": "Cohort 3"},
+{"name": "GABRIEL DAVI RODRIGUES DELIBERATO", "email": "gabriel.deliberato@patria.com", "emailNormalized": "gabriel.deliberato@patria.com", "department": "CORPORATE - FUNDS ADMINISTRATION", "position": "ANALYST III", "cohort": "Cohort 3"},
+{"name": "GABRIEL TEODORO DE LIMA SANTOS", "email": "Gabriel.Teodoro@patria.com", "emailNormalized": "gabriel.teodoro@patria.com", "department": "PRIVATE EQUITY - VENTURE CAPITAL & GROWTH", "position": "ASSOCIATE I", "cohort": "Cohort 3"},
+{"name": "GABRIELA JARAMILLO", "email": "gabriela.jaramillo@patria.com", "emailNormalized": "gabriela.jaramillo@patria.com", "department": "COMMERCIAL - COMMERCIAL PLANNING", "position": "ANALYST III", "cohort": "Cohort 3"},
+{"name": "GABRIELA SAMPAIO DE ALVARENGA FREIRE", "email": "GABRIELA.FREIRE@PATRIA.COM", "emailNormalized": "gabriela.freire@patria.com", "department": "COMMERCIAL - COMMERCIAL PLANNING", "position": "INTERN", "cohort": "Cohort 3"},
+{"name": "GASTON RIVOLLIER", "email": "GASTON.RIVOLLIER@PATRIA.COM", "emailNormalized": "gaston.rivollier@patria.com", "department": "PRIVATE EQUITY - INVESTOR RELATIONS", "position": "ASSOCIATE I", "cohort": "Cohort 3"},
+{"name": "GERMAN MALLOL", "email": "gmallol@moneda.cl", "emailNormalized": "gmallol@moneda.cl", "department": "COMMERCIAL - SALES WEALTH MANAGEMENT", "position": "VP I", "cohort": "Cohort 3"},
+{"name": "GETÚLIO JOSE DE ARAUJO SILVA FILHO", "email": "Getulio.Araujo@patria.com", "emailNormalized": "getulio.araujo@patria.com", "department": "CORPORATE - LEGAL", "position": "INTERN", "cohort": "Cohort 3"},
+{"name": "GIOVANA MELO GONÇALVES", "email": "giovana.goncalves@patria.com", "emailNormalized": "giovana.goncalves@patria.com", "department": "PRIVATE EQUITY - INVESTOR RELATIONS", "position": "ASSOCIATE II", "cohort": "Cohort 3"},
+{"name": "GUILHERME LEONARDO BATISTA", "email": "guilherme.batista@patria.com", "emailNormalized": "guilherme.batista@patria.com", "department": "CORPORATE - FUNDS ADMINISTRATION", "position": "ASSOCIATE I", "cohort": "Cohort 3"},
+{"name": "HELEN METHERALL", "email": "Helen.Metherall@patria.com", "emailNormalized": "helen.metherall@patria.com", "department": "GPMS - IR", "position": "ASSOCIATE II", "cohort": "Cohort 3"},
+{"name": "HENRY KENNETH ROBERT FRENCH", "email": "HAL.FRENCH@PATRIA.COM", "emailNormalized": "hal.french@patria.com", "department": "GPMS - IR", "position": "ASSOCIATE I", "cohort": "Cohort 3"},
+{"name": "IGNACIO ARACENA", "email": "Ignacio.aracena@patria.com", "emailNormalized": "ignacio.aracena@patria.com", "department": "COMMERCIAL - INVESTOR SERVICES", "position": "ANALYST III", "cohort": "Cohort 3"},
+{"name": "IGOR BARBOZA ARAUJO DOS SANTOS", "email": "igor.santos@patria.com", "emailNormalized": "igor.santos@patria.com", "department": "CORPORATE - INFORMATION TECHNOLOGY", "position": "ASSOCIATE I", "cohort": "Cohort 3"},
+{"name": "ISABELLA LORETTI DE SOUSA", "email": "Isabella.Sousa@patria.com", "emailNormalized": "isabella.sousa@patria.com", "department": "GPMS - IR", "position": "ASSOCIATE I", "cohort": "Cohort 3"},
+{"name": "ISABELLA MATTURRO DA CUNHA", "email": "isabella.cunha@patria.com", "emailNormalized": "isabella.cunha@patria.com", "department": "INFRASTRUCTURE - INVESTOR RELATIONS", "position": "ASSOCIATE II", "cohort": "Cohort 3"},
+{"name": "IURI ROCHA", "email": "iuri.rocha@patria.com", "emailNormalized": "iuri.rocha@patria.com", "department": "COMMERCIAL - SALES PLATFORMS", "position": "VP II", "cohort": "Cohort 3"},
+{"name": "JAKUB PLESIAK", "email": "jakub.plesiak@patria.com", "emailNormalized": "jakub.plesiak@patria.com", "department": "GPMS - CORPORATE FUNDS ADMINISTRATION", "position": "ASSOCIATE I", "cohort": "Cohort 3"},
+{"name": "JAMES WALDRON", "email": "James.Waldron@patria.com", "emailNormalized": "james.waldron@patria.com", "department": "GPMS - CORPORATE FUNDS ADMINISTRATION", "position": "ASSOCIATE I", "cohort": "Cohort 3"},
+{"name": "JANDERSON HENRIQUE OLIVEIRA MARQUES", "email": "Janderson.Marques@patria.com", "emailNormalized": "janderson.marques@patria.com", "department": "CORPORATE - FINANCE ACCOUNTING", "position": "ANALYST III", "cohort": "Cohort 3"},
+{"name": "JAQUELINE BABETTO FIGUEIREDO", "email": "jaqueline.figueiredo@patria.com", "emailNormalized": "jaqueline.figueiredo@patria.com", "department": "CORPORATE - FINANCE", "position": "ASSOCIATE II", "cohort": "Cohort 3"},
+{"name": "JEFFREY BAKER", "email": "jbaker@wpglobalpartners.com", "emailNormalized": "jbaker@wpglobalpartners.com", "department": "GPMS - INVESTMENTS", "position": "WP", "cohort": "Cohort 3"},
+{"name": "JEFFREY WIDJAJA", "email": "jeffrey.widjaja@patria.com", "emailNormalized": "jeffrey.widjaja@patria.com", "department": "GPMS - IR", "position": "VP I", "cohort": "Cohort 3"},
+{"name": "JENNIFER CONCANNON", "email": "jmc@wpglobalpartners.com", "emailNormalized": "jmc@wpglobalpartners.com", "department": "GPMS - INVESTMENTS", "position": "WP", "cohort": "Cohort 3"},
+{"name": "JESSICA ENGRACINA", "email": "jessica.engracina@patria.com", "emailNormalized": "jessica.engracina@patria.com", "department": "COMMERCIAL - COMMERCIAL PLANNING", "position": "VP I", "cohort": "Cohort 3"},
+{"name": "JÉSSICA LARA", "email": "jessica.lara@patria.com", "emailNormalized": "jessica.lara@patria.com", "department": "CORPORATE - INFORMATION TECHNOLOGY", "position": "ASSOCIATE II", "cohort": "Cohort 3"},
+{"name": "JOAQUIM TEXEIRA ASSUMPÇAO SAIGH", "email": "joaquim.saigh@patria.com", "emailNormalized": "joaquim.saigh@patria.com", "department": "GPMS - INVESTMENTS", "position": "ANALYST I", "cohort": "Cohort 3"},
+{"name": "JOAQUIN ALVAREZ", "email": "joaquin.Alvarez@patria.com", "emailNormalized": "joaquin.alvarez@patria.com", "department": "CORPORATE - FINANCE ACCOUNTING", "position": "INTERN", "cohort": "Cohort 3"},
+{"name": "JOSE EDUARDO IRRIBARRA", "email": "JOSE.IRRIBARRA@PATRIA.COM", "emailNormalized": "jose.irribarra@patria.com", "department": "COMMERCIAL - COMMERCIAL PLANNING", "position": "VP I", "cohort": "Cohort 3"},
+{"name": "JOSE MIGUEL RODRIGUEZ", "email": "JOSE.RODRIGUEZ@PATRIA.COM", "emailNormalized": "jose.rodriguez@patria.com", "department": "CREDIT - IR", "position": "ASSOCIATE I", "cohort": "Cohort 3"},
+{"name": "JULIANA ANDRADE FREITAS", "email": "juliana.freitas@patria.com", "emailNormalized": "juliana.freitas@patria.com", "department": "REAL ESTATE BR – INVESTOR RELATIONS", "position": "VP II", "cohort": "Cohort 3"},
+{"name": "JULIANA HITOMI YASSUDA KATAGUIRI", "email": "juliana.yassuda@patria.com", "emailNormalized": "juliana.yassuda@patria.com", "department": "REAL ESTATE BR – LEGAL", "position": "DIRECTOR I", "cohort": "Cohort 3"},
+{"name": "KAUE JUNIOR ALVES BADAM", "email": "kaue.badam@patria.com", "emailNormalized": "kaue.badam@patria.com", "department": "CORPORATE - FUNDS ADMINISTRATION", "position": "ANALYST II", "cohort": "Cohort 3"},
+{"name": "KERRY FREEMAN", "email": "klf@wpglobalpartners.com", "emailNormalized": "klf@wpglobalpartners.com", "department": "GPMS - INVESTMENTS", "position": "WP", "cohort": "Cohort 3"},
+{"name": "LARISSA BENTO DA SILVA", "email": "LARISSA.SILVA@PATRIA.COM", "emailNormalized": "larissa.silva@patria.com", "department": "CORPORATE - FUNDS ADMINISTRATION", "position": "ANALYST I", "cohort": "Cohort 3"},
+{"name": "LAURA HEATHER", "email": "Laura.Heather@patria.com", "emailNormalized": "laura.heather@patria.com", "department": "GPMS - CORPORATE FUNDS ADMINISTRATION", "position": "ASSOCIATE II", "cohort": "Cohort 3"},
+{"name": "LAUREN SMITH", "email": "lauren.smith@patria.com", "emailNormalized": "lauren.smith@patria.com", "department": "CORPORATE - LEGAL", "position": "VP II", "cohort": "Cohort 3"},
+{"name": "LAWRIE CANNON", "email": "Lawrie.Cannon@patria.com", "emailNormalized": "lawrie.cannon@patria.com", "department": "GPMS - CORPORATE FUNDS ADMINISTRATION", "position": "ANALYST II", "cohort": "Cohort 3"},
+{"name": "LEANDRO ENEAS TORRES BARROS", "email": "leandro.torres@patria.com", "emailNormalized": "leandro.torres@patria.com", "department": "CORPORATE - FUNDS ADMINISTRATION", "position": "VP I", "cohort": "Cohort 3"},
+{"name": "LEON EDWARDS", "email": "Leon.Edwards@patria.com", "emailNormalized": "leon.edwards@patria.com", "department": "COMMERCIAL - SALES WEALTH MANAGEMENT", "position": "ANALYST III", "cohort": "Cohort 3"},
+{"name": "LEONARDO SPROCATTI CANTERUCCIO", "email": "LEONARDO.CANTERUCCIO@PATRIA.COM", "emailNormalized": "leonardo.canteruccio@patria.com", "department": "PRIVATE EQUITY - INVESTOR RELATIONS", "position": "ANALYST III", "cohort": "Cohort 3"},
+{"name": "LETICIA ALLEGRETTI HEIDERICH", "email": "leticia.heiderich@patria.com", "emailNormalized": "leticia.heiderich@patria.com", "department": "REAL ESTATE BR – LEGAL", "position": "ASSOCIATE I", "cohort": "Cohort 3"},
+{"name": "LILIAN BRITO DE PASSOS KEPPLER", "email": "lilian.passos@patria.com", "emailNormalized": "lilian.passos@patria.com", "department": "CORPORATE - INFORMATION TECHNOLOGY", "position": "ASSOCIATE II", "cohort": "Cohort 3"},
+{"name": "LÍVIA WAISHAPUT DOS SANTOS", "email": "livia.santos@patria.com", "emailNormalized": "livia.santos@patria.com", "department": "COMMERCIAL - MARKETING", "position": "ANALYST I", "cohort": "Cohort 3"},
+{"name": "LOUISE FIDDES", "email": "Louise.Fiddes@patria.com", "emailNormalized": "louise.fiddes@patria.com", "department": "GPMS - CORPORATE FUNDS ADMINISTRATION", "position": "VP I", "cohort": "Cohort 3"},
+{"name": "LUCAS MONTEIRO DIB", "email": "lucas.dib@patria.com", "emailNormalized": "lucas.dib@patria.com", "department": "GPMS - IR", "position": "DIRECTOR I", "cohort": "Cohort 3"},
+{"name": "LUCCA TORRES ARGENTIN", "email": "lucca.argentin@patria.com", "emailNormalized": "lucca.argentin@patria.com", "department": "REAL ESTATE BR – INVESTOR RELATIONS", "position": "ANALYST I", "cohort": "Cohort 3"},
+{"name": "LUIS FILIPE LEON", "email": "luis.leon@patria.com", "emailNormalized": "luis.leon@patria.com", "department": "REAL ESTATE BR – LEGAL", "position": "INTERN", "cohort": "Cohort 3"},
+{"name": "LUIS ALONSO DIAZ MORALES", "email": "LUIS.DIAZ@PATRIA.COM", "emailNormalized": "luis.diaz@patria.com", "department": "CORPORATE - FINANCE ACCOUNTING", "position": "VP II", "cohort": "Cohort 3"},
+{"name": "LUIZA FURTADO DE MENDONÇA VELLOSO LIMA", "email": "Luiza.Furtado@patria.com", "emailNormalized": "luiza.furtado@patria.com", "department": "CORPORATE - FUNDS ADMINISTRATION", "position": "ANALYST II", "cohort": "Cohort 3"},
+{"name": "LUKA FERNANDES GALVAO", "email": "luka.galvao@patria.com", "emailNormalized": "luka.galvao@patria.com", "department": "REAL ESTATE BR – INVESTOR RELATIONS", "position": "ANALYST III", "cohort": "Cohort 3"},
+{"name": "LUZ DIAZ", "email": "Luz.Diaz@patria.com", "emailNormalized": "luz.diaz@patria.com", "department": "CORPORATE - LEGAL", "position": "ASSOCIATE I", "cohort": "Cohort 3"},
+{"name": "MARCELA GRAND MARIN", "email": "Marcela.Grand@patria.com", "emailNormalized": "marcela.grand@patria.com", "department": "REAL ESTATE LATAM – LEGAL", "position": "DIRECTOR I", "cohort": "Cohort 3"},
+{"name": "MARCELLA LIE CASTRO DOI", "email": "Marcella.Lie@patria.com", "emailNormalized": "marcella.lie@patria.com", "department": "REAL ESTATE BR – INVESTOR RELATIONS", "position": "ASSOCIATE I", "cohort": "Cohort 3"},
+{"name": "MARCELO CERQUEIRA CHERRI", "email": "MARCELO.CHERRI@PATRIA.COM", "emailNormalized": "marcelo.cherri@patria.com", "department": "CORPORATE - FUNDS ADMINISTRATION", "position": "DIRECTOR I", "cohort": "Cohort 3"},
+{"name": "MARCO AURELIO OLIVEIRA ARAUJO", "email": "marco.araujo@patria.com", "emailNormalized": "marco.araujo@patria.com", "department": "CORPORATE - INFORMATION TECHNOLOGY", "position": "ASSOCIATE II", "cohort": "Cohort 3"},
+{"name": "MARCO ROBERTO GONÇALVES JUNIOR", "email": "marco.roberto@patria.com", "emailNormalized": "marco.roberto@patria.com", "department": "CORPORATE - INFORMATION TECHNOLOGY", "position": "VP II", "cohort": "Cohort 3"},
+{"name": "MARIA BELEN LAGOS", "email": "Belen.Lagos@patria.com", "emailNormalized": "belen.lagos@patria.com", "department": "COMMERCIAL - MARKETING", "position": "ASSOCIATE I", "cohort": "Cohort 3"},
+{"name": "MARIA EDUARDA WENDLER PAES LIMA", "email": "mariaeduarda.wendler@patria.com", "emailNormalized": "mariaeduarda.wendler@patria.com", "department": "CORPORATE - LEGAL", "position": "TRAINEE", "cohort": "Cohort 3"},
+{"name": "MARIA IZABEL MARANGONI BRANDÃO FIALHO GANDINI", "email": "izabel.gandini@patria.com", "emailNormalized": "izabel.gandini@patria.com", "department": "REAL ESTATE BR – INVESTOR RELATIONS", "position": "ANALYST I", "cohort": "Cohort 3"},
+{"name": "MARINA LIMA GARCIA", "email": "marina.lima@patria.com", "emailNormalized": "marina.lima@patria.com", "department": "REAL ESTATE BR – LEGAL", "position": "VP I", "cohort": "Cohort 3"},
+{"name": "MARY WILLIS", "email": "Mary.Willis@patria.com", "emailNormalized": "mary.willis@patria.com", "department": "GPMS - CORPORATE FUNDS ADMINISTRATION", "position": "ASSOCIATE II", "cohort": "Cohort 3"},
+{"name": "MATHEUS MAGNANI SPINA", "email": "matheus.spina@patria.com", "emailNormalized": "matheus.spina@patria.com", "department": "COMMERCIAL - PRODUCT", "position": "ASSOCIATE I", "cohort": "Cohort 3"},
+{"name": "MATHEUS MANARA MARTINS", "email": "matheus.martins@patria.com", "emailNormalized": "matheus.martins@patria.com", "department": "CREDIT - IR", "position": "ANALYST III", "cohort": "Cohort 3"},
+{"name": "MATHEUS OETINGER CHASSOT", "email": "matheus.chassot@patria.com", "emailNormalized": "matheus.chassot@patria.com", "department": "CORPORATE - HUMAN RESOURCES", "position": "VP II", "cohort": "Cohort 3"},
+{"name": "MATHEUS VERRONE ROMA", "email": "Matheus.Roma@patria.com", "emailNormalized": "matheus.roma@patria.com", "department": "COMMERCIAL - SALES", "position": "ANALYST I", "cohort": "Cohort 3"},
+{"name": "MATIAS GRUZMACHER", "email": "MATIAS.GRUZMACHER@PATRIA.COM", "emailNormalized": "matias.gruzmacher@patria.com", "department": "CORPORATE - LEGAL", "position": "DIRECTOR I", "cohort": "Cohort 3"},
+{"name": "MATÍAS LORENZO CORDERO", "email": "matias.cordero@patria.com", "emailNormalized": "matias.cordero@patria.com", "department": "CORPORATE - INTERNAL CONTROLS", "position": "INTERN", "cohort": "Cohort 3"},
+{"name": "MEGAN MCKAY", "email": "Megan.McKay@patria.com", "emailNormalized": "megan.mckay@patria.com", "department": "GPMS - CORPORATE FUNDS ADMINISTRATION", "position": "ASSOCIATE I", "cohort": "Cohort 3"},
+{"name": "MELISSA LEACOCK", "email": "melissa.leacock@patria.com", "emailNormalized": "melissa.leacock@patria.com", "department": "GPMS - CORPORATE FUNDS ADMINISTRATION", "position": "VP I", "cohort": "Cohort 3"},
+{"name": "MICHAEL LEONARD CRAIGHEAD", "email": "Michael.Craighead@patria.com", "emailNormalized": "michael.craighead@patria.com", "department": "GPMS - CORPORATE FUNDS ADMINISTRATION", "position": "ANALYST II", "cohort": "Cohort 3"},
+{"name": "MUHAMMAD QASIM ANJUM", "email": "qasim.anjum@patria.com", "emailNormalized": "qasim.anjum@patria.com", "department": "CORPORATE - FINANCE ACCOUNTING", "position": "ASSOCIATE I", "cohort": "Cohort 3"},
+{"name": "NICOLAS UGARTE VALDES", "email": "nicolas.ugarte@moneda.cl", "emailNormalized": "nicolas.ugarte@moneda.cl", "department": "COMMERCIAL - SALES WEALTH MANAGEMENT", "position": "ANALYST II", "cohort": "Cohort 3"},
+{"name": "PABLO JOSE MATTHEWS", "email": "pablo.matthews@moneda.cl", "emailNormalized": "pablo.matthews@moneda.cl", "department": "COMMERCIAL - SALES WEALTH MANAGEMENT", "position": "VP I", "cohort": "Cohort 3"},
+{"name": "PAULA ANTONIA SALAS", "email": "Antonia.Salas@patria.com", "emailNormalized": "antonia.salas@patria.com", "department": "COMMERCIAL - SALES WEALTH MANAGEMENT", "position": "ANALYST I", "cohort": "Cohort 3"},
+{"name": "PAULO ANDRE COSTA CARDOSO", "email": "Paulo.Andre@patria.com", "emailNormalized": "paulo.andre@patria.com", "department": "CORPORATE - HUMAN RESOURCES", "position": "ASSOCIATE II", "cohort": "Cohort 3"},
+{"name": "PEDRO HENRIQUE SIMÕES GALVÃO", "email": "Pedro.Simoes@patria.com", "emailNormalized": "pedro.simoes@patria.com", "department": "CORPORATE - FINANCE", "position": "INTERN", "cohort": "Cohort 3"},
+{"name": "PEDRO MARCONDES DE QUEIROZ", "email": "pedro.queiroz@patria.com", "emailNormalized": "pedro.queiroz@patria.com", "department": "COMMERCIAL - COMMERCIAL PLANNING", "position": "ANALYST II", "cohort": "Cohort 3"},
+{"name": "PHILLIP FULMER", "email": "pef@wpglobalpartners.com", "emailNormalized": "pef@wpglobalpartners.com", "department": "GPMS - INVESTMENTS", "position": "WP", "cohort": "Cohort 3"},
+{"name": "RAFFE ABDUL", "email": "raffe.abdul@Patria.com", "emailNormalized": "raffe.abdul@patria.com", "department": "GPMS - CORPORATE FUNDS ADMINISTRATION", "position": "ASSOCIATE I", "cohort": "Cohort 3"},
+{"name": "RENATA SCARPELLI PRISCO", "email": "renata.scarpelli@patria.com", "emailNormalized": "renata.scarpelli@patria.com", "department": "CORPORATE - FUNDS ADMINISTRATION", "position": "ASSOCIATE I", "cohort": "Cohort 3"},
+{"name": "RICARDO GIL", "email": "RICARDO.GIL@PATRIA.COM", "emailNormalized": "ricardo.gil@patria.com", "department": "CORPORATE - INTERNAL CONTROLS", "position": "ANALYST III", "cohort": "Cohort 3"},
+{"name": "RICARDO JESUS PAZ", "email": "RICARDO.PAZ@PATRIA.COM", "emailNormalized": "ricardo.paz@patria.com", "department": "CORPORATE - FINANCE ACCOUNTING", "position": "ANALYST III", "cohort": "Cohort 3"},
+{"name": "RODRIGO PEGORARO FERREIRA", "email": "rodrigo.pegoraro@patria.com", "emailNormalized": "rodrigo.pegoraro@patria.com", "department": "COMMERCIAL - COMMERCIAL PLANNING", "position": "DIRECTOR I", "cohort": "Cohort 3"},
+{"name": "RODRIGO YUJI DA SILVA", "email": "rodrigo.yuji@patria.com", "emailNormalized": "rodrigo.yuji@patria.com", "department": "INFRASTRUCTURE - INVESTOR RELATIONS", "position": "ANALYST I", "cohort": "Cohort 3"},
+{"name": "SARAH TONG", "email": "Sarah.tong@patria.com", "emailNormalized": "sarah.tong@patria.com", "department": "GPMS - CORPORATE FUNDS ADMINISTRATION", "position": "ASSOCIATE I", "cohort": "Cohort 3"},
+{"name": "SCOTT GREEN", "email": "Scott.Green@patria.com", "emailNormalized": "scott.green@patria.com", "department": "GPMS - CORPORATE FUNDS ADMINISTRATION", "position": "VP I", "cohort": "Cohort 3"},
+{"name": "SERGIO RIVEROS", "email": "SERGIO.RIVEROS@PATRIA.COM", "emailNormalized": "sergio.riveros@patria.com", "department": "CORPORATE - INFORMATION TECHNOLOGY", "position": "ASSOCIATE II", "cohort": "Cohort 3"},
+{"name": "SINDY JOHANA ROJAS", "email": "SINDY.ROJAS@PATRIA.COM", "emailNormalized": "sindy.rojas@patria.com", "department": "CORPORATE - INTERNAL AUDIT", "position": "ASSOCIATE II", "cohort": "Cohort 3"},
+{"name": "SINDY JOHANA ROJAS", "email": "SINDY.ROJAS@PATRIA.COM", "emailNormalized": "sindy.rojas@patria.com", "department": "CORPORATE - INTERNAL AUDIT", "position": "ASSOCIATE II", "cohort": "Cohort 3"},
+{"name": "SURESH BALKRISHNA", "email": "Suresh.Balkrishna@patria.com", "emailNormalized": "suresh.balkrishna@patria.com", "department": "GPMS - CORPORATE FUNDS ADMINISTRATION", "position": "ASSOCIATE I", "cohort": "Cohort 3"},
+{"name": "TAINA LUMA PEREIRA BEZERRA", "email": "taina.bezerra@patria.com", "emailNormalized": "taina.bezerra@patria.com", "department": "CORPORATE - FUNDS ADMINISTRATION", "position": "ASSOCIATE I", "cohort": "Cohort 3"},
+{"name": "THAYS FERNANDEZ", "email": "THAYS.FERNANDEZ@PATRIA.COM", "emailNormalized": "thays.fernandez@patria.com", "department": "COMMERCIAL - MARKETING", "position": "ASSOCIATE I", "cohort": "Cohort 3"},
+{"name": "VERENA DANTAS OLIVEIRA DUPLAT PAIVA", "email": "verena.paiva@patria.com", "emailNormalized": "verena.paiva@patria.com", "department": "COMMERCIAL - SALES DISTRIBUTORS", "position": "VP I", "cohort": "Cohort 3"},
+{"name": "VICTOR AGUIAR GASPAR", "email": "victor.gaspar@patria.com", "emailNormalized": "victor.gaspar@patria.com", "department": "CREDIT - IR", "position": "ASSOCIATE II", "cohort": "Cohort 3"},
+{"name": "VINICIO TAVARES CUSTODIO", "email": "vinicio.custodio@patria.com", "emailNormalized": "vinicio.custodio@patria.com", "department": "CORPORATE - FUNDS ADMINISTRATION", "position": "ASSOCIATE II", "cohort": "Cohort 3"},
+{"name": "VINÍCIUS HENRIQUE VEIGA DE FARIA", "email": "vinicius.faria@patria.com", "emailNormalized": "vinicius.faria@patria.com", "department": "CORPORATE - FINANCE ACCOUNTING", "position": "ASSOCIATE I", "cohort": "Cohort 3"},
+{"name": "VINÍCIUS SANT'ANA PERRONI", "email": "Vinicius.Perroni@patria.com", "emailNormalized": "vinicius.perroni@patria.com", "department": "CREDIT - IR", "position": "INTERN", "cohort": "Cohort 3"},
+{"name": "VIOLETA OTERO", "email": "votero@moneda.cl", "emailNormalized": "votero@moneda.cl", "department": "COMMERCIAL - INVESTOR SERVICES", "position": "ANALYST II", "cohort": "Cohort 3"},
+{"name": "VIRGINIA MACHADO GUAZZELLI", "email": "virginia.guazzelli@patria.com", "emailNormalized": "virginia.guazzelli@patria.com", "department": "PRIVATE EQUITY - INVESTOR RELATIONS", "position": "ASSOCIATE I", "cohort": "Cohort 3"},
+{"name": "VIVIANA SERRANO", "email": "viviana.serrano@patria.com", "emailNormalized": "viviana.serrano@patria.com", "department": "CORPORATE - INFORMATION TECHNOLOGY", "position": "VP II", "cohort": "Cohort 3"},
+{"name": "YGOR PAVAN", "email": "Ygor.Pavan@patria.com", "emailNormalized": "ygor.pavan@patria.com", "department": "INFRASTRUCTURE - INVESTOR RELATIONS", "position": "ANALYST I", "cohort": "Cohort 3"},
+{"name": "Elo Admin", "email": "admin@elogroup.com.br", "emailNormalized": "admin@elogroup.com.br", "department": "EloGroup", "position": "Admin", "cohort": "Cohort 2"}
+];
+
+// ════════════════════════════════════════════════════════════════
+// CONFIG
+// ════════════════════════════════════════════════════════════════
+const CONFIG = {
+  cohortName:'Cohort 2', cohortStart:'2026-06-08', totalWeeks:6,
+  defaultDeadlineOffsetDays:6,
+  adminPasscode:'EloAI2026!',
+  adminDomains:['elogroup.com.br'],
+  attendanceThreshold:0.70,
+  storagePrefix:'ai_hub_c2_'
+};
+
+const COHORTS = ['Cohort 2','Cohort 3','Cohort 4','Cohort 5','Cohort 6','Cohort 7'];
+
+const SCORE_CATEGORIES = [
+  {key:'survey',  label:'Surveys & Quizzes',        points:1,  icon:'▦', cls:'survey',   note:'Pulse surveys, quizzes, and feedback forms'},
+  {key:'async',   label:'Asynchronous Track',        points:3,  icon:'△', cls:'async',    note:'Self-paced learning activities'},
+  {key:'attendance',label:'Synchronous Sessions',   points:5,  icon:'▱', cls:'sync',     note:'70%+ of total session duration'},
+  {key:'activity',label:'Weekly Activities',         points:8,  icon:'✎', cls:'activity', note:'Main weekly deliverables'},
+  {key:'pitch',   label:'Pitch Project Presentation',points:10, icon:'▣', cls:'pitch',    note:'Final project presentation'}
+];
+
+const NAV = [
+  ['home','🏠','Home'],
+  ['week','📅','Current Week'],
+  ['calendar','🗓️','Cohort Calendar'],
+  ['responses','📝','Hub Responses'],
+  ['classes','🎓','Classes & Content'],
+  ['guidelines','📖','Program Guidelines'],
+  ['faq','❓','FAQ'],
+  ['progress','🏅','My Progress'],
+  ['admin','🔒','Admin']
+];
+
+const COMMON = {
+  likert:['Strongly disagree','Partially disagree','Neutral','Partially agree','Strongly agree'],
+  satisfaction:['Very dissatisfied','Slightly dissatisfied','Neutral','Slightly satisfied','Very satisfied'],
+  effectiveness:['Very ineffective','Ineffective','Neutral','Effective','Very effective'],
+  usage:['Did not use','Once during the week','Used several times during the week','Every day of the week'],
+  features:['Standard chat (Q&A / text generation)','Deep Research','Prompt Library','Custom GPT / specialized chats','Connectors (links, file integrations)','Secure file upload','Others']
+};
+
+const DOC_LINKS = {
+  "AI_Capabilities_Quiz":"https://patriainvest.sharepoint.com/:u:/s/AIDemocratization/IQBkaALJAsGKSIYvnohcQ3_JAQZMRPWrPzW_ifOu_HPbw2M?e=yMD0Nz",
+  "Class1_PDF":"https://patriainvest.sharepoint.com/:b:/s/AIDemocratization/IQAtJ318KTV0RqAiWT7rqWC_ASuktqLgh8NPwHPmcaUgsxc?e=0f6Aw9",
+  "Class1_Recording":"https://patriainvest.sharepoint.com/:u:/s/AIDemocratization/IQD8gDPxDoxvRocghbdLjIkMAa-gGP2xUOVnt9M9JTS0ry0?e=TW5K6M",
+  "Workshop_PDF":"https://patriainvest.sharepoint.com/:b:/s/AIDemocratization/IQATAFpal-LOSpDm5pJ7hLxjAYtDHwspb1wv66-gmnlj6_g?e=wNrMwb",
+  "Workshop_Recording":"https://patriainvest.sharepoint.com/:v:/s/AIDemocratization/IQDVAKs6X7NURrQf11h0MhVjAY410ZfoGSAIeubRYEjsbeM?e=isXGNs",
+  "Class2_HTML":"https://patriainvest.sharepoint.com/:u:/s/AIDemocratization/IQD9_pWyrCWLSLeE0ggoL5lOAfaFyr8qPVu08SMlQPZigP4?e=2ChhMs",
+  "Class2_Recording":"https://patriainvest.sharepoint.com/:u:/s/AIDemocratization/IQCnALNYS_C9S7dYe25tC3CgATCuJirSA3lu9niVTsOUeEw?e=dlh4lt",
+  "TP1_HTML":"https://patriainvest.sharepoint.com/:u:/s/AIDemocratization/IQAqUNgqICqhRayDyi918geiAcRccQMgKxmyvYnQxwb5Doc?e=W7fFA7",
+  "TP2_HTML":"https://patriainvest.sharepoint.com/:u:/s/AIDemocratization/IQBWyFqWc8lkQJ6Wj74eGKCRAQeFszT6-3je3GjMFcTfkNQ?e=PNc5pN",
+  "TP2_Recording":"https://patriainvest.sharepoint.com/:v:/s/AIDemocratization/IQBdTy0Zm-gUQpgBAtmRv3gvAT3ho5Wa-n_IfyKmSHABn50?e=Wqktfm",
+  "TP3_HTML":"https://patriainvest.sharepoint.com/:u:/s/AIDemocratization/IQCAcuvDQEdBRZZ5ZoxHt8QVATcRScFeGSyxyfYPTqK0zQE?e=lGd9yU",
+  "Async1":"https://patriainvest.sharepoint.com/:u:/s/AIDemocratization/IQDG4ANVgWt4SrU4VCPMWKwYATWlVfGPto5ilOzmI65ijXU?e=KQF5u5",
+  "Async2":"https://patriainvest.sharepoint.com/:u:/s/AIDemocratization/IQBcfWgdOl7jQ42fTdAD6UiAAZ0H8MU3FH8LsLKE-VWmbRY?e=fMg0YE",
+  "Async3":"https://patriainvest.sharepoint.com/:u:/s/AIDemocratization/IQBVyHayICbtQZ4vZn26Ja6OAbtr31kO2vezzTaZRdxBaIQ?e=T2czW8",
+  "Async4":"https://patriainvest.sharepoint.com/:u:/s/AIDemocratization/IQDvMnTenuHIRpRiqrcAFr7tAXRhCKF4VgiiTYmteYhedeA?e=Z5UfEK",
+  "Async5":"https://patriainvest.sharepoint.com/:u:/s/AIDemocratization/IQDrHSkplXivQo2464ZXcE6EAbYO5DOnRQMuVLKww0uhhBc?e=xLn0si",
+  "Async6":"https://patriainvest.sharepoint.com/:u:/s/AIDemocratization/IQD-OtyDa0PrSJ3RAcfMu_ZZAVTT0ZUZ-0AMUEO5UnzYbMk?e=OaRTWz",
+  "OpportunityFinder":"https://chatgpt.com/g/g-69de2385929c819186c5f81777d9a2df-custom-gpt-opportunity-finder",
+  "HLDGenerator":"https://chatgpt.com/g/g-69eb54e3b5a0819191423974b82eab06-custom-gpt-high-level-design",
+  "HLDOnePager":"https://chatgpt.com/g/g-69eb778887a08191aee9ecc7b7258ca1-hld-one-page-generator",
+  "BusinessCaseDetailer":"https://chatgpt.com/g/g-69f39010404c8191a194ca333165d4f4-businesscasedetailer",
+  "BusinessCaseOnePage":"https://chatgpt.com/g/g-69f89b27317881918b67999701ac6e6d-business-case-one-page-generator"
+};
+
+// ════════════════════════════════════════════════════════════════
+// WEEKS & FORMS
+// ════════════════════════════════════════════════════════════════
+const WEEKS = [
+  {week:0,title:'Pre-cohort',start:'2026-06-01',end:'2026-06-07',
+   summary:'Initial AI assessment and preparation before the official launch.',
+   content:[
+     {kind:'Assessment',title:'AI Capabilities, Ethics & Responsibility Quiz',formId:'assessment-ai-capabilities'}
+   ]},
+  {week:1,title:'Week 1 · AI Landscape',start:'2026-06-08',end:'2026-06-14',
+   summary:'Core concepts, practical applications, and first use case discovery.',
+   content:[
+     {kind:'Class',title:'Class 1 – AI Landscape (PDF)',url:DOC_LINKS.Class1_PDF},
+     {kind:'Recording',title:'Class 1 Recording',url:DOC_LINKS.Class1_Recording},
+     {kind:'Async',title:'Asynchronous Track 01',url:DOC_LINKS.Async1},
+     {kind:'Agent',title:'Use Case Opportunity Finder (ChatGPT)',url:DOC_LINKS.OpportunityFinder},
+     {kind:'Pre-work',title:'Masterclass 01 Pre-work',formId:'mc1-pre'},
+     {kind:'Post-work',title:'Masterclass 01 Post-work & Feedback',formId:'mc1-post'},
+     {kind:'Activity',title:'Submit your use cases',formId:'submit-use-cases'},
+     {kind:'Async Form',title:'Asynchronous Track 01 — completion',formId:'async-1'}
+   ]},
+  {week:2,title:'Week 2 · Use Case Definition',start:'2026-06-15',end:'2026-06-21',
+   summary:'Prioritize use cases and prepare the selected case for development.',
+   content:[
+     {kind:'Class',title:'Use Case Definition Workshop (PDF)',url:DOC_LINKS.Workshop_PDF},
+     {kind:'Recording',title:'Group Workshop Recording',url:DOC_LINKS.Workshop_Recording},
+     {kind:'Async',title:'Asynchronous Track 02',url:DOC_LINKS.Async2},
+     {kind:'Post-work',title:'Post Workshop',formId:'post-workshop'},
+     {kind:'Activity',title:'Submit your Prioritized Use Case',formId:'prioritized-use-case'},
+     {kind:'Async Form',title:'Asynchronous Track 02 — completion',formId:'async-2'}
+   ]},
+  {week:3,title:'Week 3 · Prompt Engineering',start:'2026-06-22',end:'2026-06-28',
+   summary:'Prompt engineering, connectors, projects, and high-level design.',
+   content:[
+     {kind:'Class',title:'Class 2 – Prompt Engineering (HTML)',url:DOC_LINKS.Class2_HTML},
+     {kind:'Recording',title:'Class 2 Recording',url:DOC_LINKS.Class2_Recording},
+     {kind:'Async',title:'Asynchronous Track 03',url:DOC_LINKS.Async3},
+     {kind:'Agent',title:'HLD Generator (ChatGPT)',url:DOC_LINKS.HLDGenerator},
+     {kind:'Agent',title:'HLD One-Pager Generator (ChatGPT)',url:DOC_LINKS.HLDOnePager},
+     {kind:'Pre-work',title:'Masterclass 2 Pre-work',formId:'mc2-pre'},
+     {kind:'Post-work',title:'Masterclass 2 Post-work & Feedback',formId:'mc2-post'},
+     {kind:'Activity',title:'Submit your HLD',formId:'submit-hld'},
+     {kind:'Async Form',title:'Asynchronous Track 03 — completion',formId:'async-3'}
+   ]},
+  {week:4,title:'Week 4 · Touchpoint 1',start:'2026-06-29',end:'2026-07-05',
+   summary:'Validate the HLD, refine the solution, consolidate the first resolution.',
+   content:[
+     {kind:'Class',title:'Touchpoint 1 (HTML)',url:DOC_LINKS.TP1_HTML},
+     {kind:'Async',title:'Asynchronous Track 04',url:DOC_LINKS.Async4},
+     {kind:'Post-work',title:'Post Touchpoint 01',formId:'post-touchpoint-1'},
+     {kind:'Activity',title:'First Resolution',formId:'first-resolution'},
+     {kind:'Async Form',title:'Asynchronous Track 04 — completion',formId:'async-4'}
+   ]},
+  {week:5,title:'Week 5 · Business Case',start:'2026-07-06',end:'2026-07-12',
+   summary:'Detail the business case and prepare the individual one-page output.',
+   content:[
+     {kind:'Class',title:'Touchpoint 2 (HTML)',url:DOC_LINKS.TP2_HTML},
+     {kind:'Recording',title:'Touchpoint 2 Recording',url:DOC_LINKS.TP2_Recording},
+     {kind:'Async',title:'Asynchronous Track 05',url:DOC_LINKS.Async5},
+     {kind:'Agent',title:'Business Case Detailer (ChatGPT)',url:DOC_LINKS.BusinessCaseDetailer},
+     {kind:'Agent',title:'Business Case One-Page Generator (ChatGPT)',url:DOC_LINKS.BusinessCaseOnePage},
+     {kind:'Post-work',title:'Post Touchpoint 02',formId:'post-touchpoint-2'},
+     {kind:'Activity',title:'Submit Individual Business Case',formId:'individual-business-case'},
+     {kind:'Async Form',title:'Asynchronous Track 05 — completion',formId:'async-5'}
+   ]},
+  {week:6,title:'Week 6 · Final Touchpoint & Pitch',start:'2026-07-13',end:'2026-07-19',
+   summary:'Finalize the project case and prepare the group submission and pitch.',
+   content:[
+     {kind:'Class',title:'Touchpoint 3 (HTML)',url:DOC_LINKS.TP3_HTML},
+     {kind:'Async',title:'Asynchronous Track 06',url:DOC_LINKS.Async6},
+     {kind:'Post-work',title:'Post Touchpoint 03',formId:'post-touchpoint-3'},
+     {kind:'Activity',title:'Submit Group Prioritized Use Case',formId:'group-prioritized-use-case'},
+     {kind:'Pitch',title:'Pitch Project Presentation',formId:'pitch-project'},
+     {kind:'Async Form',title:'Asynchronous Track 06 — completion',formId:'async-6'}
+   ]}
+];
+
+const FORMS = [
+  // ── PRE-COHORT ──
+  {id:'assessment-ai-capabilities',week:0,type:'survey',title:'AI Capabilities, Ethics & Responsibility Quiz',
+   description:'Initial diagnostic quiz before the cohort launch.',points:1,
+   questions:[
+     {type:'radio',name:'ai_level',label:'How would you describe your current familiarity with Generative AI?',options:['Beginner','Intermediate','Advanced']},
+     {type:'textarea',name:'expectations',label:'What do you expect to learn or achieve in this program?'}
+   ]},
+  // ── WEEK 1 ──
+  {id:'mc1-pre',week:1,type:'survey',title:'Masterclass 01 Pre-work',
+   description:'Preparation questions before the first masterclass.',points:1,
+   questions:[
+     {type:'radio',name:'prior_use',label:'How often do you currently use Generative AI at work?',options:COMMON.usage},
+     {type:'textarea',name:'learning_goals',label:'Which practical applications would be most useful for your area at Patria?'}
+   ]},
+  {id:'mc1-post',week:1,type:'survey',title:'Masterclass 01 Post-work & Feedback',
+   description:'Pulse survey after Class 1.',points:1,
+   questions:[
+     {type:'scale',name:'nps',label:'What is the likelihood that you would recommend this class to a colleague at Patria?'},
+     {type:'matrix',name:'class1_satisfaction',label:'What is your level of satisfaction with the following aspects of this class?',
+      columns:COMMON.satisfaction,rows:['Instructors','Theory and practice balance','Interaction opportunities','Materials clarity and organization','Relevance to real-world applications']},
+     {type:'radio',name:'expectations_met',label:'Were your learning expectations met in this class?',
+      options:['Fell short of my expectations','Met my expectations','Exceeded my expectations']},
+     {type:'textarea',name:'improvement',label:'How can we improve future classes in this track?'}
+   ]},
+  {id:'submit-use-cases',week:1,type:'activity',title:'Submit your use cases',
+   description:'Submit your initial use case ideas using the Opportunity Finder agent.',points:8,
+   questions:[
+     {type:'megaText',name:'use_case_01',label:'Use Case 01 — describe the process, pain point, users, inputs, outputs, and expected value.'},
+     {type:'megaText',name:'use_case_02',label:'Use Case 02 — optional but recommended.'},
+     {type:'megaText',name:'use_case_03',label:'Use Case 03 — optional but recommended.'}
+   ]},
+  {id:'async-1',week:1,type:'async',title:'Asynchronous Track 01 — completion',
+   description:'Self-paced activity for Week 1.',points:3,
+   questions:[
+     {type:'radio',name:'completed',label:'Did you complete the asynchronous track?',options:['Yes','Partially','No']},
+     {type:'megaText',name:'evidence',label:'Paste your notes, prompt, or completion evidence here.'}
+   ]},
+  // ── WEEK 2 ──
+  {id:'post-workshop',week:2,type:'survey',title:'Post Workshop Feedback',
+   description:'Feedback after the Use Case Definition Workshop.',points:1,
+   questions:[
+     {type:'matrix',name:'workshop_effectiveness',label:'Regarding the workshop format:',
+      columns:COMMON.effectiveness,rows:['The format supported group discussion, prioritization, and decision-making']},
+     {type:'scale',name:'nps',label:'What is the likelihood that you would recommend this workshop to a colleague at Patria?'},
+     {type:'textarea',name:'improvement',label:'How can we improve future sessions in this track?'}
+   ]},
+  {id:'prioritized-use-case',week:2,type:'activity',title:'Submit your Prioritized Use Case',
+   description:'Submit the selected use case after individual or group discussion.',points:8,
+   questions:[
+     {type:'text',name:'case_name',label:'Prioritized use case name'},
+     {type:'megaText',name:'case_description',label:'Describe the problem, current workflow, proposed AI solution, expected users, frequency, and value.'},
+     {type:'megaText',name:'prompt_or_notes',label:'Optional: paste the working prompt, notes, or agent conversation summary.'}
+   ]},
+  {id:'async-2',week:2,type:'async',title:'Asynchronous Track 02 — completion',
+   description:'Self-paced activity for Week 2.',points:3,
+   questions:[
+     {type:'radio',name:'completed',label:'Did you complete the asynchronous track?',options:['Yes','Partially','No']},
+     {type:'megaText',name:'evidence',label:'Paste your notes, prompt, or completion evidence here.'}
+   ]},
+  // ── WEEK 3 ──
+  {id:'mc2-pre',week:3,type:'survey',title:'Masterclass 2 Pre-work',
+   description:'Preparation for Prompt Engineering masterclass.',points:1,
+   questions:[
+     {type:'radio',name:'prompting_confidence',label:'How confident are you in writing prompts for work tasks?',options:['Low confidence','Some confidence','Confident','Very confident']},
+     {type:'megaText',name:'prompt_example',label:'Paste an example of a prompt you have used or want to improve for your work at Patria.'}
+   ]},
+  {id:'mc2-post',week:3,type:'survey',title:'Masterclass 2 Post-work & Pulse Survey',
+   description:'Knowledge pulse and class feedback after Prompt Engineering.',points:1,
+   questions:[
+     {type:'matrix',name:'prompt_eng_knowledge',label:'Regarding your knowledge of Prompt Engineering:',
+      columns:COMMON.likert,
+      rows:['I know how to structure prompts using context, task, format, constraints, and examples.',
+            'I know how to refine prompts through iterative testing to optimize results.',
+            'I understand how data quality affects Generative AI results.']},
+     {type:'matrix',name:'connectors_knowledge',label:'Regarding Connectors, Projects and Custom GPTs:',
+      columns:COMMON.likert,
+      rows:['I know how to use connectors to retrieve and consolidate information from multiple sources.',
+            'I understand the value of using Projects as institutional memory for a specific case.',
+            'I understand how to write system instructions for a Custom GPT.']},
+     {type:'scale',name:'nps',label:'What is the likelihood that you would recommend this class to a colleague at Patria?'},
+     {type:'radio',name:'familiarity',label:'How familiar was the content presented?',
+      options:['Completely new','Mostly new','Relatively familiar','Mostly familiar']},
+     {type:'matrix',name:'satisfaction',label:'Satisfaction with the following aspects:',
+      columns:COMMON.satisfaction,
+      rows:['Instructors','Theory and practice balance','Interaction and engagement','Materials clarity','Relevance to real-world applications']},
+     {type:'radio',name:'expectations_met',label:'Were your learning expectations met?',
+      options:['Fell short of my expectations','Met my expectations','Exceeded my expectations']},
+     {type:'textarea',name:'improvement',label:'How can we improve future classes?'},
+     {type:'radio',name:'genai_usage',label:'In the last week, how often did you use Generative AI tools for work?',options:COMMON.usage},
+     {type:'checkbox',name:'features_used',label:'Which ChatGPT Business features did you use?',options:COMMON.features},
+     {type:'textarea',name:'other_features',label:'If you selected Others, please specify.'}
+   ]},
+  {id:'submit-hld',week:3,type:'activity',title:'Submit your HLD',
+   description:'Submit the high-level design for your use case.',points:8,
+   questions:[
+     {type:'text',name:'case_name',label:'Use case name'},
+     {type:'megaText',name:'hld_content',label:'Paste the full HLD, including AS IS, TO BE, inputs, outputs, user tasks, agent tasks, and workflow notes.'},
+     {type:'megaText',name:'agent_prompt',label:'Paste the full system prompt or instructions for the proposed agent.'}
+   ]},
+  {id:'async-3',week:3,type:'async',title:'Asynchronous Track 03 — completion',
+   description:'Self-paced activity for Week 3.',points:3,
+   questions:[
+     {type:'radio',name:'completed',label:'Did you complete the asynchronous track?',options:['Yes','Partially','No']},
+     {type:'megaText',name:'evidence',label:'Paste your notes, prompt, or completion evidence here.'}
+   ]},
+  // ── WEEK 4 ──
+  {id:'post-touchpoint-1',week:4,type:'survey',title:'Post Touchpoint 01',
+   description:'Feedback after Touchpoint 1.',points:1,
+   questions:[
+     {type:'matrix',name:'tp1_effectiveness',label:'Regarding the touchpoint format:',
+      columns:COMMON.effectiveness,rows:['The touchpoint supported decision-making and refinement of the group proposal.']},
+     {type:'scale',name:'nps',label:'What is the likelihood that you would recommend this touchpoint to a colleague at Patria?'},
+     {type:'textarea',name:'improvement',label:'How can we improve future sessions?'},
+     {type:'radio',name:'genai_usage',label:'In the last week, how often did you use Generative AI tools for work?',options:COMMON.usage},
+     {type:'checkbox',name:'features_used',label:'Which ChatGPT Business features did you use?',options:COMMON.features}
+   ]},
+  {id:'first-resolution',week:4,type:'activity',title:'First Resolution',
+   description:'Submit the first resolution for your use case.',points:8,
+   questions:[
+     {type:'megaText',name:'resolution',label:'Paste the first resolution, assumptions, open points, and next steps.'},
+     {type:'megaText',name:'full_prompt',label:'Paste the current full prompt/system instructions if available.'}
+   ]},
+  {id:'async-4',week:4,type:'async',title:'Asynchronous Track 04 — completion',
+   description:'Self-paced activity for Week 4.',points:3,
+   questions:[
+     {type:'radio',name:'completed',label:'Did you complete the asynchronous track?',options:['Yes','Partially','No']},
+     {type:'megaText',name:'evidence',label:'Paste your notes, prompt, or completion evidence here.'}
+   ]},
+  // ── WEEK 5 ──
+  {id:'post-touchpoint-2',week:5,type:'survey',title:'Post Touchpoint 02',
+   description:'Feedback after Touchpoint 2.',points:1,
+   questions:[
+     {type:'matrix',name:'tp2_effectiveness',label:'Regarding the touchpoint format:',
+      columns:COMMON.effectiveness,rows:['The session helped clarify the business case and value assumptions.']},
+     {type:'scale',name:'nps',label:'What is the likelihood that you would recommend this session to a colleague?'},
+     {type:'textarea',name:'improvement',label:'How can we improve future sessions?'}
+   ]},
+  {id:'individual-business-case',week:5,type:'activity',title:'Submit Individual Business Case',
+   description:'Submit your individual business case and value assumptions.',points:8,
+   questions:[
+     {type:'text',name:'agent_name',label:'Agent / solution name'},
+     {type:'megaText',name:'business_case',label:'Paste the full business case: current effort, GPT-assisted effort, time savings, frequency, impacted users, assumptions, best practices, future developments, and risks.'},
+     {type:'megaText',name:'one_page_prompt',label:'Paste the one-page generator output, if available.'}
+   ]},
+  {id:'async-5',week:5,type:'async',title:'Asynchronous Track 05 — completion',
+   description:'Self-paced activity for Week 5.',points:3,
+   questions:[
+     {type:'radio',name:'completed',label:'Did you complete the asynchronous track?',options:['Yes','Partially','No']},
+     {type:'megaText',name:'evidence',label:'Paste your notes, prompt, or completion evidence here.'}
+   ]},
+  // ── WEEK 6 ──
+  {id:'post-touchpoint-3',week:6,type:'survey',title:'Post Touchpoint 03',
+   description:'Feedback after Touchpoint 3.',points:1,
+   questions:[
+     {type:'matrix',name:'tp3_effectiveness',label:'Regarding the touchpoint format:',
+      columns:COMMON.effectiveness,rows:['The session supported the final submission and pitch preparation.']},
+     {type:'scale',name:'nps',label:'What is the likelihood that you would recommend this session to a colleague?'},
+     {type:'textarea',name:'improvement',label:'How can we improve future sessions?'},
+     {type:'radio',name:'genai_usage',label:'In the last week, how often did you use Generative AI tools for work?',options:COMMON.usage},
+     {type:'checkbox',name:'features_used',label:'Which ChatGPT Business features did you use?',options:COMMON.features}
+   ]},
+  {id:'group-prioritized-use-case',week:6,type:'activity',title:'Submit Group Prioritized Use Case',
+   description:'Submit the final group-level case after Elo-defined grouping.',points:8,
+   questions:[
+     {type:'text',name:'group_name',label:'Group name or group number assigned by Elo'},
+     {type:'text',name:'case_name',label:'Final prioritized use case name'},
+     {type:'megaText',name:'case_submission',label:'Paste the final group submission: problem, solution, workflow, prompt, business case, and implementation plan.'}
+   ]},
+  {id:'pitch-project',week:6,type:'pitch',title:'Pitch Project Presentation',
+   description:'Final pitch submission and validation.',points:10,
+   questions:[
+     {type:'text',name:'presentation_title',label:'Presentation title'},
+     {type:'megaText',name:'pitch_summary',label:'Paste the pitch script, demo flow, dependencies, risks, and expected impact.'}
+   ]},
+  {id:'async-6',week:6,type:'async',title:'Asynchronous Track 06 — completion',
+   description:'Self-paced activity for Week 6.',points:3,
+   questions:[
+     {type:'radio',name:'completed',label:'Did you complete the asynchronous track?',options:['Yes','Partially','No']},
+     {type:'megaText',name:'evidence',label:'Paste your notes, prompt, or completion evidence here.'}
+   ]}
+];
+
+// ════════════════════════════════════════════════════════════════
+// STATE & UTILITIES
+// ════════════════════════════════════════════════════════════════
+let state = {
+  section:'home', formId:null, filter:'all',
+  admin:false, adminTab:'overview',
+  adminCohortFilter:'all'
+};
+const $ = id => document.getElementById(id);
+const norm = s => String(s||'').trim().toLowerCase();
+const cleanEmail = s => norm(s);
+const escapeHtml = s => String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const csvEscape = v => { let s=String(v??''); return /[",\n;]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s; };
+function download(name,text,type='text/csv'){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000);}
+
+// ── STORAGE ──
+function storeKey(k){ return CONFIG.storagePrefix+k; }
+function getStore(k,fallback){ try{ return JSON.parse(localStorage.getItem(storeKey(k)))??fallback; }catch(e){ return fallback; } }
+function setStore(k,v){ localStorage.setItem(storeKey(k),JSON.stringify(v)); }
+function removeStore(k){ localStorage.removeItem(storeKey(k)); }
+
+// ── AUTH ──
+function hashPassword(pw){
+  // Simple deterministic hash for preview — in production use bcrypt on server
+  let h=0; for(let i=0;i<pw.length;i++){h=((h<<5)-h)+pw.charCodeAt(i);h|=0;} return 'h'+Math.abs(h).toString(36);
+}
+function getCredentials(){ return getStore('credentials',{}); }
+function setCredential(email,pw){ const c=getCredentials(); c[cleanEmail(email)]=hashPassword(pw); setStore('credentials',c); }
+function verifyCredential(email,pw){ const c=getCredentials(); const key=cleanEmail(email); if(!c[key]) return false; return c[key]===hashPassword(pw); }
+function credentialExists(email){ return !!getCredentials()[cleanEmail(email)]; }
+
+// ── DATE ──
+function today(){ const d=getStore('testDate',''); return d?new Date(d+'T12:00:00'):new Date(); }
+function parseDate(s){ return new Date(s+'T12:00:00'); }
+function addDays(date,days){ let d=new Date(date);d.setDate(d.getDate()+days);return d; }
+function iso(d){ return d.toISOString().slice(0,10); }
+function fmt(s){ if(!s)return '-'; let d=typeof s==='string'?parseDate(s):s; return d.toLocaleDateString('en-US',{month:'short',day:'2-digit',year:'numeric'}); }
+
+// ── PARTICIPANTS ──
+function allParticipants(){
+  const regs=getStore('registrations',[]);
+  const map=new Map();
+  [...BASE_PARTICIPANTS,...regs].forEach(p=>{
+    if(p.email) map.set(cleanEmail(p.email),{...p,emailNormalized:cleanEmail(p.email)});
+  });
+  return [...map.values()];
+}
+function currentUser(){ return getStore('currentUser',null); }
+function isAdminUser(u=currentUser()){
+  return !!u&&(CONFIG.adminDomains.some(d=>cleanEmail(u.email).endsWith('@'+d))||state.admin);
+}
+
+// ── LOGIN / LOGOUT ──
+function setLoginMode(mode){
+  $('tabLogin').classList.toggle('active',mode==='login');
+  $('tabRegister').classList.toggle('active',mode==='register');
+  $('loginBox').classList.toggle('hidden',mode!=='login');
+  $('registerBox').classList.toggle('hidden',mode!=='register');
+  $('loginErr').classList.add('hidden');
+  $('regErr').classList.add('hidden');
+}
+
+function doLogin(){
+  const email=cleanEmail($('loginEmail').value);
+  const pw=$('loginPassword').value;
+  if(!email||!pw){showLoginError('Please enter your email and password.');return;}
+  const participant=allParticipants().find(x=>cleanEmail(x.email)===email);
+  if(!participant){showLoginError('Email not found. If this is your first access, please use the "First access" tab to create your account.');return;}
+  if(!credentialExists(email)){showLoginError('No password set for this email. Please use "First access" to create your account.');}
+  else if(!verifyCredential(email,pw)){showLoginError('Incorrect password. If you have forgotten your password, please contact Elo to reset it.');}
+  else{
+    setStore('currentUser',{...participant,emailNormalized:email});
+    launchApp();
+  }
+}
+
+// ── ALLOWLIST VALIDATION ──
+// Matches the XLSX participant lists.
+// Logic: email match (exact, case-insensitive) OR name match (first + any surname).
+// Returns the matched participant or null.
+function findInAllowlist(inputEmail, inputName) {
+  const emailKey = cleanEmail(inputEmail);
+  // 1. Try exact email match first (most reliable)
+  const byEmail = BASE_PARTICIPANTS.find(function(p) {
+    return cleanEmail(p.email) === emailKey;
+  });
+  if (byEmail) return byEmail;
+
+  // 2. Try name match: extract tokens from both sides, require first name + at least one surname match
+  // Normalize: uppercase, strip accents roughly, collapse spaces
+  function normName(s) {
+    return String(s||'').toUpperCase().trim()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g,'')  // strip accents
+      .replace(/\s+/g,' ');
+  }
+  const inputTokens = normName(inputName).split(' ').filter(function(t){return t.length>1;});
+  if (inputTokens.length < 2) return null; // need at least 2 tokens to do name matching
+
+  const byName = BASE_PARTICIPANTS.find(function(p) {
+    const baseTokens = normName(p.name).split(' ').filter(function(t){return t.length>1;});
+    if (!baseTokens.length) return false;
+    // First name must match
+    if (baseTokens[0] !== inputTokens[0]) return false;
+    // At least one other token must also match (any surname)
+    var otherBase = baseTokens.slice(1);
+    var otherInput = inputTokens.slice(1);
+    return otherInput.some(function(t) { return otherBase.includes(t); });
+  });
+  return byName || null;
+}
+
+function doRegister(){
+  const name=$('regName').value.trim();
+  const email=cleanEmail($('regEmail').value);
+  const pw=$('regPassword').value;
+  const pw2=$('regPassword2').value;
+
+  // Basic field validation
+  if(!name||!email||!pw||!pw2){showRegError('Name, email, and password are all required.');return;}
+  if(pw.length<6){showRegError('Password must be at least 6 characters.');return;}
+  if(pw!==pw2){showRegError('Passwords do not match. Please try again.');return;}
+  if(credentialExists(email)){showRegError('An account already exists for this email. Use the Login tab, or contact Elo to reset your password.');return;}
+
+  // ── ALLOWLIST CHECK — name OR email must match the official participant list ──
+  // Admin domain bypasses the check
+  const isAdminEmail = CONFIG.adminDomains.some(function(d){return email.endsWith('@'+d);});
+  if (!isAdminEmail) {
+    const match = findInAllowlist(email, name);
+    if (!match) {
+      showRegError(
+        'Your name or email was not found in the official participant list. ' +
+        'Please check the spelling of your full name and corporate email exactly as registered. ' +
+        'If you believe this is an error, contact faq.aidemocratization@patria.com.'
+      );
+      return;
+    }
+    // Use matched participant data (correct cohort, department, position)
+    var matched = match;
+  } else {
+    var matched = BASE_PARTICIPANTS.find(function(p){return cleanEmail(p.email)===email;}) || null;
+  }
+
+  const p={
+    name: matched ? matched.name : name,
+    email: email,
+    emailNormalized: email,
+    department: matched ? matched.department : ($('regDepartment').value.trim()||''),
+    position: matched ? matched.position : ($('regPosition').value.trim()||''),
+    cohort: matched ? matched.cohort : (CONFIG.cohortName),
+    startingLevel: $('regLevel').value,
+    source: 'Hub self-registration',
+    createdAt: new Date().toISOString()
+  };
+
+  setCredential(email,pw);
+  const regs=getStore('registrations',[]).filter(function(r){return cleanEmail(r.email)!==email;});
+  regs.push(p);
+  setStore('registrations',regs);
+  setStore('currentUser',p);
+  toast('Account created successfully. Welcome to the Hub!');
+  launchApp();
+}
+
+function showLoginError(msg){ $('loginErr').textContent=msg; $('loginErr').classList.remove('hidden'); }
+function showRegError(msg){ $('regErr').textContent=msg; $('regErr').classList.remove('hidden'); }
+
+function logout(){
+  removeStore('currentUser');
+  $('app').classList.add('hidden');
+  $('loginShell').classList.remove('hidden');
+  $('loginPassword').value='';
+  $('loginErr').classList.add('hidden');
+}
+
+function launchApp(){
+  const u=currentUser();
+  if(!u)return;
+  $('loginShell').classList.add('hidden');
+  $('app').classList.remove('hidden');
+  state.admin=!!getStore('adminUnlocked',false);
+  $('testDate').value=getStore('testDate','')||'';
+  renderNav();
+  go('home');
+}
+
+// ── TOAST ──
+function toast(msg){
+  const t=$('toast');
+  t.textContent=msg;
+  t.classList.remove('hidden');
+  clearTimeout(window.__toast);
+  window.__toast=setTimeout(()=>t.classList.add('hidden'),4200);
+}
+
+// ── NAVIGATION ──
+function setTestDate(v){ if(v) setStore('testDate',v); else removeStore('testDate'); render(); }
+
+function renderNav(){
+  const u=currentUser();
+  $('sidePerson').textContent=u.name||'Participant';
+  $('sideEmail').textContent=u.email||'';
+  $('sideCohort').textContent=u.cohort||CONFIG.cohortName;
+  $('nav').innerHTML=NAV.map(([id,ic,label])=>{
+    if(id==='admin'&&!isAdminUser()) return '';
+    return `<button class="${state.section===id?'active':''} ${id==='admin'?'lock':''}" onclick="go('${id}')"><span>${ic}</span><span>${label}</span></button>`;
+  }).join('');
+}
+
+function go(section){ state.section=section; state.formId=null; renderNav(); render(); }
+
+// ── WEEK HELPERS ──
+function currentWeekIndex(){
+  const d=today();
+  const found=WEEKS.filter(w=>d>=parseDate(w.start)).sort((a,b)=>b.week-a.week)[0];
+  return found?found.week:0;
+}
+function weekBy(n){ return WEEKS.find(w=>w.week===n)||WEEKS[0]; }
+function formBy(id){ return FORMS.find(f=>f.id===id); }
+function formDeadline(f){ return iso(addDays(parseDate(weekBy(f.week).start),CONFIG.defaultDeadlineOffsetDays)); }
+function formReleased(f){ return today()>=parseDate(weekBy(f.week).start); }
+function formOnTime(f){ return today()<=parseDate(formDeadline(f)); }
+
+// ── RESPONSE HELPERS ──
+function responses(){ return getStore('responses',[]); }
+function attendance(){ return getStore('attendance',[]); }
+function myResponse(formId,email=currentUser()?.email){ return responses().find(r=>r.formId===formId&&cleanEmail(r.email)===cleanEmail(email)); }
+function formStatus(f){
+  const r=myResponse(f.id);
+  if(!formReleased(f)) return {label:'Locked',cls:'locked'};
+  if(r) return {label:r.onTime?'Submitted on time':'Submitted late',cls:r.onTime?'done':'late'};
+  if(formOnTime(f)) return {label:'Open',cls:'open'};
+  return {label:'Open late · no points',cls:'late'};
+}
+function categoryLabel(key){ return (SCORE_CATEGORIES.find(c=>c.key===key)||{}).label||key; }
+function categoryPoints(key){ return (SCORE_CATEGORIES.find(c=>c.key===key)||{}).points||0; }
+
+// ── SCORING ──
+function scoreForEmail(email){
+  const e=cleanEmail(email);
+  const by={survey:0,async:0,activity:0,pitch:0,attendance:0};
+  responses().filter(r=>cleanEmail(r.email)===e).forEach(r=>{ by[r.type]=(by[r.type]||0)+(r.points||0); });
+  attendance().filter(a=>cleanEmail(a.email)===e).forEach(a=>{ by.attendance+=(a.points||0); });
+  return {by,total:Object.values(by).reduce((a,b)=>a+b,0)};
+}
+function leaderboard(cohortFilter='all'){
+  let pts=allParticipants();
+  if(cohortFilter!=='all') pts=pts.filter(p=>p.cohort===cohortFilter);
+  return pts.map(p=>{
+    const s=scoreForEmail(p.email);
+    return {name:p.name,email:p.email,department:p.department||'',country:p.country||'',cohort:p.cohort||'',group:p.group||'',total:s.total,...s.by};
+  }).sort((a,b)=>b.total-a.total);
+}
+
+// ════════════════════════════════════════════════════════════════
+// RENDER ROUTER
+// ════════════════════════════════════════════════════════════════
+function pageTitle(){ return {home:'Home',week:'Current Week',calendar:'Cohort Calendar',responses:'Hub Responses',classes:'Classes & Content',guidelines:'Program Guidelines',faq:'FAQ',progress:'My Progress',admin:'Admin'}[state.section]||'Hub'; }
+
+function render(){
+  const u=currentUser();
+  if(!u)return;
+  $('pageTitle').textContent=pageTitle();
+  const cw=weekBy(currentWeekIndex());
+  $('topSubtitle').textContent=u.cohort||CONFIG.cohortName;
+  const s=state.section;
+  if(s==='home') return renderHome();
+  if(s==='week') return renderWeek();
+  if(s==='calendar') return renderCalendar();
+  if(s==='responses') return renderResponses();
+  if(s==='classes') return renderClasses();
+  if(s==='guidelines') return renderGuidelines();
+  if(s==='faq') return renderFAQ();
+  if(s==='progress') return renderProgress();
+  if(s==='admin') return renderAdmin();
+}
+
+// ════════════════════════════════════════════════════════════════
+// HOME
+// ════════════════════════════════════════════════════════════════
+function renderHome(){
+  const cw=weekBy(currentWeekIndex());
+  const mine=scoreForEmail(currentUser().email);
+  const myRes=responses().filter(r=>cleanEmail(r.email)===cleanEmail(currentUser().email));
+  const due=FORMS.filter(f=>f.week===cw.week&&formReleased(f)&&!myResponse(f.id)).slice(0,4);
+  const calPct=Math.round((currentWeekIndex()/CONFIG.totalWeeks)*100);
+  $('content').innerHTML=`
+  <div class="grid two">
+    <div class="card hero">
+      <div class="week-chip">${cw.title}</div>
+      <h3>Welcome, ${escapeHtml(currentUser().name.split(' ')[0])}.</h3>
+      <p>This Hub centralizes your weekly content, forms, and personal progress tracking. Activities are released at the start of each week. Late submissions remain open but do not award gamification points.</p>
+    </div>
+    <div class="card">
+      <div class="section-title"><div><h3>Your progress snapshot</h3><p>${fmt(cw.start)} to ${fmt(cw.end)}</p></div><span class="pill blue">${calPct}% calendar</span></div>
+      <div class="grid two">
+        <div class="kpi"><div><div class="label">My points</div><div class="value">${mine.total}</div><div class="sub">All categories</div></div><div class="icon-pill">🏅</div></div>
+        <div class="kpi"><div><div class="label">Forms submitted</div><div class="value">${myRes.length}</div><div class="sub">Late: ${myRes.filter(r=>!r.onTime).length}</div></div><div class="icon-pill">📝</div></div>
+      </div>
+      <div style="margin-top:16px" class="progress-bar"><span style="width:${Math.min(100,mine.total/60*100)}%"></span></div>
+    </div>
+  </div>
+  <div class="section-title" style="margin-top:20px"><div><h3>Gamification model</h3><p>Points awarded per category.</p></div></div>
+  <div class="grid five">${SCORE_CATEGORIES.map(c=>`<div class="score-card ${c.cls}"><div><div class="score-icon">${c.icon}</div><h4>${c.label}</h4></div><div><div class="pts">${c.points} ${c.points===1?'pt':'pts'}</div><div class="tiny" style="color:#fff">${c.note}</div></div></div>`).join('')}</div>
+  <div class="grid two" style="margin-top:20px">
+    <div class="card"><div class="section-title"><div><h3>How the cohort works</h3></div></div>
+      <div class="banner good" style="margin-bottom:10px"><strong>1.</strong> Open the current week, review content, and answer the Hub forms released for that week.</div>
+      <div class="banner" style="margin-bottom:10px"><strong>2.</strong> Late submissions are still accepted but marked as late and do not award points.</div>
+      <div class="banner warn"><strong>3.</strong> Synchronous attendance points are awarded when the imported Teams report shows at least 70% of the total session duration.</div>
+    </div>
+    <div class="card"><div class="section-title"><div><h3>Open items this week</h3><p>${cw.title}</p></div><button class="btn secondary small" onclick="go('responses')">View all</button></div>
+      ${due.length?due.map(f=>itemHtmlForForm(f)).join(''):'<div class="empty">No pending items for the current week.</div>'}
+    </div>
+  </div>`;
+}
+
+// ════════════════════════════════════════════════════════════════
+// CURRENT WEEK
+// ════════════════════════════════════════════════════════════════
+function renderWeek(){
+  const cw=weekBy(currentWeekIndex());
+  $('content').innerHTML=`
+  <div class="card hero"><div class="week-chip">${cw.title}</div><h3>${cw.summary}</h3><p>Released from ${fmt(cw.start)}. Responses remain available after the deadline but late submissions do not count for points.</p></div>
+  <div class="grid" style="margin-top:18px">${cw.content.map(item=>weekItem(item,cw)).join('')}</div>`;
+}
+
+function weekItem(item,w){
+  const f=item.formId?formBy(item.formId):null;
+  if(f) return itemHtmlForForm(f);
+  const locked=today()<parseDate(w.start);
+  const kindIcon={'Class':'📄','Recording':'🎬','Async':'📚','Agent':'🤖','Material':'📁','Pitch':'🎯','Pre-work':'✏️','Post-work':'📋'}[item.kind]||'🔗';
+  return `<div class="content-item ${locked?'locked':''}">
+    <div class="ci-icon ${item.kind==='Recording'?'recording':item.kind==='Async'?'async':item.kind==='Agent'?'material':'class'}">${kindIcon}</div>
+    <div class="ci-body">
+      <h5>${escapeHtml(item.title)}</h5>
+      <div class="tiny" style="margin-bottom:8px">${item.kind} · ${locked?'Locked':'Available from '+fmt(w.start)}</div>
+      <span class="badge ${locked?'locked':'open'}">${locked?'Locked':'Available'}</span>
+    </div>
+    <div>${item.url&&!locked?`<a class="btn secondary small" href="${item.url}" target="_blank" rel="noopener">Open</a>`:`<button class="btn secondary small" disabled>${locked?'Locked':'No link'}</button>`}</div>
+  </div>`;
+}
+
+function itemHtmlForForm(f){
+  const st=formStatus(f);
+  return `<div class="item ${st.cls==='locked'?'locked':''}">
+    <div>
+      <h5>${escapeHtml(f.title)}</h5>
+      <div class="tiny">${categoryLabel(f.type)} · Deadline ${fmt(formDeadline(f))} · ${f.points} pts</div>
+      <div class="meta"><span class="badge ${st.cls}">${st.label}</span></div>
+    </div>
+    <button class="btn ${st.cls==='locked'?'secondary':'primary'} small" ${st.cls==='locked'?'disabled':''} onclick="openForm('${f.id}')">Answer in Hub</button>
+  </div>`;
+}
+
+// ════════════════════════════════════════════════════════════════
+// CALENDAR
+// ════════════════════════════════════════════════════════════════
+function renderCalendar(){
+  $('content').innerHTML=`<div class="section-title"><div><h3>Cohort Calendar</h3><p>All 6 weeks with content and forms.</p></div></div>
+  <div class="timeline">${WEEKS.map(w=>{
+    const status=today()<parseDate(w.start)?'Upcoming':today()>parseDate(w.end)?'Past':'Current / open';
+    const cls=today()<parseDate(w.start)?'locked':today()>parseDate(w.end)?'gray':'open';
+    return `<div class="card week-card" style="margin-bottom:14px">
+      <div class="week-head"><div><h4>${w.title}</h4><div class="tiny">${fmt(w.start)} to ${fmt(w.end)}</div></div><span class="badge ${cls}">${status}</span></div>
+      <div class="week-body"><p class="hint" style="margin:0 0 12px">${w.summary}</p>${w.content.map(i=>weekItem(i,w)).join('')}</div>
+    </div>`;
+  }).join('')}</div>`;
+}
+
+// ════════════════════════════════════════════════════════════════
+// HUB RESPONSES (FORMS)
+// ════════════════════════════════════════════════════════════════
+function renderResponses(){
+  if(state.formId) return renderForm(state.formId);
+  const filters=['all','survey','async','activity','pitch'];
+  const list=FORMS.filter(f=>state.filter==='all'||f.type===state.filter);
+  $('content').innerHTML=`
+  <div class="section-title"><div><h3>Hub Responses</h3><p>All responses collected inside the Hub per your account.</p></div><button class="btn secondary small" onclick="exportResponsesCSV()">⬇ Export my responses</button></div>
+  <div class="tabs">${filters.map(f=>`<button class="${state.filter===f?'active':''}" onclick="state.filter='${f}';renderResponses()">${f==='all'?'All':categoryLabel(f)}</button>`).join('')}</div>
+  <div class="grid">${list.map(f=>itemHtmlForForm(f)).join('')}</div>`;
+}
+
+function openForm(id){
+  const f=formBy(id);
+  if(!f)return;
+  if(!formReleased(f)) return toast('This response opens at the beginning of its week.');
+  state.section='responses';
+  state.formId=id;
+  renderNav();
+  render();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function renderForm(id){
+  const f=formBy(id);
+  const st=formStatus(f);
+  const existing=myResponse(id);
+  const late=!formOnTime(f);
+  $('content').innerHTML=`
+  <div class="section-title"><div><h3>${escapeHtml(f.title)}</h3><p>${escapeHtml(f.description)}</p></div><button class="btn secondary small" onclick="state.formId=null;renderResponses()">← Back to forms</button></div>
+  ${late&&!existing?'<div class="banner warn" style="margin-bottom:16px"><strong>Late submission:</strong> this response is still accepted, but will not award gamification points.</div>':''}
+  <form id="hubForm" class="card" onsubmit="submitHubForm(event,'${f.id}')">
+    <div class="grid two">
+      <div class="field"><label>Participant</label><input value="${escapeHtml(currentUser().name||'')}" disabled></div>
+      <div class="field"><label>Corporate email</label><input value="${escapeHtml(currentUser().email||'')}" disabled></div>
+    </div>
+    <div class="meta" style="margin-bottom:14px">
+      <span class="badge ${st.cls}">${st.label}</span>
+      <span class="pill blue">${categoryLabel(f.type)}</span>
+      <span class="pill gray">Deadline ${fmt(formDeadline(f))}</span>
+      <span class="pill purple">${f.points} ${f.points===1?'point':'points'} if on time</span>
+    </div>
+    ${f.questions.map(q=>questionHtml(q,existing?.answers||{})).join('')}
+    <div class="form-actions">
+      <div class="hint">Long prompt fields accept very large amounts of text for pasting full agent conversations, prompts, or business cases.</div>
+      <button class="btn primary" type="submit">Submit Hub response</button>
+    </div>
+  </form>`;
+}
+
+function questionHtml(q,ans){
+  const val=ans[q.name]||'';
+  const label=`<label>${escapeHtml(q.label)}${q.type==='megaText'?' <small>Long text field</small>':''}</label>`;
+  if(q.type==='text') return `<div class="field">${label}<input name="${q.name}" value="${escapeHtml(val)}"></div>`;
+  if(q.type==='textarea') return `<div class="field">${label}<textarea name="${q.name}">${escapeHtml(val)}</textarea></div>`;
+  if(q.type==='megaText') return `<div class="field">${label}<textarea class="mega" name="${q.name}" placeholder="Paste a full prompt, business case, agent conversation, or long-form answer here.">${escapeHtml(val)}</textarea></div>`;
+  if(q.type==='radio') return `<div class="field">${label}<div class="radio-list">${q.options.map(o=>`<label><input type="radio" name="${q.name}" value="${escapeHtml(o)}" ${val===o?'checked':''}> ${escapeHtml(o)}</label>`).join('')}</div></div>`;
+  if(q.type==='checkbox'){ const arr=Array.isArray(val)?val:[]; return `<div class="field">${label}<div class="check-list">${q.options.map(o=>`<label><input type="checkbox" name="${q.name}" value="${escapeHtml(o)}" ${arr.includes(o)?'checked':''}> ${escapeHtml(o)}</label>`).join('')}</div></div>`; }
+  if(q.type==='scale') return `<div class="field">${label}<div class="scale">${[1,2,3,4,5,6,7,8,9,10].map(n=>`<label><input type="radio" name="${q.name}" value="${n}" ${String(val)===String(n)?'checked':''}>${n}</label>`).join('')}</div></div>`;
+  if(q.type==='matrix'){ const obj=val||{}; return `<div class="field">${label}<div class="matrix"><table><thead><tr><th></th>${q.columns.map(c=>`<th>${escapeHtml(c)}</th>`).join('')}</tr></thead><tbody>${q.rows.map((r,ri)=>`<tr><td>${escapeHtml(r)}</td>${q.columns.map(c=>`<td style="text-align:center"><input type="radio" name="${q.name}__${ri}" value="${escapeHtml(c)}" ${(obj[r]===c)?'checked':''}></td>`).join('')}</tr>`).join('')}</tbody></table></div></div>`; }
+  return '';
+}
+
+function submitHubForm(ev,id){
+  ev.preventDefault();
+  const f=formBy(id);
+  const fd=new FormData(ev.target);
+  const answers={};
+  f.questions.forEach(q=>{
+    if(q.type==='checkbox') answers[q.name]=fd.getAll(q.name);
+    else if(q.type==='matrix'){ answers[q.name]={}; q.rows.forEach((r,ri)=>answers[q.name][r]=fd.get(`${q.name}__${ri}`)||''); }
+    else answers[q.name]=fd.get(q.name)||'';
+  });
+  const now=new Date().toISOString();
+  const onTime=formOnTime(f);
+  const previous=myResponse(id);
+  const points=previous?previous.points:(onTime?f.points:0);
+  let arr=responses().filter(r=>!(r.formId===id&&cleanEmail(r.email)===cleanEmail(currentUser().email)));
+  arr.push({
+    id:`${id}_${cleanEmail(currentUser().email)}`,
+    formId:id, formTitle:f.title, type:f.type, week:f.week,
+    name:currentUser().name, email:currentUser().email,
+    department:currentUser().department||'', country:currentUser().country||'',
+    position:currentUser().position||'', cohort:currentUser().cohort||CONFIG.cohortName,
+    submittedAt:previous?.submittedAt||now, updatedAt:now,
+    onTime:previous?.onTime??onTime, points, deadline:formDeadline(f), answers
+  });
+  setStore('responses',arr);
+  toast(points>0?`Response saved — ${points} points awarded!`:'Response saved. Late or already submitted — no new points awarded.');
+  state.formId=null;
+  renderResponses();
+}
+
+// ════════════════════════════════════════════════════════════════
+// CLASSES & CONTENT
+// ════════════════════════════════════════════════════════════════
+function renderClasses(){
+  const kindIcon={'Class':'📄','Recording':'🎬','Async':'📚','Agent':'🤖','Material':'📁'}; 
+  const kindDesc={'Class':'Class material','Recording':'Session recording','Async':'Self-paced track','Agent':'AI Agent (ChatGPT)','Material':'Reference material'};
+  $('content').innerHTML=`
+  <div class="section-title"><div><h3>Classes & Content</h3><p>Materials and recordings organized by week. Forms are in Hub Responses.</p></div></div>
+  ${WEEKS.map(w=>{
+    const nonForms=w.content.filter(i=>!i.formId);
+    if(!nonForms.length) return '';
+    const locked=today()<parseDate(w.start);
+    return `<div style="margin-bottom:20px">
+      <div class="section-title"><div><h3>${w.title}</h3><p>${fmt(w.start)} to ${fmt(w.end)}</p></div><span class="badge ${locked?'locked':today()>parseDate(w.end)?'gray':'open'}">${locked?'Upcoming':today()>parseDate(w.end)?'Past':'Current'}</span></div>
+      <div class="content-grid">${nonForms.map(i=>{
+        const icon=kindIcon[i.kind]||'🔗';
+        const desc=kindDesc[i.kind]||i.kind;
+        const isAgent=i.kind==='Agent';
+        return `<div class="content-item ${locked?'locked':''}">
+          <div class="ci-icon ${i.kind==='Recording'?'recording':i.kind==='Async'?'async':isAgent?'material':'class'}">${icon}</div>
+          <div class="ci-body">
+            <h5>${escapeHtml(i.title)}</h5>
+            <div class="tiny">${desc}${isAgent?' · Opens in ChatGPT':''}</div>
+          </div>
+          <div>${i.url&&!locked?`<a class="btn secondary small" href="${i.url}" target="_blank" rel="noopener">${isAgent?'Open Agent':'Open'}</a>`:`<button class="btn secondary small" disabled>${locked?'Locked':'No link'}</button>`}</div>
+        </div>`;
+      }).join('')}</div>
+    </div>`;
+  }).join('')}`;
+}
+
+// ════════════════════════════════════════════════════════════════
+// MY PROGRESS
+// ════════════════════════════════════════════════════════════════
+function renderProgress(){
+  const sc=scoreForEmail(currentUser().email);
+  const myRes=responses().filter(r=>cleanEmail(r.email)===cleanEmail(currentUser().email));
+  const myAtt=attendance().filter(a=>cleanEmail(a.email)===cleanEmail(currentUser().email));
+  const maxPossible=SCORE_CATEGORIES.reduce((s,c)=>{
+    if(c.key==='attendance') return s+5*6;
+    const forms=FORMS.filter(f=>f.type===c.key);
+    return s+forms.reduce((fs,f)=>fs+f.points,0);
+  },0);
+  $('content').innerHTML=`
+  <div class="grid four">
+    <div class="card kpi"><div><div class="label">Total points</div><div class="value">${sc.total}</div><div class="sub">of ~${maxPossible} max</div></div><div class="icon-pill">🏅</div></div>
+    <div class="card kpi"><div><div class="label">On-time responses</div><div class="value">${myRes.filter(r=>r.onTime).length}</div><div class="sub">Late: ${myRes.filter(r=>!r.onTime).length}</div></div><div class="icon-pill">📝</div></div>
+    <div class="card kpi"><div><div class="label">Attendance pts</div><div class="value">${myAtt.reduce((s,a)=>s+(a.points||0),0)}</div><div class="sub">Qualified: ${myAtt.filter(a=>a.qualified).length}</div></div><div class="icon-pill">✅</div></div>
+    <div class="card kpi"><div><div class="label">Progress</div><div class="value">${maxPossible>0?Math.round(sc.total/maxPossible*100):0}%</div><div class="sub">Overall completion</div></div><div class="icon-pill">📊</div></div>
+  </div>
+  <div class="grid two" style="margin-top:18px">
+    <div class="card">
+      <div class="section-title"><div><h3>Points by category</h3></div></div>
+      ${SCORE_CATEGORIES.map(c=>`
+        <div style="margin-bottom:14px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <span style="font-size:13px;font-weight:800">${c.icon} ${c.label}</span>
+            <span class="pill blue">${sc.by[c.key]||0} pts</span>
+          </div>
+          <div class="progress-bar"><span style="width:${Math.min(100,(sc.by[c.key]||0)/Math.max(1,c.key==='attendance'?30:FORMS.filter(f=>f.type===c.key).reduce((s,f)=>s+f.points,0))*100)}%"></span></div>
+        </div>`).join('')}
+    </div>
+    <div class="card">
+      <div class="section-title"><div><h3>My response history</h3></div><button class="btn secondary small" onclick="exportResponsesCSV()">⬇ Export</button></div>
+      ${tableHtml(['Form','Week','Status','Points','Submitted'],myRes.map(r=>[r.formTitle,`Week ${r.week}`,r.onTime?'On time':'Late',r.points,fmt(r.submittedAt.slice(0,10))]))}
+    </div>
+  </div>
+  ${myAtt.length?`<div class="card" style="margin-top:18px"><div class="section-title"><div><h3>My attendance records</h3></div></div>${tableHtml(['Session','Minutes','%','Status','Points'],myAtt.map(a=>[a.session,Math.round(a.minutes||0),Math.round((a.ratio||0)*100)+'%',a.qualified?'Qualified':'Not qualified',a.points||0]))}</div>`:''}`;
+}
+
+// ════════════════════════════════════════════════════════════════
+// ADMIN
+// ════════════════════════════════════════════════════════════════
+function renderAdmin(){
+  if(!isAdminUser()) return renderAdminLock();
+  const tabs=[['overview','Overview'],['attendance','Attendance'],['responses','Responses'],['gamification','Gamification'],['agentresults','Agent Results'],['exports','Exports']];
+  $('content').innerHTML=`
+  <div class="section-title"><div><h3>Admin Area</h3><p>Restricted to Elo admin accounts.</p></div><span class="pill green">Admin unlocked</span></div>
+  <div class="cohort-filter">
+    <label>Cohort filter:</label>
+    <select onchange="state.adminCohortFilter=this.value;renderAdmin()">
+      <option value="all" ${state.adminCohortFilter==='all'?'selected':''}>All cohorts</option>
+      ${COHORTS.map(c=>`<option value="${c}" ${state.adminCohortFilter===c?'selected':''}>${c}</option>`).join('')}
+    </select>
+    <span class="pill ${state.adminCohortFilter==='all'?'gray':'blue'}">${state.adminCohortFilter==='all'?'Viewing: all cohorts':'Viewing: '+state.adminCohortFilter}</span>
+  </div>
+  <div class="admin-tabs">${tabs.map(t=>`<button class="${state.adminTab===t[0]?'active':''}" onclick="state.adminTab='${t[0]}';renderAdmin()">${t[1]}</button>`).join('')}</div>
+  <div id="adminPanel"></div>`;
+  if(state.adminTab==='overview') renderAdminOverview();
+  if(state.adminTab==='attendance') renderAttendanceAdmin();
+  if(state.adminTab==='responses') renderResponseAdmin();
+  if(state.adminTab==='gamification') renderGamificationAdmin();
+  if(state.adminTab==='agentresults') renderAgentResultsAdmin();
+  if(state.adminTab==='exports') renderExportsAdmin();
+}
+
+function renderAdminLock(){
+  $('content').innerHTML=`<div class="card admin-lock"><h3>Admin access</h3><p class="hint">This area is restricted to Elo admin accounts. In production, access is controlled by server-side authentication.</p><div class="field"><label>Admin code</label><input id="adminCode" type="password" placeholder="Enter admin code"></div><button class="btn primary" onclick="unlockAdmin()">Unlock admin area</button></div>`;
+}
+function unlockAdmin(){ if(norm($('adminCode').value)===norm(CONFIG.adminPasscode)){state.admin=true;setStore('adminUnlocked',true);toast('Admin area unlocked.');renderAdmin();}else toast('Invalid admin code.'); }
+
+function renderAdminOverview(){
+  const cf=state.adminCohortFilter;
+  let participants=allParticipants();
+  if(cf!=='all') participants=participants.filter(p=>p.cohort===cf);
+  const filtRes=responses().filter(r=>cf==='all'||r.cohort===cf);
+  const filtAtt=attendance().filter(a=>cf==='all'||a.cohort===cf);
+  const lb=leaderboard(cf).slice(0,10);
+  $('adminPanel').innerHTML=`
+  <div class="grid four">
+    <div class="card kpi"><div><div class="label">Participants</div><div class="value">${participants.length}</div><div class="sub">${cf==='all'?'All cohorts':cf}</div></div><div class="icon-pill">👥</div></div>
+    <div class="card kpi"><div><div class="label">Responses</div><div class="value">${filtRes.length}</div><div class="sub">Late: ${filtRes.filter(r=>!r.onTime).length}</div></div><div class="icon-pill">📝</div></div>
+    <div class="card kpi"><div><div class="label">Qualified attendance</div><div class="value">${filtAtt.filter(a=>a.qualified).length}</div><div class="sub">Total rows: ${filtAtt.length}</div></div><div class="icon-pill">✅</div></div>
+    <div class="card kpi"><div><div class="label">Avg score</div><div class="value">${participants.length?Math.round(participants.reduce((s,p)=>s+scoreForEmail(p.email).total,0)/participants.length):0}</div><div class="sub">Points per participant</div></div><div class="icon-pill">🏅</div></div>
+  </div>
+  <div class="grid two" style="margin-top:18px">
+    <div class="card"><div class="section-title"><div><h3>Top participants</h3><p>${cf==='all'?'All cohorts':cf}</p></div></div>${tableHtml(['Rank','Name','Cohort','Total pts'],lb.map((x,i)=>[i+1,x.name,x.cohort||'',x.total]))}</div>
+    <div class="card"><div class="section-title"><div><h3>Response volume by week</h3></div></div>${tableHtml(['Week','Responses','On time','Late'],WEEKS.map(w=>{const wr=filtRes.filter(r=>r.week===w.week);return[w.title,wr.length,wr.filter(r=>r.onTime).length,wr.filter(r=>!r.onTime).length];}))}</div>
+  </div>`;
+}
+
+function renderAttendanceAdmin(){
+  const cf=state.adminCohortFilter;
+  const filtAtt=attendance().filter(a=>cf==='all'||a.cohort===cf);
+  $('adminPanel').innerHTML=`
+  <div class="grid two">
+    <div class="card">
+      <h3>Import Teams attendance report</h3>
+      <p class="hint">Supported: Teams TSV/CSV export (UTF-16 LE with tab separators) or XLSX. The import reads <strong>Name, Email, In-Meeting Duration</strong> columns. Duration ≥ 70% of session total awards 5 points.</p>
+      <div class="row">
+        <div class="field"><label>Session name</label><input id="attSession" value="Synchronous Session"></div>
+        <div class="field"><label>Total session duration (minutes)</label><input id="attTotal" type="number" value="90"></div>
+      </div>
+      <div class="field"><label>Cohort (for this import)</label><select id="attCohort">${COHORTS.map(c=>`<option value="${c}" ${c===CONFIG.cohortName?'selected':''}>${c}</option>`).join('')}</select></div>
+      <div class="file-zone" onclick="$('attFile').click()">
+        <input id="attFile" type="file" accept=".xlsx,.csv,.tsv,.txt" style="display:none" onchange="handleAttendanceFile(event)">
+        <div style="font-size:28px;margin-bottom:8px">📁</div>
+        <p class="hint" style="margin:0">Click to upload Teams attendance report (.xlsx, .csv, .tsv)</p>
+      </div>
+      <div class="field" style="margin-top:12px"><label>Or paste TSV/CSV table</label><textarea id="attPaste" style="min-height:120px" placeholder="Paste the Teams attendance table here"></textarea></div>
+      <button class="btn primary" style="margin-top:8px" onclick="processAttendancePaste()">Process attendance</button>
+    </div>
+    <div class="card">
+      <div class="section-title"><div><h3>Imported attendance</h3><p>${cf==='all'?'All cohorts':cf}</p></div><button class="btn secondary small" onclick="exportAttendanceCSV()">⬇ Export</button></div>
+      ${tableHtml(['Session','Name','Email','Min','%','Qualified','Pts'],filtAtt.slice(-20).reverse().map(a=>[a.session,a.name,a.email,Math.round(a.minutes||0),Math.round((a.ratio||0)*100)+'%',a.qualified?'Yes':'No',a.points||0]))}
+    </div>
+  </div>`;
+}
+
+function handleAttendanceFile(ev){
+  const file=ev.target.files[0];
+  if(!file)return;
+  const ext=file.name.split('.').pop().toLowerCase();
+  if(ext==='xlsx'){
+    if(typeof XLSX==='undefined'){toast('XLSX parser not loaded. Please save as CSV or paste the table.');return;}
+    const reader=new FileReader();
+    reader.onload=e=>{
+      const data=new Uint8Array(e.target.result);
+      const wb=XLSX.read(data,{type:'array'});
+      const ws=wb.Sheets[wb.SheetNames[0]];
+      const rows=XLSX.utils.sheet_to_json(ws,{header:1,defval:''});
+      importAttendanceRows(rows,file.name);
+    };
+    reader.readAsArrayBuffer(file);
+  } else {
+    const reader=new FileReader();
+    reader.onload=e=>importAttendanceRows(parseTeamsTSV(e.target.result),file.name);
+    // Try UTF-16 for Teams exports
+    reader.readAsText(file,'UTF-16LE');
+  }
+}
+
+function processAttendancePaste(){
+  const txt=$('attPaste').value.trim();
+  if(!txt) return toast('Paste a CSV or TSV table first.');
+  importAttendanceRows(parseTeamsTSV(txt),'Pasted table');
+}
+
+function parseTeamsTSV(txt){
+  // Handle UTF-16 BOM if present
+  if(txt.charCodeAt(0)===65279) txt=txt.slice(1);
+  return txt.split(/\r?\n/).filter(Boolean).map(line=>{
+    const sep=line.includes('\t')?'\t':',';
+    return line.split(sep).map(x=>x.replace(/^[\s"]+|[\s"]+$/g,''));
+  });
+}
+
+function importAttendanceRows(rows,source){
+  const session=$('attSession')?.value||'Synchronous Session';
+  const cohort=$('attCohort')?.value||CONFIG.cohortName;
+  let total=Number($('attTotal')?.value||90);
+
+  // Look for summary row with meeting duration
+  const summaryRow=rows.find(r=>String(r[0]||'').match(/duração da reunião|meeting duration/i));
+  if(summaryRow&&summaryRow[1]) total=parseDuration(summaryRow[1])||total;
+
+  // Find header row — look for email + duration columns
+  const headerIdx=rows.findIndex(r=>r.some(c=>/email/i.test(String(c)))&&r.some(c=>/dura|duration/i.test(String(c))));
+  if(headerIdx<0){toast('Could not find attendance header row. Expected columns: Name, Email, Duration.');return;}
+
+  const h=rows[headerIdx].map(x=>norm(x));
+  // Handle both PT and EN column names, and both original CSV and processed Excel layouts
+  const idxEmail=h.findIndex(x=>x==='email'||x.includes('email padrão')||x==='email'||x.includes('email'));
+  const idxEmailRaw=h.findIndex(x=>x==='email'&&!x.includes('padrão'));
+  const emailColIdx = h.findIndex(x=>x.includes('email padrão'))!==-1 ? h.findIndex(x=>x.includes('email padrão')) : (idxEmailRaw!==-1?idxEmailRaw:idxEmail);
+  const idxName=h.findIndex(x=>x==='nome'||x==='name'||x.includes('participant'));
+  const idxDur=h.findIndex(x=>x.includes('duração')||x.includes('duration')||x.includes('in-meeting'));
+
+  if(emailColIdx<0||idxDur<0){toast('Could not locate Email or Duration columns. Please check the file format.');return;}
+
+  const imported=[];
+  for(const r of rows.slice(headerIdx+1)){
+    const rawEmail=r[emailColIdx]||r[idxEmail]||'';
+    const email=cleanEmail(rawEmail);
+    if(!email||!email.includes('@'))continue;
+    // Skip Elo organizers from points calculation
+    const minutes=parseDuration(r[idxDur]);
+    const ratio=total>0?minutes/total:0;
+    const qualified=ratio>=CONFIG.attendanceThreshold;
+    const participant=allParticipants().find(p=>cleanEmail(p.email)===email);
+    imported.push({
+      id:`${session}_${email}_${Date.now()}`,
+      source, session, cohort,
+      name:r[idxName]||participant?.name||rawEmail,
+      email, minutes:Math.round(minutes), totalMinutes:total, ratio, qualified,
+      points:qualified?categoryPoints('attendance'):0,
+      importedAt:new Date().toISOString()
+    });
+  }
+  if(!imported.length){toast('No valid attendance rows found. Check that Email and Duration columns are present.');return;}
+  // Deduplicate: keep latest per session+email
+  const old=attendance().filter(a=>a.session!==session||a.cohort!==cohort);
+  setStore('attendance',[...old,...imported]);
+  toast(`Imported ${imported.length} rows — ${imported.filter(x=>x.qualified).length} qualified for points (≥${Math.round(CONFIG.attendanceThreshold*100)}% of ${total}min).`);
+  renderAttendanceAdmin();
+}
+
+function parseDuration(v){
+  if(v==null)return 0;
+  if(typeof v==='number') return v*24*60; // Excel serial day fraction
+  const s=String(v).trim().toLowerCase();
+  let h=(s.match(/(\d+)\s*h/)||[])[1]||0;
+  let m=(s.match(/(\d+)\s*m/)||[])[1]||0;
+  let sec=(s.match(/(\d+)\s*s/)||[])[1]||0;
+  if(h||m||sec) return Number(h)*60+Number(m)+Number(sec)/60;
+  const parts=s.split(':').map(Number);
+  if(parts.length===3) return parts[0]*60+parts[1]+parts[2]/60;
+  if(parts.length===2) return parts[0]+parts[1]/60;
+  return Number(s)||0;
+}
+
+function renderResponseAdmin(){
+  const cf=state.adminCohortFilter;
+  const forms=FORMS.map(f=>{
+    const all=responses().filter(r=>r.formId===f.id&&(cf==='all'||r.cohort===cf));
+    return [f.title,all.length,all.filter(r=>r.onTime).length,all.filter(r=>!r.onTime).length,
+      `<button class="btn secondary small" onclick="exportFormCSV('${f.id}')">CSV</button>`];
+  });
+  const recent=responses().filter(r=>cf==='all'||r.cohort===cf).slice(-25).reverse();
+  $('adminPanel').innerHTML=`
+  <div class="card"><div class="section-title"><div><h3>Response database by form</h3><p>${cf==='all'?'All cohorts':cf}</p></div><button class="btn secondary small" onclick="exportAllResponsesCSV()">⬇ Export all</button></div>
+    ${tableHtml(['Form','Total','On time','Late','Export'],forms,true)}
+  </div>
+  <div class="card" style="margin-top:16px"><h3>Latest 25 responses</h3>
+    ${tableHtml(['Participant','Email','Cohort','Form','Week','Status','Points','Updated'],
+      recent.map(r=>[r.name,r.email,r.cohort||'',r.formTitle,`W${r.week}`,r.onTime?'On time':'Late',r.points,fmt(r.updatedAt.slice(0,10))]))}
+  </div>`;
+}
+
+function renderGamificationAdmin(){
+  const cf=state.adminCohortFilter;
+  const lb=leaderboard(cf);
+  $('adminPanel').innerHTML=`
+  <div class="card">
+    <div class="section-title"><div><h3>Gamification leaderboard</h3><p>${cf==='all'?'All cohorts':cf}</p></div><button class="btn secondary small" onclick="exportLeaderboardCSV()">⬇ Export CSV</button></div>
+    ${tableHtml(['#','Name','Cohort','Department','Survey','Async','Attend.','Activities','Pitch','Total'],
+      lb.map((x,i)=>[i+1,x.name,x.cohort||'',x.department||'',x.survey||0,x.async||0,x.attendance||0,x.activity||0,x.pitch||0,x.total]))}
+  </div>`;
+}
+
+function renderExportsAdmin(){
+  $('adminPanel').innerHTML=`
+  <div class="grid three">
+    <div class="card"><h3>Responses</h3><p class="hint">All Hub response rows including participant fields and answers.</p><button class="btn primary" onclick="exportAllResponsesCSV()">Export responses CSV</button></div>
+    <div class="card"><h3>Attendance</h3><p class="hint">Imported Teams attendance rows and points.</p><button class="btn primary" onclick="exportAttendanceCSV()">Export attendance CSV</button></div>
+    <div class="card"><h3>Leaderboard</h3><p class="hint">Full gamification leaderboard with all categories.</p><button class="btn primary" onclick="exportLeaderboardCSV()">Export leaderboard CSV</button></div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <h3>🔌 Supabase integration guide</h3>
+    <p class="hint">When you move to production, every form submission and attendance import should sync to Supabase. Below is the expected payload structure.</p>
+    <div class="codebox">// Netlify Function: /.netlify/functions/save-response
+POST { type: "response" | "attendance", payload: {...}, participant: {...} }
+
+// Supabase tables needed:
+// participants (id, email, name, cohort, department, country, position, password_hash)
+// responses    (id, form_id, email, cohort, week, type, answers, on_time, points, submitted_at)
+// attendance   (id, session, email, cohort, minutes, ratio, qualified, points, imported_at)
+
+// Row-Level Security (RLS) — participants table:
+// CREATE POLICY "own rows only" ON responses FOR SELECT USING (email = auth.jwt()->>'email');</div>
+  </div>`;
+}
+
+// ════════════════════════════════════════════════════════════════
+// TABLE HELPER
+// ════════════════════════════════════════════════════════════════
+function tableHtml(headers,rows,raw=false){
+  if(!rows||!rows.length) return '<div class="empty">No data yet.</div>';
+  return `<div class="table-wrap"><table><thead><tr>${headers.map(h=>`<th>${escapeHtml(h)}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map(c=>`<td>${raw?c:escapeHtml(String(c??''))}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+}
+
+// ════════════════════════════════════════════════════════════════
+// EXPORTS
+// ════════════════════════════════════════════════════════════════
+function flattenResponse(r){
+  const base={name:r.name,email:r.email,department:r.department,country:r.country,position:r.position,cohort:r.cohort,formId:r.formId,formTitle:r.formTitle,type:r.type,week:r.week,submittedAt:r.submittedAt,updatedAt:r.updatedAt,onTime:r.onTime,points:r.points,deadline:r.deadline};
+  const ans={};
+  Object.entries(r.answers||{}).forEach(([k,v])=>{ans[k]=typeof v==='object'?JSON.stringify(v):v;});
+  return {...base,...ans};
+}
+function rowsToCSV(rows){
+  if(!rows.length)return '';
+  const keys=[...new Set(rows.flatMap(r=>Object.keys(r)))];
+  return keys.join(',')+'\\n'+rows.map(r=>keys.map(k=>csvEscape(r[k])).join(',')).join('\\n');
+}
+function exportResponsesCSV(){
+  const mine=responses().filter(r=>cleanEmail(r.email)===cleanEmail(currentUser().email)).map(flattenResponse);
+  download('my_hub_responses.csv',rowsToCSV(mine));
+}
+function exportAllResponsesCSV(){
+  const cf=state.adminCohortFilter;
+  const all=responses().filter(r=>cf==='all'||r.cohort===cf).map(flattenResponse);
+  download(`hub_responses_${cf==='all'?'all':cf.replace(' ','_')}.csv`,rowsToCSV(all));
+}
+function exportAttendanceCSV(){
+  const cf=state.adminCohortFilter;
+  download('attendance.csv',rowsToCSV(attendance().filter(a=>cf==='all'||a.cohort===cf)));
+}
+function exportLeaderboardCSV(){
+  download('leaderboard.csv',rowsToCSV(leaderboard(state.adminCohortFilter)));
+}
+function exportFormCSV(formId){
+  const cf=state.adminCohortFilter;
+  download(`${formId}_responses.csv`,rowsToCSV(responses().filter(r=>r.formId===formId&&(cf==='all'||r.cohort===cf)).map(flattenResponse)));
+}
+function exportMyData(){
+  const e=cleanEmail(currentUser().email);
+  const data={participant:currentUser(),responses:responses().filter(r=>cleanEmail(r.email)===e),attendance:attendance().filter(a=>cleanEmail(a.email)===e)};
+  download('my_hub_data.json',JSON.stringify(data,null,2),'application/json');
+}
+
+// ════════════════════════════════════════════════════════════════
+// GUIDELINES — rendered directly in hub UI per cohort
+// ════════════════════════════════════════════════════════════════
+function guidelinesContent(cohort){
+  var c2Practical='Meeting agenda generation flow';
+  var c3Practical='Email summarization + internal knowledge tool';
+  var c2Case2='Excel analysis of company IR data + executive presentation';
+  var c3Case2='Excel analysis of performance data + executive presentation from structured data';
+  var c2Skill='Market analysis skill + company presentation add-in';
+  var c3Skill='Commercial intelligence skill + executive presentation add-in';
+  var practical1=cohort==='Cohort 3'?c3Practical:c2Practical;
+  var case2=cohort==='Cohort 3'?c3Case2:c2Case2;
+  var skill=cohort==='Cohort 3'?c3Skill:c2Skill;
+  var shareLink=cohort==='Cohort 3'?'https://patriainvest.sharepoint.com/:f:/s/AIDemocratization-Cohort3/IgB3oqRch-cxRY400mTlMuZmAfe-RfggTfwZ-dD8SLFh6y0?e=nHHGrB':'https://patriainvest.sharepoint.com/:f:/s/AIDemocratization-Cohort2/IgB3ZEkWoXPIRIZFKpM2Dce0AdGTqyDbt02I5kW89WdT83M?e=MMsWK2';
+  var h='';
+  h+='<div class="card hero" style="margin-bottom:18px"><h3>'+escapeHtml(cohort)+' Guidelines</h3><p>From prompt to project: how Patria is democratizing the use of artificial intelligence with Claude.</p></div>';
+  h+='<div class="card" style="margin-bottom:16px"><div class="section-title"><div><h3>Why we\'re here</h3><p>Democratizing AI access — one use case at a time</p></div></div>';
+  h+='<p class="hint" style="margin:0 0 10px">This program exists to turn AI from a buzzword into a <strong>daily working tool</strong> for every Patria professional.</p>';
+  h+='<p class="hint" style="margin:0">Each participant will identify a repetitive, high-effort task and build a <strong>Claude Skill</strong> that executes it in a standardized way — measuring concrete impact in time saved and quality gained.</p></div>';
+  h+='<div class="card" style="margin-bottom:16px"><div class="section-title"><div><h3>The 6-step methodology</h3></div></div>';
+  h+='<div class="grid three">';
+  var steps=[['01 · Identify','Choose a repetitive task from your daily work'],['02 · Design','Map inputs, outputs, and hours saved per month'],['03 · First Resolute','Validate the AI output before formalizing'],['04 · Build','Create a Claude Skill for the task'],['05 · Test','Validate with real data and quality checks'],['06 · Scale','Deploy into real workflows and expand adoption']];
+  for(var i=0;i<steps.length;i++){h+='<div class="item" style="grid-template-columns:1fr"><h5>'+steps[i][0]+'</h5><div class="tiny">'+steps[i][1]+'</div></div>';}
+  h+='</div></div>';
+  h+='<div class="card" style="margin-bottom:16px"><div class="section-title"><div><h3>Your journey — 4 phases</h3></div></div>';
+  h+='<div class="grid four">';
+  var phases=[['Phase 1','Individual','Develop your use case independently'],['Phase 2','Thematic Groups','Share progress, give & receive feedback'],['Phase 3','Project Pitch','Best solutions compete for recognition'],['Phase 4','Patria by Patria','Top solutions present to evaluation panel']];
+  for(var j=0;j<phases.length;j++){h+='<div class="card" style="text-align:center"><span class="pill blue" style="margin-bottom:8px">'+phases[j][0]+'</span><h5>'+phases[j][1]+'</h5><div class="tiny">'+phases[j][2]+'</div></div>';}
+  h+='</div></div>';
+  h+='<div class="card" style="margin-bottom:16px"><div class="section-title"><div><h3>Weekly calendar (10 weeks)</h3></div></div>';
+  var weeks=[
+    ['W0','Kickoff','Program launch + assessment'],
+    ['W1','Fundamentals','Theory: AI & Claude, Prompt Eng. | Practical: '+practical1+' | Async: Chain-of-Thought'],
+    ['W2','Connectors','Theory: Connectors, Design, Artifacts | Practical: Email tool | Async: MCP, RAG vs Fine-Tuning'],
+    ['W3','Add-ins','Theory: Excel, PPT, PowerBI | Practical: '+case2+' | Async: Agentic AI'],
+    ['W4','Skills','Theory: Skills + Tool integration | Practical: '+skill+' | Async: Multi-agent'],
+    ['W5','Touchpoint 1','Groups present use cases | First Resolute in dev'],
+    ['W6','Mentoring','Q&A + Catch-up | First Resolute delivered'],
+    ['W7','Finalization','Skill presentation + BC refinement | Final Skill + BC submitted'],
+    ['W8','Project Pitch','Top 10 presentations to cohort'],
+    ['W9','Patria by Patria','Top 5 presentations + winner announcement']
+  ];
+  h+='<div class="grid">';
+  for(var k=0;k<weeks.length;k++){
+    var cls=k<=4?'open':'gray';
+    h+='<div class="item" style="grid-template-columns:auto 1fr"><span class="badge '+cls+'" style="min-width:36px;justify-content:center">'+weeks[k][0]+'</span><div><h5>'+weeks[k][1]+'</h5><div class="tiny">'+weeks[k][2]+'</div></div></div>';
+  }
+  h+='</div></div>';
+  h+='<div class="card" style="margin-bottom:16px"><div class="section-title"><div><h3>Gamification</h3><p>Individual ranking across 9 weeks</p></div></div>';
+  h+='<div class="grid five">';
+  var gam=[['Surveys','1 pt','On-time only'],['Theory Sessions','5 pts','Min 70% attendance'],['Practical Sessions','5 pts','Min 70% attendance'],['Weekly Activities','8 pts','On-time only'],['Project Pitch','10 pts','Panel evaluation']];
+  for(var g=0;g<gam.length;g++){h+='<div class="score-card '+['survey','sync','sync','activity','pitch'][g]+'"><h4>'+gam[g][0]+'</h4><div><div class="pts">'+gam[g][1]+'</div><div class="tiny" style="color:#fff">'+gam[g][2]+'</div></div></div>';}
+  h+='</div></div>';
+  h+='<div class="card"><div class="section-title"><div><h3>Resources</h3></div></div>';
+  h+='<a class="btn secondary small" href="'+shareLink+'" target="_blank" rel="noopener">📂 Materials & Recordings on SharePoint</a> ';
+  h+='<a class="btn secondary small" href="mailto:faq.aidemocratization@patria.com">✉️ Contact program team</a></div>';
+  return h;
+}
+
+function renderGuidelines(){
+  var u=currentUser();
+  var cohort=u?u.cohort:CONFIG.cohortName;
+  if(cohort!=='Cohort 2'&&cohort!=='Cohort 3'){
+    $('content').innerHTML='<div class="card"><div class="section-title"><div><h3>Program Guidelines</h3><p>Not available for your cohort yet.</p></div></div><div class="banner warn">The program guidelines for <strong>'+escapeHtml(cohort)+'</strong> are not yet available. Please contact your program administrator.</div></div>';
+    return;
+  }
+  $('content').innerHTML=guidelinesContent(cohort);
+}
+
+// ════════════════════════════════════════════════════════════════
+// FAQ — rendered inline from PDF content
+// ════════════════════════════════════════════════════════════════
+function faqAccordion(num,title,items){
+  var id='faq_s'+num;
+  var h='<div style="border:1px solid var(--line);border-radius:14px;margin-bottom:10px;overflow:hidden">';
+  h+='<div style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:#F8FAFC;cursor:pointer;font-weight:800;font-size:14px;color:#344054" onclick="var b=this.nextElementSibling;b.style.display=b.style.display===\'none\'?\'block\':\'none\'">';
+  h+='<span class="pill blue" style="min-width:28px;justify-content:center">'+num+'</span> '+escapeHtml(title)+' <span style="margin-left:auto;color:var(--muted)">▾</span></div>';
+  h+='<div style="display:none">';
+  for(var i=0;i<items.length;i++){
+    var q=items[i][0], a=items[i][1];
+    h+='<div style="border-top:1px solid var(--line)">';
+    h+='<div style="padding:12px 16px;cursor:pointer;font-size:13px;font-weight:700;color:#344054;display:flex;justify-content:space-between;align-items:center" onclick="var a=this.nextElementSibling;a.style.display=a.style.display===\'none\'?\'block\':\'none\'">';
+    h+=escapeHtml(q)+'<span style="color:var(--muted);flex-shrink:0;margin-left:10px">▾</span></div>';
+    h+='<div style="display:none;padding:8px 16px 14px;font-size:13px;color:var(--muted);line-height:1.65;background:#FAFBFC;border-top:1px solid var(--line)">'+a+'</div>';
+    h+='</div>';
+  }
+  h+='</div></div>';
+  return h;
+}
+
+function renderFAQ(){
+  var h='<div class="card">';
+  h+='<div class="section-title"><div><h3>Frequently Asked Questions</h3><p>AI Democratization Program</p></div></div>';
+  h+=faqAccordion('01','About the Program',[
+    ['Where can I find the program materials?','All resources are in the <strong>"Shared" tab of the Teams channel</strong>: session materials, presentations, activities, surveys, and references.'],
+    ['What is the "READ ME – Cohort Journey"?','A one-page document in the "Shared" folder — your <strong>primary navigation guide</strong> with week-by-week overview, milestones, and direct links.'],
+    ['How do I access the program calendar?','The <strong>"Calendar" tab on Teams</strong> has all dates: live sessions, workshops, deadlines, and key activities.'],
+    ['What if I still have questions?','Email <strong>faq.aidemocratization@patria.com</strong>. The program team is ready to support you.'],
+    ['How many weeks does the program last?','<strong>8 weeks</strong> of content + Week 0 (Kickoff). Top 10 projects present in Week 9.'],
+    ['How is the program divided?','<strong>W0:</strong> Kickoff · <strong>W1-3:</strong> Exploration & Diagnosis · <strong>W4-6:</strong> Skill Development · <strong>W7-8:</strong> Refinement & Mentoring · <strong>W9:</strong> Final Evaluation.'],
+    ['What is synchronous vs asynchronous?','<strong>Synchronous</strong> = live meetings. <strong>Asynchronous</strong> = self-paced activities (Degreed, reading, project work).']
+  ]);
+  h+=faqAccordion('02','Access and First Steps',[
+    ['How do I get access to Claude?','<strong>Sign the responsibility term</strong> and wait for IT to release your access.'],
+    ['My access hasn\'t been released yet?','Average time is <strong>5 business days</strong>. If exceeded, email faq.aidemocratization@patria.com.'],
+    ['I can\'t log in, what do I do?','Try: (1) <strong>incognito mode</strong>, (2) verify <strong>@patria.com email</strong>, (3) clear cache. If it persists, email the FAQ address.'],
+    ['I missed a class?','Classes are <strong>recorded and available on SharePoint</strong>.'],
+    ['I missed a Touch Point?','Don\'t worry — next steps will be sent <strong>via email</strong>.'],
+    ['Can we access Claude Cowork or Code?','Currently <strong>disabled for security</strong>. Any changes will be communicated.'],
+    ['My credits ran out?','Wait for the usage cycle to reset. <strong>Monitor consumption</strong> in the Usage tab.'],
+    ['How to request a connector?','Only official, read-only connectors are permitted. <strong>Submit via Claude interface</strong> for admin review.']
+  ]);
+  h+=faqAccordion('03','Concepts and Learning',[
+    ['Can I use my personal Claude account?','<strong>No.</strong> Use only the Patria corporate account with Microsoft SSO.'],
+    ['What is allowed and prohibited?','Refer to the <strong>AI Policy</strong>. Always <strong>review output before using</strong> it in work.'],
+    ['Does the company monitor my usage?','Patria accesses <strong>aggregated metrics</strong> only. Individual content is not routinely monitored.'],
+    ['How do file uploads work?','Claude supports PDFs, images, documents. You can ask questions about file content.'],
+    ['Do I need Claude before defining my use case?','<strong>Yes, highly recommended</strong> to explore Claude first.']
+  ]);
+  h+=faqAccordion('04','Security and Tools',[
+    ['Why Claude and not another tool?','Selected for its <strong>advanced analysis, reasoning, and security capabilities</strong>.'],
+    ['Can I use ChatGPT/Perplexity in parallel?','Use <strong>Claude as your primary platform</strong> for the program.'],
+    ['Can I use confidential documents?','<strong>Yes</strong>, on the official Patria-approved platform. Not permitted on external/personal platforms.'],
+    ['Can I use confidential data for my automation?','Yes during development. Before sharing, we ensure <strong>proper anonymization</strong>.'],
+    ['Can I use personal AI tools with company data?','<strong>No.</strong> Only the corporate Claude account.']
+  ]);
+  h+=faqAccordion('05','Expectations and Logistics',[
+    ['Do I need to complete Degreed exercises?','They <strong>count toward gamification</strong>. Instructions come via email and Teams.'],
+    ['Where do I find tasks for each session?','Via the <strong>Teams channel and SharePoint</strong>.'],
+    ['Are captions or translations available?','Currently <strong>English only</strong>. Evaluating other options.']
+  ]);
+  h+=faqAccordion('06','Deliverables and Milestones',[
+    ['What is "First Resolution"?','Your <strong>initial solution</strong> to the problem — an opportunity to receive feedback.'],
+    ['What is "Project Pitch"?','<strong>Week 9:</strong> Top 10 projects present value, functionality, and expected impact to stakeholders.'],
+    ['What is "Patria by Patria"?','<strong>Final evaluation:</strong> Experts assess feasibility, innovation, and implementation potential.'],
+    ['What are the main deliverables?','<strong>W1:</strong> Mapped Use Cases · <strong>W2:</strong> Prioritized Use Case · <strong>W3:</strong> AS-IS + Business Case · <strong>W4:</strong> Skills + Mapping · <strong>W5:</strong> First Resolution · <strong>W6:</strong> Mentoring + BC · <strong>W7:</strong> Skill Finalization · <strong>W8:</strong> Final Skill + BC · <strong>W9:</strong> Pitch + Patria by Patria.']
+  ]);
+  h+=faqAccordion('07','Technical Concepts',[
+    ['What is Use Case Mapping?','Identifying how <strong>AI can solve specific business problems</strong> in your daily work.'],
+    ['What is a Business Case?','A <strong>documented analysis</strong> of value, feasibility, and impact of your AI solution.'],
+    ['What is AS-IS Diagnosis?','A <strong>detailed analysis of your current process</strong> before implementing AI.'],
+    ['How does the Skill Builder work?','<strong>Create, customize, and manage AI skills</strong> within Claude. Define tasks, provide examples, test, and refine.']
+  ]);
+  h+='<div class="banner" style="margin-top:16px">✉️ Questions not answered here? Email <strong>faq.aidemocratization@patria.com</strong></div>';
+  h+='</div>';
+  $('content').innerHTML=h;
+}
+
+// ════════════════════════════════════════════════════════════════
+// AGENT RESULTS — admin tab
+// ════════════════════════════════════════════════════════════════
+function renderAgentResultsAdmin(){
+  var saved=getStore('agentResults',[]);
+  var cf=state.adminCohortFilter;
+  var filtered=saved.filter(function(r){return cf==='all'||r.cohort===cf;});
+  var h='<div class="grid two">';
+  h+='<div class="card">';
+  h+='<h3>Import agent results</h3>';
+  h+='<p class="hint">Paste the JSON output from the agent artifact. Previous data for the selected cohort will be replaced.</p>';
+  h+='<div class="banner warn" style="margin:12px 0">This operation <strong>replaces</strong> all previously imported agent results for the selected cohort.</div>';
+  h+='<div class="field"><label>Cohort for this import</label><select id="agentCohort">'+COHORTS.map(function(c){return '<option value="'+c+'"'+(c===CONFIG.cohortName?' selected':'')+'>'+c+'</option>';}).join('')+'</select></div>';
+  h+='<div class="field"><label>Paste agent results JSON</label><textarea id="agentPaste" style="min-height:200px;font-family:Consolas,Monaco,monospace;font-size:12px" placeholder=\'[{"name":"...","email":"...","agent":"...","score":8,"completedAt":"2026-06-10","useCaseName":"...","useCaseDescription":"...","gains":"..."}]\'></textarea></div>';
+  h+='<div class="split-actions" style="margin-top:8px"><button class="btn primary" onclick="processAgentPaste()">Import (replace previous)</button><button class="btn secondary small" onclick="clearAgentData()">Clear data</button></div>';
+  h+='<div id="agentStatus"></div>';
+  h+='</div>';
+  h+='<div class="card">';
+  h+='<div class="section-title"><div><h3>Imported results</h3><p>'+filtered.length+' records</p></div><button class="btn secondary small" onclick="exportAgentCSV()">Export CSV</button></div>';
+  if(filtered.length){
+    h+=tableHtml(['Name','Email','Cohort','Agent','Score','Completed'],filtered.slice(0,30).map(function(r){return [r.name||'',r.email||'',r.cohort||'',r.agent||'',r.score!=null?r.score:'',r.completedAt||''];}));
+  }else{
+    h+='<div class="empty">No agent results imported yet.</div>';
+  }
+  h+='</div></div>';
+  $('adminPanel').innerHTML=h;
+}
+
+function processAgentPaste(){
+  var raw=$('agentPaste')?$('agentPaste').value.trim():'';
+  var cohort=$('agentCohort')?$('agentCohort').value:CONFIG.cohortName;
+  var el=$('agentStatus');
+  if(!raw){if(el)el.innerHTML='<div class="banner warn" style="margin-top:10px">Paste JSON first.</div>';return;}
+  var parsed;
+  try{parsed=JSON.parse(raw);}catch(e){if(el)el.innerHTML='<div class="banner red" style="margin-top:10px">Invalid JSON: '+escapeHtml(e.message)+'</div>';return;}
+  if(!Array.isArray(parsed)||!parsed.length){if(el)el.innerHTML='<div class="banner warn" style="margin-top:10px">Expected a non-empty JSON array.</div>';return;}
+  var existing=getStore('agentResults',[]).filter(function(r){return r.cohort!==cohort;});
+  var now=new Date().toISOString();
+  var withMeta=parsed.map(function(r){return Object.assign({},r,{cohort:r.cohort||cohort,importedAt:now});});
+  setStore('agentResults',existing.concat(withMeta));
+  toast('Imported '+withMeta.length+' agent results for '+cohort+'.');
+  renderAgentResultsAdmin();
+}
+
+function clearAgentData(){
+  var cf=state.adminCohortFilter;
+  if(cf==='all'){setStore('agentResults',[]);toast('All agent results cleared.');}
+  else{setStore('agentResults',getStore('agentResults',[]).filter(function(r){return r.cohort!==cf;}));toast('Agent results for '+cf+' cleared.');}
+  renderAgentResultsAdmin();
+}
+
+function exportAgentCSV(){
+  var cf=state.adminCohortFilter;
+  var data=getStore('agentResults',[]).filter(function(r){return cf==='all'||r.cohort===cf;});
+  download('agent_results.csv',rowsToCSV(data));
+}
+
+// ════════════════════════════════════════════════════════════════
+// BOOT
+// ════════════════════════════════════════════════════════════════
+window.addEventListener('DOMContentLoaded',()=>{
+  const u=currentUser();
+  if(u) launchApp();
+  // Enter key on login
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Enter'&&$('loginShell')&&!$('loginShell').classList.contains('hidden')){
+      if($('loginBox')&&!$('loginBox').classList.contains('hidden')) doLogin();
+      else if($('registerBox')&&!$('registerBox').classList.contains('hidden')) doRegister();
+    }
+  });
+});
+</script>
+</body>
+</html>
