@@ -450,6 +450,75 @@ a{color:inherit;text-decoration:none}
 .pts-table tr:hover td{background:var(--soft)}
 .pts-total{font-weight:800;color:var(--navy)}
 
+
+/* ═══ FORMS TAB ═══ */
+.form-list{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+.form-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1.2rem;display:flex;flex-direction:column;gap:.4rem;transition:all .2s}
+.form-card:hover{box-shadow:0 6px 20px rgba(32,68,220,.10);transform:translateY(-1px)}
+.form-card .fc-week{font-size:.58rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue)}
+.form-card h3{font-size:.95rem;font-weight:700;color:var(--navy)}
+.form-card p{font-size:.74rem;color:var(--muted);line-height:1.5;flex:1}
+.form-card .fc-foot{display:flex;align-items:center;justify-content:space-between;margin-top:.5rem}
+.form-card .fc-status{font-size:.6rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:.2rem .55rem;border-radius:4px}
+.fc-status.open-st{background:var(--greenBg);color:var(--green)}
+.fc-status.done-st{background:var(--soft);color:var(--blue)}
+.fc-status.locked-fst{background:var(--redBg);color:var(--red)}
+.form-card button{padding:.45rem 1rem;border:none;border-radius:7px;background:var(--navy);color:#fff;font-size:.72rem;font-weight:600;cursor:pointer;transition:background .2s}
+.form-card button:hover{background:var(--blue-deep)}
+.form-card button:disabled{background:var(--line);color:var(--muted);cursor:not-allowed}
+
+/* Form fill view */
+.ff-wrap{max-width:760px}
+.ff-head{background:var(--navy);border-radius:14px;padding:1.5rem 1.8rem;margin-bottom:1.2rem;position:relative;overflow:hidden}
+.ff-head::before{content:'';position:absolute;top:-50px;right:-40px;width:220px;height:220px;background:radial-gradient(circle,rgba(70,232,224,.18) 0%,transparent 70%)}
+.ff-head .ff-eyebrow{font-size:.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue-pale)}
+.ff-head h2{font-size:1.25rem;font-weight:700;color:#fff;margin-top:.2rem}
+.ff-head p{font-size:.78rem;color:rgba(255,255,255,.55);margin-top:.3rem}
+.ff-back{display:inline-flex;align-items:center;gap:.35rem;font-size:.74rem;font-weight:600;color:var(--blue);cursor:pointer;margin-bottom:.8rem}
+.ff-back:hover{text-decoration:underline}
+.ff-section{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1.3rem 1.5rem;margin-bottom:1rem}
+.ff-section-title{font-size:.95rem;font-weight:700;color:var(--navy);margin-bottom:.25rem}
+.ff-section-desc{font-size:.74rem;color:var(--muted);margin-bottom:1rem;line-height:1.5}
+.ff-q{margin-bottom:1.4rem}
+.ff-q:last-child{margin-bottom:0}
+.ff-q-label{font-size:.82rem;font-weight:600;color:var(--ink);margin-bottom:.6rem;line-height:1.45}
+.ff-q-label .req{color:var(--red)}
+/* Likert matrix */
+.lk-table{width:100%;border-collapse:collapse;font-size:.72rem}
+.lk-table th{font-size:.62rem;font-weight:600;color:var(--muted);padding:.4rem .3rem;text-align:center;vertical-align:bottom}
+.lk-table td{padding:.55rem .3rem;border-top:1px solid var(--line);text-align:center}
+.lk-table td.lk-row-label{text-align:left;font-size:.7rem;color:var(--ink);line-height:1.4;max-width:240px;padding-right:.6rem}
+.lk-table tr:nth-child(even) td{background:var(--bg)}
+.lk-radio{width:17px;height:17px;accent-color:var(--blue);cursor:pointer}
+/* NPS scale */
+.nps-row{display:flex;gap:5px;flex-wrap:wrap}
+.nps-opt{flex:1;min-width:42px;text-align:center;padding:.55rem 0;border:1px solid var(--line);border-radius:7px;font-size:.8rem;font-weight:600;color:var(--ink);cursor:pointer;transition:all .15s;background:var(--card)}
+.nps-opt:hover{border-color:var(--blue);color:var(--blue)}
+.nps-opt.sel{background:var(--navy);color:#fff;border-color:var(--navy)}
+/* Radio list */
+.ro-list{display:flex;flex-direction:column;gap:.4rem}
+.ro-item{display:flex;align-items:center;gap:.6rem;padding:.55rem .8rem;border:1px solid var(--line);border-radius:8px;cursor:pointer;transition:all .15s;font-size:.78rem;color:var(--ink)}
+.ro-item:hover{border-color:var(--blue-pale);background:var(--soft)}
+.ro-item.sel{border-color:var(--blue);background:var(--soft)}
+.ro-item input{accent-color:var(--blue);width:16px;height:16px;flex-shrink:0}
+/* Checkbox list */
+.ck-list{display:flex;flex-direction:column;gap:.4rem}
+.ck-item{display:flex;align-items:center;gap:.6rem;padding:.55rem .8rem;border:1px solid var(--line);border-radius:8px;cursor:pointer;transition:all .15s;font-size:.78rem;color:var(--ink)}
+.ck-item:hover{border-color:var(--blue-pale);background:var(--soft)}
+.ck-item.sel{border-color:var(--blue);background:var(--soft)}
+.ck-item input{accent-color:var(--blue);width:16px;height:16px;flex-shrink:0}
+/* Textarea */
+.ff-textarea{width:100%;min-height:90px;padding:.7rem .9rem;border:1px solid var(--line);border-radius:8px;font-family:inherit;font-size:.8rem;resize:vertical;outline:none;transition:border .2s}
+.ff-textarea:focus{border-color:var(--blue)}
+/* Submit */
+.ff-submit-bar{display:flex;align-items:center;gap:1rem;margin-top:.5rem}
+.ff-submit{padding:.7rem 2rem;background:var(--navy);color:#fff;border:none;border-radius:9px;font-size:.85rem;font-weight:700;cursor:pointer;transition:background .2s}
+.ff-submit:hover{background:var(--blue-deep)}
+.ff-msg{font-size:.76rem;font-weight:600;display:none}
+.ff-msg.ok{display:block;color:var(--green)}
+.ff-msg.err{display:block;color:var(--red)}
+@media(max-width:900px){.form-list{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body><!-- ═══ LOGIN PAGE ═══ -->
@@ -643,6 +712,7 @@ a{color:inherit;text-decoration:none}
     <div class="nav-item active" onclick="showTab('home')" data-tab="home"><span class="nav-icon">&#128218;</span><span>Program Guidelines</span></div>
     <div class="nav-item" onclick="showTab('calendar')" data-tab="calendar"><span class="nav-icon">&#128197;</span><span>Full Calendar</span></div>
     <div class="nav-item" onclick="showTab('week')" data-tab="week"><span class="nav-icon">&#9889;</span><span>Current Week</span></div>
+    <div class="nav-item" onclick="showTab('forms')" data-tab="forms"><span class="nav-icon">&#128221;</span><span>Forms</span></div>
     <div class="nav-item" onclick="showTab('materials')" data-tab="materials"><span class="nav-icon">&#128194;</span><span>Materials</span></div>
     <div class="nav-item" onclick="showTab('faq')" data-tab="faq"><span class="nav-icon">&#10067;</span><span>FAQ</span></div>
     <div class="nav-item" onclick="showTab('admin')" data-tab="admin" id="navAdmin" style="display:none"><span class="nav-icon">&#9881;</span><span>Admin</span><span class="nav-badge">Admin</span></div>
@@ -653,6 +723,7 @@ a{color:inherit;text-decoration:none}
   <div class="tab-page active" id="tab-home"></div>
   <div class="tab-page" id="tab-calendar"></div>
   <div class="tab-page" id="tab-week"></div>
+  <div class="tab-page" id="tab-forms"></div>
   <div class="tab-page" id="tab-materials"></div>
   <div class="tab-page" id="tab-faq"></div>
   <div class="tab-page" id="tab-admin"></div>
@@ -766,10 +837,80 @@ var BASE_PARTICIPANTS = [
   // ──────────────────────────────────────────────
 ];
 
+
+// ═══ ITEMS PER WEEK (for granular admin control) ═══
+function getWeekItems(weekNum) {
+  var ws = WEEK_SCHEDULE[weekNum];
+  if (!ws) return [];
+  var items = [];
+  if (ws.week === 0) {
+    items.push({key:"kickoff_session", label:"Kickoff Session content"});
+    if (ws.kickoffPdf) items.push({key:"kickoff_pdf", label:"Kickoff Slides (PDF link)"});
+    if (ws.kickoffVideo) items.push({key:"kickoff_video", label:"Kickoff Recording (video link)"});
+  }
+  if (ws.theory && ws.theoryTopics && ws.theoryTopics.length) items.push({key:"theory", label:"Theory session content"});
+  if (ws.practical) items.push({key:"practical", label:"Practical session content"});
+  if (ws.asyncTopics && ws.asyncTopics.length) items.push({key:"async", label:"Async content (Degreed)"});
+  if (ws.touchpoint) items.push({key:"touchpoint", label:"Touchpoint"});
+  if (ws.event) items.push({key:"event", label:"Event"});
+  if (ws.deliverables) items.push({key:"deliverables", label:"Deliverables"});
+  items.push({key:"materials", label:"Materials & recordings (SharePoint links)"});
+  FORMS_DEF.forEach(function(f) {
+    if (f.week === weekNum) items.push({key:"form_" + f.id, label:"Form: " + f.title});
+  });
+  return items;
+}
+
 // ═══ ADMIN WEEK CONTROLS ═══
 // Stores which weeks have content/forms unlocked
 function getWeekControls() {
   try { return JSON.parse(localStorage.getItem("hub_week_controls") || "{}"); } catch(e) { return {}; }
+}
+// Item-level controls: per-item override within a week (keys like "w1:theory", "w1:form_mc01_post")
+function getItemControls() {
+  try { return JSON.parse(localStorage.getItem("hub_item_controls") || "{}"); } catch(e) { return {}; }
+}
+function saveItemControls(obj) {
+  localStorage.setItem("hub_item_controls", JSON.stringify(obj));
+}
+// An item is unlocked if: explicit item override exists (wins), else falls back to week unlock state
+function isItemUnlocked(weekNum, itemKey) {
+  var ic = getItemControls();
+  var k = "w" + weekNum + ":" + itemKey;
+  if (ic[k] !== undefined) return ic[k];
+  return isWeekUnlocked(weekNum);
+}
+function toggleItem(weekNum, itemKey, isChecked) {
+  var ic = getItemControls();
+  ic["w" + weekNum + ":" + itemKey] = isChecked;
+  saveItemControls(ic);
+  var user = getCurrentUser();
+  if (user) {
+    renderAdminKeepOpen(weekNum);
+    renderCurrentWeek(user);
+    renderForms(user);
+    renderMaterials(user);
+    drawMonthGrid();
+  }
+}
+function resetItem(weekNum, itemKey) {
+  var ic = getItemControls();
+  delete ic["w" + weekNum + ":" + itemKey];
+  saveItemControls(ic);
+  var user = getCurrentUser();
+  if (user) {
+    renderAdminKeepOpen(weekNum);
+    renderCurrentWeek(user);
+    renderForms(user);
+    renderMaterials(user);
+    drawMonthGrid();
+  }
+}
+var adminOpenWeek = null;
+function renderAdminKeepOpen(weekNum) {
+  adminOpenWeek = weekNum;
+  var user = getCurrentUser();
+  if (user) renderAdmin(user);
 }
 function saveWeekControls(obj) {
   localStorage.setItem("hub_week_controls", JSON.stringify(obj));
@@ -993,6 +1134,7 @@ function enterApp() {
   renderHome(user);
   renderCalendar(user);
   renderCurrentWeek(user);
+  renderForms(user);
   renderMaterials(user);
   renderFAQ(user);
   if (isAdmin(user)) renderAdmin(user);
@@ -1392,18 +1534,21 @@ function openWeekModal(weekNum) {
     }
   }
   if (ws.theory && ws.theoryTopics.length) {
-    b += "<div class=\"wm-row\"><span class=\"wm-label\">Theory session &middot; " + (ws.theoryDuration||"1h") + (unlocked?"":" &#128274;") + "</span><ul>";
+    var thU = isItemUnlocked(weekNum, "theory") || isAdmin(user);
+    b += "<div class=\"wm-row\"><span class=\"wm-label\">Theory session &middot; " + (ws.theoryDuration||"1h") + (thU?"":" &#128274;") + "</span><ul>";
     ws.theoryTopics.forEach(function(t){ b += "<li>" + t + "</li>"; });
     b += "</ul></div>";
   }
   var pt = ws[cKey] || ws.practicalTopics_c2 || [];
   if (ws.practical && pt.length) {
-    b += "<div class=\"wm-row\"><span class=\"wm-label lbl-cases\">Practical session &middot; " + (ws.practicalDuration||"1h") + (unlocked?"":" &#128274;") + "</span><ul>";
+    var prU = isItemUnlocked(weekNum, "practical") || isAdmin(user);
+    b += "<div class=\"wm-row\"><span class=\"wm-label lbl-cases\">Practical session &middot; " + (ws.practicalDuration||"1h") + (prU?"":" &#128274;") + "</span><ul>";
     pt.forEach(function(t){ b += "<li>" + t + "</li>"; });
     b += "</ul></div>";
   }
   if (ws.asyncTopics && ws.asyncTopics.length) {
-    b += "<div class=\"wm-row\"><span class=\"wm-label lbl-async\">Async content" + (unlocked?"":" &#128274;") + "</span><ul>";
+    var asU = isItemUnlocked(weekNum, "async") || isAdmin(user);
+    b += "<div class=\"wm-row\"><span class=\"wm-label lbl-async\">Async content" + (asU?"":" &#128274;") + "</span><ul>";
     ws.asyncTopics.forEach(function(t){ b += "<li>" + t + "</li>"; });
     b += "</ul></div>";
   }
@@ -1414,8 +1559,9 @@ function openWeekModal(weekNum) {
     b += "<div class=\"wm-row\"><span class=\"wm-label lbl-event\">" + ws.event + "</span><p>" + ws.eventDesc + "</p></div>";
   }
   if (ws.deliverables) {
-    b += "<div class=\"wm-row\"><span class=\"wm-label lbl-del\">Deliverables &amp; Forms" + (unlocked?"":" &#128274;") + "</span><p>" + ws.deliverables.replace(/;/g,"<br>") + "</p>";
-    if (!unlocked) b += "<p style=\"font-size:.7rem;opacity:.7;margin-top:.3rem\">Forms will be available when this week is unlocked.</p>";
+    var dlU = isItemUnlocked(weekNum, "deliverables") || isAdmin(user);
+    b += "<div class=\"wm-row\"><span class=\"wm-label lbl-del\">Deliverables &amp; Forms" + (dlU?"":" &#128274;") + "</span><p>" + ws.deliverables.replace(/;/g,"<br>") + "</p>";
+    if (!dlU) b += "<p style=\"font-size:.7rem;opacity:.7;margin-top:.3rem\">Forms will be available when this item is unlocked.</p>";
     b += "</div>";
   }
 
@@ -1455,10 +1601,10 @@ function renderCurrentWeek(user) {
     if (ws.kickoffPdf) h += "<div class=\"cw-card-item\"><div class=\"cw-status done\"></div><a href=\"" + ws.kickoffPdf + "\" target=\"_blank\">&#128196; Kickoff Slides (PDF)</a></div>";
     if (ws.kickoffVideo) h += "<div class=\"cw-card-item\"><div class=\"cw-status done\"></div><a href=\"" + ws.kickoffVideo + "\" target=\"_blank\">&#127909; Kickoff Recording</a></div>";
   } else {
-    if (ws.theory) h += "<div class=\"cw-card-item\"><div class=\"cw-status " + (isWeekUnlocked(ws.week) ? "done" : "locked") + "\"></div>Theory: " + ws.theoryTopics.join(", ") + "</div>";
+    if (ws.theory) h += "<div class=\"cw-card-item\"><div class=\"cw-status " + (isItemUnlocked(ws.week, "theory") ? "done" : "locked") + "\"></div>Theory: " + ws.theoryTopics.join(", ") + "</div>";
     if (ws.practical) {
       var pt = ws[cKey] || ws.practicalTopics_c2 || [];
-      h += "<div class=\"cw-card-item\"><div class=\"cw-status " + (isWeekUnlocked(ws.week) ? "done" : "locked") + "\"></div>Practical: " + pt.join(", ") + "</div>";
+      h += "<div class=\"cw-card-item\"><div class=\"cw-status " + (isItemUnlocked(ws.week, "practical") ? "done" : "locked") + "\"></div>Practical: " + pt.join(", ") + "</div>";
     }
     if (ws.touchpoint) h += "<div class=\"cw-card-item\"><div class=\"cw-status " + (isWeekUnlocked(ws.week) ? "pending" : "locked") + "\"></div>" + ws.touchpoint + ": " + ws.touchpointDesc + "</div>";
     if (ws.event) h += "<div class=\"cw-card-item\"><div class=\"cw-status pending\"></div>" + ws.event + ": " + ws.eventDesc + "</div>";
@@ -1473,7 +1619,7 @@ function renderCurrentWeek(user) {
   }
   if (ws.asyncTopics && ws.asyncTopics.length > 0) {
     ws.asyncTopics.forEach(function(a) {
-      h += "<div class=\"cw-card-item\"><div class=\"cw-status " + (isWeekUnlocked(ws.week) ? "pending" : "locked") + "\"></div>Async: " + a + "</div>";
+      h += "<div class=\"cw-card-item\"><div class=\"cw-status " + (isItemUnlocked(ws.week, "async") ? "pending" : "locked") + "\"></div>Async: " + a + "</div>";
     });
   }
   if (!ws.deliverables && (!ws.asyncTopics || ws.asyncTopics.length === 0)) {
@@ -1497,7 +1643,7 @@ function renderMaterials(user) {
   var curWeek = getCurrentWeekNum();
   for (var i = 0; i <= Math.min(curWeek, 9); i++) {
     var ws = WEEK_SCHEDULE[i];
-    var unlocked = isWeekUnlocked(i) || isAdm;
+    var unlocked = isItemUnlocked(i, "materials") || isAdm;
     h += "<div class=\"admin-section\" style=\"opacity:" + (unlocked ? "1" : ".4") + "\">";
     h += "<h3>" + ws.num + " &mdash; " + ws.title + (unlocked ? "" : " &#128274;") + "</h3>";
     if (unlocked) {
@@ -1684,10 +1830,13 @@ function importAttendance() {
   var raw = document.getElementById("attTextarea").value.trim();
   var sessionMins = parseFloat(document.getElementById("attSessionMins").value);
   var sessionWeek = document.getElementById("attWeekSelect").value;
+  var sessionCohort = document.getElementById("attCohortSelect").value;
+  var meetingName = (document.getElementById("attMeetingName").value || "").trim();
   var resEl = document.getElementById("attResult");
 
-  if (!raw) { resEl.className = "import-result show err"; resEl.textContent = "Paste the attendance list first."; return; }
+  if (!raw) { resEl.className = "import-result show err"; resEl.textContent = "Paste the attendance list or upload the file first."; return; }
   if (!sessionMins || sessionMins <= 0) { resEl.className = "import-result show err"; resEl.textContent = "Enter the session duration in minutes."; return; }
+  if (!meetingName) { resEl.className = "import-result show err"; resEl.textContent = "Enter the meeting/agenda name (e.g. Masterclass #01)."; return; }
 
   var threshold = sessionMins * 0.7;
   var lines = raw.split(/\n/);
@@ -1716,18 +1865,23 @@ function importAttendance() {
     if (name.toLowerCase() === "nome" || name.toLowerCase() === "name") { ignored++; return; }
 
     var mins = parseDuration(durCol);
-    var cohort = cohortOfEmail(emailCol);
+    // Use the cohort selected in the import controls (the report is per-cohort);
+    // fall back to allowlist detection only if it differs explicitly
+    var cohort = sessionCohort || cohortOfEmail(emailCol);
     var rec = getPersonRecord(store, emailCol, name, cohort);
     if (!rec.cohort && cohort) rec.cohort = cohort;
     if (!rec.name) rec.name = name;
 
-    // Prevent duplicate session import per person per session: use week-tag
+    // Skip duplicate import of the same meeting for the same person
+    var alreadyImported = (rec.sessions || []).some(function(s){ return s.meeting === meetingName; });
+    if (alreadyImported) { ignored++; return; }
+
     if (mins >= threshold) {
       rec.attendance = (rec.attendance||0) + 5;
-      rec.sessions.push({week:sessionWeek, mins:mins, pts:5});
+      rec.sessions.push({week:sessionWeek, meeting:meetingName, cohort:sessionCohort, mins:mins, pts:5});
       awarded++;
     } else {
-      rec.sessions.push({week:sessionWeek, mins:mins, pts:0});
+      rec.sessions.push({week:sessionWeek, meeting:meetingName, cohort:sessionCohort, mins:mins, pts:0});
       skipped++;
     }
     recalcTotal(rec);
@@ -1735,7 +1889,7 @@ function importAttendance() {
 
   savePointsStore(store);
   resEl.className = "import-result show ok";
-  resEl.innerHTML = "&#9989; Processed: <strong>" + awarded + "</strong> participants awarded 5 pts (&ge;70% of " + sessionMins + " min = " + Math.ceil(threshold) + " min) &middot; " + skipped + " below threshold &middot; " + ignored + " lines ignored. <em>Ready to sync to Supabase when connected.</em>";
+  resEl.innerHTML = "&#9989; <strong>" + meetingName + "</strong> (" + sessionCohort + "): <strong>" + awarded + "</strong> participants awarded 5 pts (&ge;70% of " + sessionMins + " min = " + Math.ceil(threshold) + " min) &middot; " + skipped + " below threshold &middot; " + ignored + " ignored/duplicates. <em>Ready to sync to Supabase when connected.</em>";
   renderPointsTables();
   renderBIPanel();
 }
@@ -1862,16 +2016,38 @@ function renderAdmin(user) {
   h += "<div class=\"admin-section\"><h3>&#9881; Week Content Controls</h3>";
   h += "<p style=\"font-size:.75rem;color:var(--muted);margin-bottom:.8rem\">Toggle to manually unlock/lock content and forms per week. Weeks auto-unlock when their start date arrives (toggles override).</p>";
   var controls = getWeekControls();
+  var itemControls = getItemControls();
   var curWeek = getCurrentWeekNum();
   for (var i = 0; i <= 9; i++) {
     var ws = WEEK_SCHEDULE[i];
     var isUnlockedW = isWeekUnlocked(i);
     var isAuto = (controls["w" + i] === undefined && i <= curWeek);
-    h += "<div class=\"admin-row\">";
-    h += "<span class=\"label\">" + ws.num + " &mdash; " + ws.title + "</span>";
+    var isOpen = (adminOpenWeek === i);
+    h += "<div class=\"admin-row\" style=\"cursor:pointer\" onclick=\"toggleAdminWeekDropdown(" + i + ", event)\">";
+    h += "<span class=\"label\">" + (isOpen ? "&#9660;" : "&#9654;") + " " + ws.num + " &mdash; " + ws.title + "</span>";
     h += "<span class=\"status " + (isUnlockedW ? "unlocked" : "locked-st") + "\">" + (isUnlockedW ? (isAuto ? "Auto" : "Unlocked") : "Locked") + "</span>";
-    h += "<label class=\"toggle-switch\"><input type=\"checkbox\" " + (isUnlockedW ? "checked" : "") + " onchange=\"toggleWeek(" + i + ",this.checked)\"><span class=\"toggle-slider\"></span></label>";
+    h += "<label class=\"toggle-switch\" onclick=\"event.stopPropagation()\"><input type=\"checkbox\" " + (isUnlockedW ? "checked" : "") + " onchange=\"toggleWeek(" + i + ",this.checked)\"><span class=\"toggle-slider\"></span></label>";
     h += "</div>";
+
+    // Expandable dropdown with per-item toggles
+    if (isOpen) {
+      var items = getWeekItems(i);
+      h += "<div style=\"background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:.4rem .8rem;margin:.2rem 0 .6rem 1.2rem\">";
+      h += "<div style=\"font-size:.62rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);padding:.3rem 0\">Individual item controls &mdash; override the week setting per item</div>";
+      items.forEach(function(item) {
+        var hasOverride = itemControls["w" + i + ":" + item.key] !== undefined;
+        var itemUnlocked = isItemUnlocked(i, item.key);
+        h += "<div class=\"admin-row\" style=\"padding:.4rem 0\">";
+        h += "<span class=\"label\" style=\"font-size:.74rem\">" + item.label + "</span>";
+        h += "<span class=\"status " + (itemUnlocked ? "unlocked" : "locked-st") + "\" style=\"font-size:.58rem\">" + (itemUnlocked ? "Open" : "Locked") + (hasOverride ? " &middot; manual" : " &middot; week") + "</span>";
+        if (hasOverride) {
+          h += "<button onclick=\"resetItem(" + i + ",'" + item.key + "');event.stopPropagation()\" style=\"font-size:.6rem;padding:.2rem .5rem;border:1px solid var(--line);border-radius:5px;background:var(--card);cursor:pointer;color:var(--muted)\" title=\"Remove override, follow week setting\">reset</button>";
+        }
+        h += "<label class=\"toggle-switch\" onclick=\"event.stopPropagation()\"><input type=\"checkbox\" " + (itemUnlocked ? "checked" : "") + " onchange=\"toggleItem(" + i + ",'" + item.key + "',this.checked)\"><span class=\"toggle-slider\"></span></label>";
+        h += "</div>";
+      });
+      h += "</div>";
+    }
   }
   h += "</div>";
 
@@ -1880,10 +2056,14 @@ function renderAdmin(user) {
   h += "<p style=\"font-size:.75rem;color:var(--muted);margin-bottom:.6rem\">Upload or paste the Teams attendance report (.xlsx or paste tab-separated rows). Participants present &ge;70% of session duration earn <strong>5 points</strong> automatically.</p>";
   h += "<div class=\"import-grid\">";
   h += "<div class=\"import-controls\">";
+  h += "<label style=\"font-size:.72rem;font-weight:600\">Cohort:</label><select id=\"attCohortSelect\"><option value=\"Cohort 2\">Cohort 2</option><option value=\"Cohort 3\">Cohort 3</option></select>";
   h += "<label style=\"font-size:.72rem;font-weight:600\">Session duration (min):</label><input type=\"number\" id=\"attSessionMins\" placeholder=\"e.g. 90\" min=\"1\">";
   h += "<label style=\"font-size:.72rem;font-weight:600\">Week:</label><select id=\"attWeekSelect\">";
   for (var i = 0; i <= 9; i++) h += "<option value=\"W" + i + "\">" + WEEK_SCHEDULE[i].num + " &mdash; " + WEEK_SCHEDULE[i].title + "</option>";
   h += "</select></div>";
+  h += "<div class=\"import-controls\" style=\"margin-top:.3rem\">";
+  h += "<label style=\"font-size:.72rem;font-weight:600\">Meeting / agenda name:</label><input type=\"text\" id=\"attMeetingName\" placeholder=\"e.g. Masterclass #01 - Fundamentals (10/06)\" style=\"flex:1;min-width:260px;padding:.5rem .6rem;border:1px solid var(--line);border-radius:8px;font-size:.78rem;font-family:inherit\">";
+  h += "</div>";
   h += "<div style=\"display:flex;gap:.6rem;align-items:center;margin-bottom:.4rem;\">";
   h += "<label style=\"font-size:.72rem;font-weight:600;color:var(--ink)\">&#128196; Upload .xlsx file:</label>";
   h += "<input type=\"file\" id=\"attFileInput\" accept=\".xlsx,.xls\" onchange=\"loadAttendanceFile(this)\" style=\"font-size:.72rem\">";
@@ -1911,6 +2091,12 @@ function renderAdmin(user) {
   h += "<div class=\"import-result\" id=\"agentResult\"></div>";
   h += "</div></div>";
 
+  // Forms Analytics
+  h += "<div class=\"admin-section\"><h3>&#128221; Forms Responses</h3>";
+  h += "<div id=\"formsAnalyticsWrap\"></div>";
+  h += "<button class=\"btn-primary\" style=\"width:auto;padding:.5rem 1.2rem;margin-top:.6rem\" onclick=\"exportFormResponses()\">Export All Responses (JSON)</button>";
+  h += "</div>";
+
   // Central Points Tables
   h += "<div class=\"admin-section\"><h3>&#128202; Central People &amp; Points List</h3>";
   h += "<p style=\"font-size:.75rem;color:var(--muted);margin-bottom:.8rem\">This is the central list that feeds Supabase and the BI dashboard. Use the cohort toggle above to filter.</p>";
@@ -1925,6 +2111,7 @@ function renderAdmin(user) {
   renderBIPanel();
   renderPointsTables();
   renderRegAnalytics();
+  renderFormsAnalytics();
 }
 
 function switchAdminCohort(num) {
@@ -2057,6 +2244,7 @@ function toggleWeek(weekNum, isChecked) {
   if (user) {
     renderAdmin(user);
     renderCurrentWeek(user);
+    renderForms(user);
     renderMaterials(user);
     drawMonthGrid();
   }
@@ -2076,6 +2264,443 @@ function exportUsers() {
   a.click();
 }
 
+
+
+// ═══════════ FORMS ENGINE ═══════════
+// Post-class forms answered inside the hub. 1 point each (on-time only).
+// Question types: likert (matrix), nps (1-10), radio, checkbox, text
+var FORMS_DEF = [
+  {
+    id: "mc01_post",
+    week: 1,
+    alwaysOpen: true,  // OFFICIAL form — released for Cohort 2 & 3 regardless of week lock
+    title: "Post-Class Survey — Masterclass #01",
+    subtitle: "Class Feedback",
+    desc: "Official feedback form for Masterclass #01. Takes ~2 minutes.",
+    sections: [
+      {
+        title: "Masterclass #01 — Class Feedback",
+        desc: "Provide feedback on your satisfaction with different aspects of the class. Your answers help us improve every week.",
+        questions: [
+          {id:"q1", type:"nps", npsMin:0, required:true, label:"1. What is the likelihood that you would recommend this class to a colleague at Patria?", minLabel:"Not likely", maxLabel:"Extremely likely"},
+          {id:"q2", type:"radio", required:true, label:"2. How familiar was the content presented in this class to you?",
+           options:[
+             "Completely new — I encountered these topics for the first time",
+             "Mostly new — I had little prior knowledge",
+             "Relatively familiar — I knew some concepts but learned new applications",
+             "Mostly familiar — It reinforced what I already knew",
+             "Completely familiar — I did not learn anything new"
+           ]},
+          {id:"q3", type:"likert", required:true,
+           label:"3. This class enhanced my understanding of:",
+           cols:["Strongly disagree","Disagree","Neutral","Agree","Strongly agree"],
+           rows:[
+             {label:"Claude's feature ecosystem", sub:"Skills, Projects, Add-ins, Connectors, Artifacts"},
+             {label:"Prompt crafting", sub:"Elements, techniques, formatting & structure"},
+             {label:"Usage management", sub:"Tokens, optimization, model & mode selection"}
+           ]},
+          {id:"q4", type:"likert", required:true,
+           label:"4. What is your level of satisfaction with the following aspects of this class?",
+           cols:["Very dissatisfied","Slightly dissatisfied","Neutral","Slightly satisfied","Very satisfied"],
+           rows:[
+             {label:"Instructor — Pedro Escobar", sub:""},
+             {label:"Theory and practice — balance between conceptual and practical parts", sub:""},
+             {label:"Interaction — opportunities for participation and engagement", sub:""},
+             {label:"Materials — clarity and organization of slides and resources", sub:""},
+             {label:"Relevance of content — connection with real-world applications", sub:""}
+           ]},
+          {id:"q5", type:"radio", required:true, label:"5. Were your learning expectations met in this class?",
+           options:["Fell short of my expectations","Met my expectations","Exceeded my expectations"]},
+          {id:"q6", type:"text", required:false, label:"6. How can we improve future classes in this track? Please share any suggestions or feedback you may have."}
+        ]
+      }
+    ]
+  },
+  {
+    id: "mc02_post",
+    week: 2,
+    title: "Post-Class Survey — Masterclass #02",
+    subtitle: "Connectors + Prioritization",
+    desc: "Tell us about your experience in Masterclass #02 and your current use of Claude. Takes ~3 minutes.",
+    sections: [
+      {
+        title: "Section 1: Reflection on Class Content",
+        desc: "Please answer the following questions regarding the specific modules taught during this session. We are looking to evaluate the clarity of the complex topics discussed and your readiness to translate this theory into practical application.",
+        questions: [
+          {id:"q1", type:"likert", required:true,
+           label:"1. Considering your knowledge of Prompt Engineering so far, you:",
+           cols:["Strongly disagree","Partially disagree","Neutral","Partially agree","Strongly agree"],
+           rows:[
+             {label:"Know how to structure prompts using elements such as context, task, format, constraints, and examples to improve model performance.", sub:""},
+             {label:"Know how to refine prompts through iterative testing to troubleshoot and optimize results.", sub:""},
+             {label:"Understand the main stages of the data lifecycle (acquisition, storage, analysis, and presentation) and how they affect analytics and Generative AI results.", sub:""}
+           ]},
+          {id:"q2", type:"likert", required:true,
+           label:"2. Considering your knowledge of Connectors, Projects and Claude Skills so far, you:",
+           cols:["Strongly disagree","Partially disagree","Neutral","Partially agree","Strongly agree"],
+           rows:[
+             {label:"Know how to use connectors to retrieve, summarize, and consolidate information from multiple enterprise sources to support daily activities.", sub:""},
+             {label:"Recognize the value of using Projects as a tool for institutional memory, ensuring Claude 'remembers' the nuances and history of a specific case without having to provide the same context repeatedly.", sub:""},
+             {label:"Understand how to write instructions for a Claude Skill to ensure it adopts the specific tone, formatting, and analytical rigor required.", sub:""}
+           ]}
+        ]
+      },
+      {
+        title: "Section 2: Class Feedback",
+        desc: "Provide feedback on your satisfaction with different aspects of the class, including instructor quality, balance between theory and practice, engagement opportunities, instructional materials, and the relevance of the content to practical applications.",
+        questions: [
+          {id:"q3", type:"nps", required:true, label:"3. What is the likelihood that you would recommend this class to a colleague at Patria?"},
+          {id:"q4", type:"radio", required:true, label:"4. How familiar was the content presented in this class to you?",
+           options:[
+             "Completely new — I encountered these topics for the first time",
+             "Mostly new — I had little prior knowledge",
+             "Relatively familiar — I knew some concepts but learned new applications",
+             "Mostly familiar — It reinforced what I already knew",
+             "Completely familiar — I did not learn anything new"
+           ]},
+          {id:"q5", type:"likert", required:true,
+           label:"5. What is your level of satisfaction with the following aspects of this class?",
+           cols:["Very dissatisfied","Slightly dissatisfied","Neutral","Slightly satisfied","Very satisfied"],
+           rows:[
+             {label:"Instructors", sub:""},
+             {label:"Theory and practice — balance between conceptual and practical parts", sub:""},
+             {label:"Interaction — opportunities for participation and engagement", sub:""},
+             {label:"Materials — clarity and organization of slides and resources", sub:""},
+             {label:"Relevance of content — connection with real-world applications", sub:""}
+           ]},
+          {id:"q6", type:"radio", required:true, label:"6. Were your learning expectations met in this class?",
+           options:["Fell short of my expectations","Met my expectations","Exceeded my expectations"]},
+          {id:"q7", type:"text", required:false, label:"7. How can we improve future classes in this track? Please share any suggestions or feedback you may have."}
+        ]
+      },
+      {
+        title: "Masterclass #02: Claude Use",
+        desc: "To help us monitor the evolution of the AI Democratization Program, we'd like to understand how you have been using Claude in your day-to-day work. Please answer based on your usage over the past 7 days.",
+        questions: [
+          {id:"q8", type:"radio", required:true, label:"8. In the last week, how often did you use Generative AI tools for work-related activities?",
+           options:["Did not use","Once during the week","Used several times during the week","Every day of the week"]},
+          {id:"q9", type:"checkbox", required:true, label:"9. Which Claude feature(s) did you use?",
+           options:[
+             "Standard chat (Q&A / Text generation)",
+             "Research (Deep Research)",
+             "Projects",
+             "Artifacts",
+             "Claude Skills",
+             "Connectors (e.g., links, file integrations)",
+             "Secure file upload",
+             "Others"
+           ]},
+          {id:"q10", type:"text", required:false, label:"10. If you selected \"Others\" in the previous question, please specify which Claude feature(s) you used:"}
+        ]
+      }
+    ]
+  },
+  {
+    id: "mc03_post",
+    week: 3,
+    title: "Post-Class Survey — Masterclass #03",
+    subtitle: "Add-ins + AI Solution Design",
+    desc: "Tell us about your experience in Masterclass #03 and your current use of Claude. Takes ~3 minutes.",
+    sections: [
+      {
+        title: "Section 1: Reflection on Class Content",
+        desc: "Please answer the following questions regarding the specific modules taught during this session. We are evaluating the clarity of the topics discussed and your readiness to translate theory into practice.",
+        questions: [
+          {id:"q1", type:"likert", required:true,
+           label:"1. Considering your knowledge from Masterclass #03, you:",
+           cols:["Strongly disagree","Partially disagree","Neutral","Partially agree","Strongly agree"],
+           rows:[
+             {label:"Understand how AI is transforming operating models, from individual tool usage to human-agent orchestration, with new roles and workflows.", sub:""},
+             {label:"Can identify the human, organizational, and technical frictions that prevent AI initiatives from moving beyond pilots and generating measurable ROI.", sub:""},
+             {label:"Can map AI opportunities in your area's value chain and connect them to real Financial Services cases, preserving human accountability in critical decisions.", sub:""}
+           ]}
+        ]
+      },
+      {
+        title: "Section 2: Class Feedback",
+        desc: "Provide feedback on your satisfaction with different aspects of the class, including instructor quality, engagement opportunities, instructional materials, and the relevance of the content to practical applications.",
+        questions: [
+          {id:"q2", type:"nps", required:true, label:"2. What is the likelihood that you would recommend this class to a colleague at Patria?"},
+          {id:"q3", type:"radio", required:true, label:"3. How familiar was the content presented in this class to you?",
+           options:[
+             "Completely new — I encountered these topics for the first time",
+             "Mostly new — I had little prior knowledge",
+             "Relatively familiar — I knew some concepts but learned new applications",
+             "Mostly familiar — It reinforced what I already knew",
+             "Completely familiar — I did not learn anything new"
+           ]},
+          {id:"q4", type:"likert", required:true,
+           label:"4. What is your level of satisfaction with the following aspects of this class?",
+           cols:["Very dissatisfied","Slightly dissatisfied","Neutral","Slightly satisfied","Very satisfied"],
+           rows:[
+             {label:"Instructors", sub:""},
+             {label:"Interaction — opportunities for participation and engagement", sub:""},
+             {label:"Materials — clarity and organization of slides and resources", sub:""},
+             {label:"Relevance of content — connection with real-world applications", sub:""}
+           ]},
+          {id:"q5", type:"radio", required:true, label:"5. Were your learning expectations met in this class?",
+           options:["Fell short of my expectations","Met my expectations","Exceeded my expectations"]},
+          {id:"q6", type:"text", required:false, label:"6. How can we improve future classes in this track? Please share any suggestions or feedback you may have."}
+        ]
+      },
+      {
+        title: "Masterclass #03: Claude Use",
+        desc: "To help us monitor the evolution of the AI Democratization Program, we'd like to understand how you have been using Claude in your day-to-day work. Please answer based on your usage over the past 7 days.",
+        questions: [
+          {id:"q7", type:"radio", required:true, label:"7. In the last week, how often did you use Generative AI tools for work-related activities?",
+           options:["Did not use","Once during the week","Used several times during the week","Every day of the week"]},
+          {id:"q8", type:"checkbox", required:true, label:"8. Which Claude feature(s) did you use?",
+           options:[
+             "Standard chat (Q&A / Text generation)",
+             "Research (Deep Research)",
+             "Projects",
+             "Artifacts",
+             "Claude Skills",
+             "Connectors (e.g., links, file integrations)",
+             "Secure file upload",
+             "Others"
+           ]},
+          {id:"q9", type:"text", required:false, label:"9. If you selected \"Others\" in the previous question, please specify which Claude feature(s) you used:"}
+        ]
+      }
+    ]
+  }
+];
+
+function getFormResponses() {
+  try { return JSON.parse(localStorage.getItem("hub_form_responses") || "[]"); } catch(e) { return []; }
+}
+function saveFormResponses(arr) { localStorage.setItem("hub_form_responses", JSON.stringify(arr)); }
+function userHasSubmitted(formId, email) {
+  return getFormResponses().some(function(r){ return r.formId === formId && cleanEmail(r.email) === cleanEmail(email); });
+}
+
+// ═══ RENDER FORMS LIST ═══
+function renderForms(user) {
+  var el = document.getElementById("tab-forms");
+  var h = "";
+  h += "<div class=\"page-header\"><h1>Forms</h1><p>Post-class surveys and weekly activities — answer directly in the hub. On-time submissions earn 1 point.</p></div>";
+  h += "<div class=\"form-list\">";
+  FORMS_DEF.forEach(function(f) {
+    var unlocked = f.alwaysOpen || isItemUnlocked(f.week, "form_" + f.id) || isAdmin(user);
+    var done = userHasSubmitted(f.id, user.email);
+    h += "<div class=\"form-card\">";
+    h += "<span class=\"fc-week\">Week " + f.week + " &middot; Post-class</span>";
+    h += "<h3>" + f.title + "</h3>";
+    h += "<p>" + f.subtitle + " — " + f.desc + "</p>";
+    h += "<div class=\"fc-foot\">";
+    if (done) {
+      h += "<span class=\"fc-status done-st\">&#10003; Submitted</span>";
+      h += "<button disabled>Answered</button>";
+    } else if (unlocked) {
+      h += "<span class=\"fc-status open-st\">Open</span>";
+      h += "<button onclick=\"openForm('" + f.id + "')\">Answer now &rarr;</button>";
+    } else {
+      h += "<span class=\"fc-status locked-fst\">&#128274; Locked</span>";
+      h += "<button disabled>Available in Week " + f.week + "</button>";
+    }
+    h += "</div></div>";
+  });
+  h += "</div>";
+  el.innerHTML = h;
+}
+
+// ═══ RENDER ONE FORM ═══
+var currentFormId = null;
+function openForm(formId) {
+  var f = FORMS_DEF.find(function(x){ return x.id === formId; });
+  if (!f) return;
+  currentFormId = formId;
+  var el = document.getElementById("tab-forms");
+
+  var h = "<div class=\"ff-wrap\">";
+  h += "<span class=\"ff-back\" onclick=\"renderForms(getCurrentUser())\">&larr; Back to forms</span>";
+  h += "<div class=\"ff-head\"><span class=\"ff-eyebrow\">Week " + f.week + " &middot; Post-class survey</span><h2>" + f.title + "</h2><p>" + f.subtitle + "</p></div>";
+
+  f.sections.forEach(function(sec, sIdx) {
+    h += "<div class=\"ff-section\">";
+    h += "<div class=\"ff-section-title\">" + sec.title + "</div>";
+    h += "<div class=\"ff-section-desc\">" + sec.desc + "</div>";
+    sec.questions.forEach(function(q) {
+      h += "<div class=\"ff-q\" id=\"ffq_" + q.id + "\">";
+      h += "<div class=\"ff-q-label\">" + q.label + (q.required ? " <span class=\"req\">*</span>" : "") + "</div>";
+      if (q.type === "likert") {
+        h += "<div style=\"overflow-x:auto\"><table class=\"lk-table\"><thead><tr><th></th>";
+        q.cols.forEach(function(c){ h += "<th>" + c + "</th>"; });
+        h += "</tr></thead><tbody>";
+        q.rows.forEach(function(r, rIdx) {
+          var rLabel = (typeof r === "string") ? r : r.label;
+          var rSub = (typeof r === "string") ? "" : (r.sub || "");
+          h += "<tr><td class=\"lk-row-label\">" + rLabel + (rSub ? "<div style=\"font-size:.6rem;color:var(--muted);font-weight:400;margin-top:2px\">" + rSub + "</div>" : "") + "</td>";
+          q.cols.forEach(function(c, cIdx) {
+            h += "<td><input type=\"radio\" class=\"lk-radio\" name=\"" + q.id + "_r" + rIdx + "\" value=\"" + (cIdx+1) + "\"></td>";
+          });
+          h += "</tr>";
+        });
+        h += "</tbody></table></div>";
+      } else if (q.type === "nps") {
+        var nMin = (q.npsMin !== undefined) ? q.npsMin : 1;
+        h += "<div class=\"nps-row\" data-qid=\"" + q.id + "\">";
+        for (var n = nMin; n <= 10; n++) {
+          h += "<div class=\"nps-opt\" onclick=\"npsSelect(this,'" + q.id + "'," + n + ")\">" + n + "</div>";
+        }
+        h += "</div>";
+        if (q.minLabel || q.maxLabel) {
+          h += "<div style=\"display:flex;justify-content:space-between;font-size:.66rem;color:var(--muted);margin-top:.3rem\"><span>" + (q.minLabel||"") + "</span><span>" + (q.maxLabel||"") + "</span></div>";
+        }
+        h += "<input type=\"hidden\" id=\"npsval_" + q.id + "\">";
+      } else if (q.type === "radio") {
+        h += "<div class=\"ro-list\">";
+        q.options.forEach(function(opt, oIdx) {
+          h += "<label class=\"ro-item\" onclick=\"markSel(this)\"><input type=\"radio\" name=\"" + q.id + "\" value=\"" + opt.replace(/"/g,"&quot;") + "\"> " + opt + "</label>";
+        });
+        h += "</div>";
+      } else if (q.type === "checkbox") {
+        h += "<div class=\"ck-list\">";
+        q.options.forEach(function(opt) {
+          h += "<label class=\"ck-item\" onclick=\"markSelCk(this)\"><input type=\"checkbox\" name=\"" + q.id + "\" value=\"" + opt.replace(/"/g,"&quot;") + "\"> " + opt + "</label>";
+        });
+        h += "</div>";
+      } else if (q.type === "text") {
+        h += "<textarea class=\"ff-textarea\" id=\"fftext_" + q.id + "\" placeholder=\"Type your answer...\"></textarea>";
+      }
+      h += "</div>";
+    });
+    h += "</div>";
+  });
+
+  h += "<div class=\"ff-submit-bar\"><button class=\"ff-submit\" onclick=\"submitForm()\">Submit answers</button><span class=\"ff-msg\" id=\"ffMsg\"></span></div>";
+  h += "</div>";
+  el.innerHTML = h;
+  window.scrollTo(0,0);
+  var mc = document.querySelector(".main-content");
+  if (mc) mc.scrollTop = 0;
+}
+
+function npsSelect(el, qid, val) {
+  el.parentElement.querySelectorAll(".nps-opt").forEach(function(o){ o.classList.remove("sel"); });
+  el.classList.add("sel");
+  document.getElementById("npsval_" + qid).value = val;
+}
+function markSel(label) {
+  label.parentElement.querySelectorAll(".ro-item").forEach(function(o){ o.classList.remove("sel"); });
+  label.classList.add("sel");
+}
+function markSelCk(label) {
+  setTimeout(function(){
+    var input = label.querySelector("input");
+    label.classList.toggle("sel", input.checked);
+  }, 0);
+}
+
+function submitForm() {
+  var f = FORMS_DEF.find(function(x){ return x.id === currentFormId; });
+  if (!f) return;
+  var user = getCurrentUser();
+  var msgEl = document.getElementById("ffMsg");
+  var answers = {};
+  var missing = [];
+
+  f.sections.forEach(function(sec) {
+    sec.questions.forEach(function(q) {
+      if (q.type === "likert") {
+        var rowVals = [];
+        var allAnswered = true;
+        q.rows.forEach(function(r, rIdx) {
+          var rLabel = (typeof r === "string") ? r : r.label;
+          var sel = document.querySelector("input[name=\"" + q.id + "_r" + rIdx + "\"]:checked");
+          if (sel) rowVals.push({row:rLabel, value:parseInt(sel.value)});
+          else allAnswered = false;
+        });
+        answers[q.id] = rowVals;
+        if (q.required && !allAnswered) missing.push(q.label);
+      } else if (q.type === "nps") {
+        var v = document.getElementById("npsval_" + q.id).value;
+        answers[q.id] = v ? parseInt(v) : null;
+        if (q.required && !v) missing.push(q.label);
+      } else if (q.type === "radio") {
+        var sel = document.querySelector("input[name=\"" + q.id + "\"]:checked");
+        answers[q.id] = sel ? sel.value : null;
+        if (q.required && !sel) missing.push(q.label);
+      } else if (q.type === "checkbox") {
+        var sels = [];
+        document.querySelectorAll("input[name=\"" + q.id + "\"]:checked").forEach(function(c){ sels.push(c.value); });
+        answers[q.id] = sels;
+        if (q.required && sels.length === 0) missing.push(q.label);
+      } else if (q.type === "text") {
+        answers[q.id] = (document.getElementById("fftext_" + q.id).value || "").trim();
+      }
+    });
+  });
+
+  if (missing.length > 0) {
+    msgEl.className = "ff-msg err";
+    msgEl.textContent = "Please answer all required questions (" + missing.length + " missing).";
+    return;
+  }
+
+  // Save response
+  var responses = getFormResponses();
+  responses.push({
+    formId: f.id,
+    formTitle: f.title,
+    week: f.week,
+    email: cleanEmail(user.email),
+    name: user.name,
+    cohort: String(getUserCohort(user)) === "3" ? "Cohort 3" : "Cohort 2",
+    answers: answers,
+    submittedAt: new Date().toISOString(),
+    onTime: true
+  });
+  saveFormResponses(responses);
+
+  // Award 1 point in central store
+  var store = getPointsStore();
+  var rec = getPersonRecord(store, user.email, user.name, String(getUserCohort(user)) === "3" ? "Cohort 3" : "Cohort 2");
+  rec.forms = (rec.forms || 0) + 1;
+  recalcTotal(rec);
+  savePointsStore(store);
+
+  msgEl.className = "ff-msg ok";
+  msgEl.textContent = "Submitted! +1 point. Thank you.";
+  setTimeout(function(){ renderForms(getCurrentUser()); }, 1200);
+}
+
+
+// ═══ FORMS ANALYTICS (admin) ═══
+function renderFormsAnalytics() {
+  var wrap = document.getElementById("formsAnalyticsWrap");
+  if (!wrap) return;
+  var responses = getFormResponses();
+  var h = "";
+  FORMS_DEF.forEach(function(f) {
+    var all = responses.filter(function(r){ return r.formId === f.id; });
+    var c2 = all.filter(function(r){ return String(r.cohort).indexOf("2") !== -1; }).length;
+    var c3 = all.filter(function(r){ return String(r.cohort).indexOf("3") !== -1; }).length;
+    var shown = adminCohortView === 0 ? all.length : (adminCohortView === 2 ? c2 : c3);
+    h += "<div class=\"admin-row\"><span class=\"label\">" + f.title + "</span>";
+    h += "<span style=\"font-size:.7rem;color:var(--muted)\">C2: " + c2 + " &middot; C3: " + c3 + "</span>";
+    h += "<span style=\"font-weight:800\">" + shown + " responses</span></div>";
+  });
+  if (FORMS_DEF.length === 0) h = "<p style=\"font-size:.78rem;color:var(--muted)\">No forms defined.</p>";
+  wrap.innerHTML = h;
+}
+
+function exportFormResponses() {
+  var responses = getFormResponses();
+  var blob = new Blob([JSON.stringify(responses, null, 2)], {type:"application/json"});
+  var a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "form_responses.json";
+  a.click();
+}
+
+
+function toggleAdminWeekDropdown(weekNum, ev) {
+  adminOpenWeek = (adminOpenWeek === weekNum) ? null : weekNum;
+  var user = getCurrentUser();
+  if (user) renderAdmin(user);
+}
 
 // ═══ INIT ═══
 document.addEventListener("DOMContentLoaded", function() {
