@@ -6,6 +6,7 @@
 <title>AI Democratization Program | Cohort Hub</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 
 :root{
@@ -745,6 +746,34 @@ a{color:inherit;text-decoration:none}
 </div>
 <script>
 
+// ═══ SUPABASE ═══
+var SUPABASE_URL = "https://fwzrnwmmflhrlygslagh.supabase.co";
+var SUPABASE_ANON_KEY = "sb_publishable_qxwt1j5MwGsHT5z9Xjxk4g__jKtJVNh";
+var _sb = null;
+function getSB() {
+  if (!_sb) {
+    try { _sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY); } catch(e) { _sb = null; }
+  }
+  return _sb;
+}
+
+// Fire-and-forget async upsert — never blocks the UI, never throws to the user
+async function sbUpsert(table, row) {
+  var client = getSB();
+  if (!client) return;
+  try { await client.from(table).upsert(row, {onConflict: "email"}); } catch(e) { /* silent */ }
+}
+async function sbInsert(table, row) {
+  var client = getSB();
+  if (!client) return;
+  try { await client.from(table).insert(row); } catch(e) { /* silent */ }
+}
+async function sbUpsertNoConflict(table, row) {
+  var client = getSB();
+  if (!client) return;
+  try { await client.from(table).upsert(row); } catch(e) { /* silent */ }
+}
+
 // ═══ CONFIGURATION ═══
 var ADMIN_EMAIL = "admin@elogroup.com.br";
 var ADMIN_PASS = "EloAI2026!";
@@ -1037,9 +1066,21 @@ function doRegister() {
   var dept = match ? match.department : "";
   var pos = match ? match.position : "";
 
-  users[email] = {name:name, email:email, password:pass, cohort:cohort, department:dept, position:pos};
+  var newUser = {name:name, email:email, password:pass, cohort:cohort, department:dept, position:pos};
+  users[email] = newUser;
   saveUsers(users);
-  setCurrentUser(users[email]);
+  setCurrentUser(newUser);
+
+  // Sync to Supabase (fire-and-forget)
+  sbUpsert("hub_users", {
+    email: email,
+    name: name,
+    cohort: cohort,
+    department: dept,
+    position: pos,
+    registered_at: new Date().toISOString()
+  });
+
   enterApp();
 }
 
@@ -1889,7 +1930,49 @@ function importAttendance() {
 
   savePointsStore(store);
   resEl.className = "import-result show ok";
-  resEl.innerHTML = "&#9989; <strong>" + meetingName + "</strong> (" + sessionCohort + "): <strong>" + awarded + "</strong> participants awarded 5 pts (&ge;70% of " + sessionMins + " min = " + Math.ceil(threshold) + " min) &middot; " + skipped + " below threshold &middot; " + ignored + " ignored/duplicates. <em>Ready to sync to Supabase when connected.</em>";
+  resEl.innerHTML = "&#9989; <strong>" + meetingName + "</strong> (" + sessionCohort + "): <strong>" + awarded + "</strong> participants awarded 5 pts (&ge;70% of " + sessionMins + " min = " + Math.ceil(threshold) + " min) &middot; " + skipped + " below threshold &middot; " + ignored + " ignored/duplicates. <em>Syncing to Supabase...</em>";
+
+  // Sync attendance records to Supabase (fire-and-forget)
+  (async function() {
+    var client = getSB();
+    if (!client) return;
+    var toSync = [];
+    lines.forEach(function(line) {
+      var cols = line.split(/\t/);
+      if (cols.length < 2) return;
+      var emailCol = null, durCol = null, name = cols[0].trim();
+      for (var i = 1; i < cols.length; i++) {
+        var c = cols[i].trim();
+        if (!durCol && /\d+\s*[hms]/.test(c) && !/\d{1,2}:\d{2}/.test(c.substring(0,5))) durCol = c;
+        if (c.indexOf("@") !== -1 && !emailCol) emailCol = c;
+      }
+      if (!emailCol || !durCol) return;
+      if (name.toLowerCase() === "nome" || name.toLowerCase() === "name") return;
+      var mins = parseDuration(durCol);
+      var pts = mins >= sessionMins * 0.7 ? 5 : 0;
+      toSync.push({
+        email: emailCol.trim().toLowerCase(),
+        name: name,
+        cohort: sessionCohort,
+        week: sessionWeek,
+        meeting_name: meetingName,
+        duration_mins: mins,
+        session_mins: sessionMins,
+        attended: pts > 0,
+        points: pts,
+        imported_at: new Date().toISOString()
+      });
+    });
+    if (toSync.length > 0) {
+      try {
+        await client.from("attendance_records").upsert(toSync, {onConflict: "email,meeting_name"});
+        resEl.innerHTML = resEl.innerHTML.replace("Syncing to Supabase...", "Synced to Supabase &#9989;");
+      } catch(e) {
+        resEl.innerHTML = resEl.innerHTML.replace("Syncing to Supabase...", "Local only (Supabase offline)");
+      }
+    }
+  })();
+
   renderPointsTables();
   renderBIPanel();
 }
@@ -1990,7 +2073,56 @@ function importAgentResults() {
   savePointsStore(store);
   localStorage.setItem("hub_agent_raw", raw);
   resEl.className = "import-result show ok";
-  resEl.innerHTML = "&#9989; <strong>" + imported + "</strong> records imported (all previous agent data replaced) &mdash; Cohort 2: <strong>" + c2 + "</strong> &middot; Cohort 3: <strong>" + c3 + "</strong>" + (skipped?" &middot; "+skipped+" skipped (no name/email)":"") + ". <em>Full agent data stored &mdash; ready to sync to Supabase.</em>";
+  resEl.innerHTML = "&#9989; <strong>" + imported + "</strong> records imported (all previous agent data replaced) &mdash; Cohort 2: <strong>" + c2 + "</strong> &middot; Cohort 3: <strong>" + c3 + "</strong>" + (skipped?" &middot; "+skipped+" skipped (no name/email)":"") + ". <em>Syncing to Supabase...</em>";
+
+  // Sync agent results to Supabase (fire-and-forget, replace all)
+  (async function() {
+    var client = getSB();
+    if (!client) return;
+    try {
+      // Clear existing agent data first
+      await client.from("agent_results").delete().neq("email", "___never___");
+      // Insert fresh records
+      var toSync = rows.filter(function(r){ return (r.email||r.e_mail||r.mail||"").trim(); }).map(function(r) {
+        var email = (r.email || r.e_mail || r.mail || "").trim().toLowerCase();
+        var cohortRaw = (r.cohort || r.coorte || "").trim();
+        var cohort = "";
+        if (cohortRaw.toLowerCase().indexOf("3") !== -1) cohort = "Cohort 3";
+        else if (cohortRaw.toLowerCase().indexOf("2") !== -1) cohort = "Cohort 2";
+        if (!cohort && email) cohort = cohortOfEmail(email);
+        return {
+          email: email,
+          name: (r.name || r.nome || "").trim(),
+          cohort: cohort,
+          area: r.area || "",
+          role: r.role || "",
+          country: r.country || "",
+          agents_unlocked: r.agents_unlocked || "0",
+          last_active: r.last_active || null,
+          opp_msgs: parseInt(r.opp_msgs||0)||0,
+          hld_msgs: parseInt(r.hld_msgs||0)||0,
+          bizcase_msgs: parseInt(r.bizcase_msgs||0)||0,
+          onepager_msgs: parseInt(r["1_pager_msgs"]||r.onepager_msgs||0)||0,
+          opp_completed: r.opp_completed || "",
+          hld_completed: r.hld_completed || "",
+          bizcase_completed: r.bizcase_completed || "",
+          onepager_completed: r.onepager_completed || "",
+          as_is_hours: r.as_is_hoursmonth || r["as_is_hours/month"] || null,
+          to_be_hours: r.to_be_hoursmonth || r["to_be_hours/month"] || null,
+          savings_pct: r["savings_%"] || r.savings_pct || null,
+          priority_use_case: r.priority_use_case || "",
+          priority_case_desc: r.priority_case_description || "",
+          gamification_score: parseFloat(r.gamification_score||r.gamificationscore||r.score||r.points||0)||0,
+          imported_at: new Date().toISOString()
+        };
+      });
+      if (toSync.length > 0) await client.from("agent_results").insert(toSync);
+      resEl.innerHTML = resEl.innerHTML.replace("Syncing to Supabase...", "Synced to Supabase &#9989;");
+    } catch(e) {
+      resEl.innerHTML = resEl.innerHTML.replace("Syncing to Supabase...", "Local only (Supabase offline)");
+    }
+  })();
+
   renderPointsTables();
   renderBIPanel();
 }
@@ -2639,9 +2771,9 @@ function submitForm() {
     return;
   }
 
-  // Save response
+  // Save response locally
   var responses = getFormResponses();
-  responses.push({
+  var formResponse = {
     formId: f.id,
     formTitle: f.title,
     week: f.week,
@@ -2651,8 +2783,22 @@ function submitForm() {
     answers: answers,
     submittedAt: new Date().toISOString(),
     onTime: true
-  });
+  };
+  responses.push(formResponse);
   saveFormResponses(responses);
+
+  // Sync to Supabase (fire-and-forget)
+  sbInsert("form_responses", {
+    form_id: formResponse.formId,
+    form_title: formResponse.formTitle,
+    week: formResponse.week,
+    email: formResponse.email,
+    name: formResponse.name,
+    cohort: formResponse.cohort,
+    answers: formResponse.answers,
+    submitted_at: formResponse.submittedAt,
+    on_time: true
+  });
 
   // Award 1 point in central store
   var store = getPointsStore();
