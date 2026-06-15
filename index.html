@@ -530,6 +530,30 @@ a{color:inherit;text-decoration:none}
 .prog-lb-row.me .prog-lb-pts{background:var(--navy);color:#fff}
 .prog-empty{font-size:.78rem;color:var(--muted);padding:.8rem 0;line-height:1.6}
 
+/* ═══ FORM COUNTDOWN ═══ */
+.form-inline{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.9rem 1.1rem;display:flex;align-items:center;gap:.8rem;margin-top:.6rem;transition:all .2s}
+.form-inline:hover{box-shadow:0 4px 14px rgba(32,68,220,.08)}
+.form-inline-icon{font-size:1.3rem;flex-shrink:0}
+.form-inline-info{flex:1;min-width:0}
+.form-inline-title{font-size:.8rem;font-weight:700;color:var(--navy)}
+.form-inline-sub{font-size:.62rem;color:var(--muted);margin-top:.1rem}
+.form-inline-cd{font-size:.62rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:.25rem .6rem;border-radius:6px;white-space:nowrap;flex-shrink:0}
+.cd-ok{background:var(--greenBg);color:var(--green)}
+.cd-warning{background:#fef3c7;color:#92400e}
+.cd-urgent{background:#fed7aa;color:#c2410c;animation:pulse-cd 1.5s ease infinite}
+.cd-critical{background:var(--redBg);color:var(--red);animation:pulse-cd .8s ease infinite}
+.cd-closed{background:var(--bg);color:var(--muted)}
+.cd-late-sm{background:#fee2e2;color:#b91c1c}
+.cd-late-md{background:#fee2e2;color:#991b1b;font-weight:900}
+.cd-late-lg{background:#fee2e2;color:#7f1d1d;font-weight:900}
+@keyframes pulse-cd{0%,100%{opacity:1}50%{opacity:.55}}
+.async-placeholder{font-size:.74rem;color:var(--muted);font-style:italic;padding:.3rem 0}
+
+/* Form card — done state (greyed out) */
+.form-card.done-card{opacity:.55;filter:grayscale(.4);pointer-events:none}
+.form-card.done-card h3{color:var(--muted)}
+.form-card.done-card .fc-week{color:var(--muted)}
+
 /* Form fill view */
 .ff-wrap{max-width:760px}
 .ff-head{background:var(--navy);border-radius:14px;padding:1.5rem 1.8rem;margin-bottom:1.2rem;position:relative;overflow:hidden}
@@ -877,54 +901,54 @@ var WEEK_SCHEDULE = [
   {week:0, num:"W0", title:"Kickoff", dates:"08/06 - 12/06", summary:"Program launch", objective:"Program alignment and how the cohort works",
     theory:null, theoryTopics:["Program objectives & format","Skill-building methodology","Gamification & FAQ","Security policy"], theoryDuration:"1:30h",
     practical:null, practicalTopics:[], asyncTopics:[],
-    deliverables:"Assessment form; Responsibility term signed",
+    deliverables:"",
     kickoffPdf:"https://patriainvest.sharepoint.com/sites/AIDemocratization-Cohort2/Shared%20Documents/Forms/AllItems.aspx?viewid=046c3eac%2D59fd%2D4166%2D9f29%2Dd40d2ffdc6a1&ga=1&id=%2Fsites%2FAIDemocratization%2DCohort2%2FShared%20Documents%2F%5BCohort%2002%5D%20Materials%20%2D%20AI%20Democratization%20Program%2F00%2E%20Pre%2DCohort%2F00%2E%20Kickoff%2F10%2E06%2E2026%20%2D%20KickOff%20%2D%20Business%20Cohort%20%232%2Epdf&parent=%2Fsites%2FAIDemocratization%2DCohort2%2FShared%20Documents%2F%5BCohort%2002%5D%20Materials%20%2D%20AI%20Democratization%20Program%2F00%2E%20Pre%2DCohort%2F00%2E%20Kickoff",
     kickoffVideo:"https://patriainvest.sharepoint.com/sites/AIDemocratization-Cohort2/_layouts/15/stream.aspx?id=%2Fsites%2FAIDemocratization%2DCohort2%2FShared%20Documents%2F%5BCohort%2002%5D%20Materials%20%2D%20AI%20Democratization%20Program%2F00%2E%20Pre%2DCohort%2F00%2E%20Kickoff%2FKick%2DOff%20Cohort%202%20%20AI%20Democratization%20Program%2D20260610%5F135552UTC%2DMeeting%20Recording%2Emp4&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2Ed503248f%2D4b6c%2D4cdb%2Da3e0%2D1716c1e1d580"
   },
   {week:1, num:"W1", title:"Fundamentals + Prompt Engineering", dates:"15/06 - 19/06", summary:"Claude Fundamentals", objective:"Present Claude core features and how to craft strong prompts",
     theory:"Theory session", theoryTopics:["Intro to AI & Claude","Prompt Engineering","Token usage","Claude Chat tools"], theoryDuration:"1h",
     practical:"Practical session", practicalTopics_c2:["Agenda generation flow for meetings, through to post-meeting content consolidation"], practicalTopics_c3:["Agenda generation flow for meetings, through to post-meeting content consolidation"], practicalDuration:"1h",
-    asyncTopics:["Chain-of-Thought Prompting","Anthropic Model Specification"],
+    asyncTopics:[],
     asyncLinks:[{label:"Supplementary Content — Prompt Engineering & Token Usage", url:"https://patriainvest.sharepoint.com/:u:/s/AIDemocratization-Cohort2/IQCObAcCk5dPTKw-PjZboKWuAb2X4k8neKxrBCCDakMoZ8k?e=NipfsJ"}],
-    deliverables:"Mapped use cases (individual)"
+    deliverables:""
   },
   {week:2, num:"W2", title:"Connectors + Prioritization", dates:"22/06 - 26/06", summary:"Connectors + Prioritization Criteria", objective:"Operate connectors with real Patria data",
     theory:"Theory session", theoryTopics:["Connectors","Claude Design","Artifacts"], theoryDuration:"1h",
     practical:"Practical session", practicalTopics_c2:["Tool for reading and summarizing daily emails","Tool that consolidates knowledge about a company from previous reports"], practicalTopics_c3:["Tool for reading and summarizing daily emails","Tool that consolidates internal knowledge and policies to answer operational questions"], practicalDuration:"1h",
-    asyncTopics:["Model Context Protocol (MCP)","RAG vs. Fine-Tuning"],
-    deliverables:"Use case prioritized (leaders)"
+    asyncTopics:[],
+    deliverables:""
   },
   {week:3, num:"W3", title:"Add-ins + AI Solution Design", dates:"29/06 - 03/07", summary:"Add-ins + AI Solution Design", objective:"Operate add-ins with real Patria data",
     theory:"Theory session", theoryTopics:["Add-ins (Excel, PPT & PowerBI)"], theoryDuration:"1h",
     practical:"Practical session", practicalTopics_c2:["Excel analysis of a company's activity data from IR data","Executive presentation based on a spreadsheet analyzing the company's performance"], practicalTopics_c3:["Excel analysis of performance and activity data","Executive presentation based on structured data and reports"], practicalDuration:"1h",
-    asyncTopics:["Agentic AI in Finance"],
-    deliverables:"As-is diagnosis; Solution to-be"
+    asyncTopics:[],
+    deliverables:""
   },
   {week:4, num:"W4", title:"Skills + Mapping", dates:"06/07 - 10/07", summary:"Skills + Mapping", objective:"Explain skills + tool integration + use case mapping",
     theory:"Theory session", theoryTopics:["Skills","Tool integration"], theoryDuration:"1h",
     practical:"Practical session", practicalTopics_c2:["Building a market analysis skill","Integrating the skill with an add-in for company presentation","Building Patria visual identity skill"], practicalTopics_c3:["Building a commercial intelligence skill","Integrating the skill with an add-in for executive presentation building","Building Patria visual identity skill"], practicalDuration:"1h",
-    asyncTopics:["Multi-agent Orchestration"],
-    deliverables:"Claude project created; Start First Resolute"
+    asyncTopics:[],
+    deliverables:""
   },
   {week:5, num:"W5", title:"First Resolute Presentation", dates:"13/07 - 17/07", summary:"First Resolute to the group", objective:"Develop the first resolution with a mentoring moment",
     theory:null, theoryTopics:[], practical:null, practicalTopics_c2:[], practicalTopics_c3:[], asyncTopics:[],
     touchpoint:"Touchpoint", touchpointDesc:"Groups present and discuss their use cases", touchpointDuration:"1h",
-    deliverables:"First Resolute in development"
+    deliverables:""
   },
   {week:6, num:"W6", title:"Mentoring + Business Case", dates:"20/07 - 24/07", summary:"Mentoring + Business Case", objective:"Build the business case + begin skill development",
     theory:null, theoryTopics:[], practical:null, practicalTopics_c2:[], practicalTopics_c3:[], asyncTopics:[],
     touchpoint:"Touchpoint", touchpointDesc:"Q&A + Catch-up session", touchpointDuration:"1h",
-    deliverables:"First Resolute delivered"
+    deliverables:""
   },
   {week:7, num:"W7", title:"Final Skill Completion", dates:"27/07 - 31/07", summary:"Final Skill completion", objective:"Final refinement round + business case discussion",
     theory:null, theoryTopics:[], practical:null, practicalTopics_c2:[], practicalTopics_c3:[], asyncTopics:[],
     touchpoint:"Touchpoint", touchpointDesc:"Skill presentation + business case refinement", touchpointDuration:"1h",
-    deliverables:"Final Skill + Business Case submitted"
+    deliverables:""
   },
   {week:8, num:"W8", title:"Project Pitch", dates:"03/08 - 07/08", summary:"Project Pitch", objective:"Present top 10 solutions to the cohort",
     theory:null, theoryTopics:[], practical:null, practicalTopics_c2:[], practicalTopics_c3:[], asyncTopics:[],
     event:"Event", eventDesc:"Top 10 case presentations to the cohort",
-    deliverables:"Post-program assessment form"
+    deliverables:""
   },
   {week:9, num:"W9", title:"Patria by Patria", dates:"10/08 - 14/08", summary:"Patria by Patria", objective:"Judge and award the best cases",
     theory:null, theoryTopics:[], practical:null, practicalTopics_c2:[], practicalTopics_c3:[], asyncTopics:[],
@@ -971,7 +995,7 @@ function getWeekItems(weekNum) {
   }
   if (ws.theory && ws.theoryTopics && ws.theoryTopics.length) items.push({key:"theory", label:"Theory session content"});
   if (ws.practical) items.push({key:"practical", label:"Practical session content"});
-  if (ws.asyncTopics && ws.asyncTopics.length) items.push({key:"async", label:"Async content (Degreed)"});
+  if ((ws.asyncTopics && ws.asyncTopics.length) || (ws.asyncLinks && ws.asyncLinks.length) || (ws.week >= 1 && ws.week <= 4)) items.push({key:"async", label:"Async content"});
   if (ws.touchpoint) items.push({key:"touchpoint", label:"Touchpoint"});
   if (ws.event) items.push({key:"event", label:"Event"});
   if (ws.deliverables) items.push({key:"deliverables", label:"Deliverables"});
@@ -980,6 +1004,106 @@ function getWeekItems(weekNum) {
     if (f.week === weekNum) items.push({key:"form_" + f.id, label:"Form: " + f.title});
   });
   return items;
+}
+
+// ═══ FORM DEADLINE HELPER ═══
+// Deadline = Friday 23:59:59 of the form's week
+function getFormDeadline(weekNum) {
+  var friday = new Date(WEEK_0_START.getTime());
+  friday.setDate(friday.getDate() + (weekNum * 7) + 5); // Sunday + 5 = Friday
+  friday.setHours(23, 59, 59, 999);
+  return friday;
+}
+
+function getFormCountdown(weekNum) {
+  var deadline = getFormDeadline(weekNum);
+  var now = new Date();
+  var diff = deadline.getTime() - now.getTime();
+
+  // Still open — countdown
+  if (diff > 0) {
+    var mins  = Math.floor(diff / 60000);
+    var hours = Math.floor(mins / 60);
+    var days  = Math.floor(hours / 24);
+    if (mins < 60)   return {text: mins + "min left",                cls:"cd-critical", urgent:true,  late:false};
+    if (hours < 24)  return {text: hours + "h " + (mins%60) + "m left",   cls:"cd-urgent",   urgent:true,  late:false};
+    if (days <= 2)   return {text: days + "d " + (hours%24) + "h left",   cls:"cd-warning",  urgent:false, late:false};
+    return           {text: days + " days left",                     cls:"cd-ok",       urgent:false, late:false};
+  }
+
+  // Expired — countup (how late is the person)
+  var late = Math.abs(diff);
+  var lMins  = Math.floor(late / 60000);
+  var lHours = Math.floor(lMins / 60);
+  var lDays  = Math.floor(lHours / 24);
+  if (lMins < 60)   return {text: lMins + "min late",                   cls:"cd-late-sm",  urgent:false, late:true};
+  if (lHours < 24)  return {text: lHours + "h " + (lMins%60) + "m late",    cls:"cd-late-sm",  urgent:false, late:true};
+  if (lDays <= 2)   return {text: lDays + "d " + (lHours%24) + "h late",    cls:"cd-late-md",  urgent:false, late:true};
+  return             {text: lDays + " days late",                       cls:"cd-late-lg",  urgent:false, late:true};
+}
+
+function getFormsForWeek(weekNum) {
+  return FORMS_DEF.filter(function(f){ return f.week === weekNum; });
+}
+
+// Build a reusable form card HTML (inline or full)
+// mode: "inline" (compact, for week/calendar) | "full" (form-card, for forms tab)
+function buildFormCardHTML(f, user, mode) {
+  var unlocked = f.alwaysOpen || isItemUnlocked(f.week, "form_" + f.id) || isAdmin(user);
+  var done = userHasSubmitted(f.id, user.email);
+  var cd = getFormCountdown(f.week);
+  var email = cleanEmail(user.email);
+
+  if (mode === "inline") {
+    var b = "<div class=\"form-inline\" style=\"cursor:" + (unlocked && !done ? "pointer" : "default") + "\"" +
+      (unlocked && !done ? " onclick=\"goToForm('" + f.id + "')\"" : "") + ">";
+    b += "<span class=\"form-inline-icon\">" + (done ? "&#9989;" : (unlocked ? "&#128221;" : "&#128274;")) + "</span>";
+    b += "<div class=\"form-inline-info\"><div class=\"form-inline-title\">" + f.title + "</div>";
+    b += "<div class=\"form-inline-sub\">";
+    if (done) {
+      b += "Submitted &#10003;";
+    } else if (unlocked) {
+      b += f.desc + (cd.late ? " &mdash; <strong style='color:var(--red)'>late submission (no points)</strong>" : "");
+    } else {
+      b += "Locked — will open when available";
+    }
+    b += "</div></div>";
+    // Badge
+    if (done) {
+      b += "<span class=\"form-inline-cd cd-ok\">+1 pt &#10003;</span>";
+    } else if (unlocked) {
+      b += "<span class=\"form-inline-cd " + cd.cls + "\">" + cd.text + "</span>";
+    }
+    b += "</div>";
+    return b;
+  }
+
+  // mode === "full" — the big form-card for the Forms tab
+  var extraCls = done ? " done-card" : "";
+  var b = "<div class=\"form-card" + extraCls + "\">";
+  b += "<span class=\"fc-week\">Week " + f.week + " &middot; Post-class</span>";
+  b += "<h3>" + f.title + "</h3>";
+  b += "<p>" + f.subtitle + " — " + f.desc + "</p>";
+  // Countdown badge
+  if (!done && unlocked) {
+    b += "<div style=\"margin:.3rem 0\"><span class=\"form-inline-cd " + cd.cls + "\">" + cd.text + "</span></div>";
+    if (cd.late) {
+      b += "<div style=\"font-size:.65rem;color:var(--red);margin-bottom:.4rem\">&#9888; Late submission — no points awarded, but you can still respond.</div>";
+    }
+  }
+  b += "<div class=\"fc-foot\">";
+  if (done) {
+    b += "<span class=\"fc-status done-st\">&#10003; Submitted</span>";
+    b += "<button disabled style=\"opacity:.35\">Submitted</button>";
+  } else if (unlocked) {
+    b += "<span class=\"fc-status open-st\">Open</span>";
+    b += "<button onclick=\"openForm('" + f.id + "')\">Answer now &rarr;</button>";
+  } else {
+    b += "<span class=\"fc-status locked-fst\">&#128274; Locked</span>";
+    b += "<button disabled>Locked</button>";
+  }
+  b += "</div></div>";
+  return b;
 }
 
 // ═══ ADMIN WEEK CONTROLS ═══
@@ -1520,9 +1644,13 @@ function getGlBlockContent(id) {
           content += "<span class=\"gl-dw-topic\">CASES &middot; " + (ws.practicalDuration || "1h") + "</span>";
           content += pt.join(" &middot; ");
         }
-      } else if (isActive && id === "03" && ws.asyncTopics && ws.asyncTopics.length > 0) {
+      } else if (isActive && id === "03" && ws.week >= 1 && ws.week <= 4) {
         content += "<span class=\"gl-dw-topic\">ASYNC CONTENT</span>";
-        content += ws.asyncTopics.join(" &middot; ");
+        if (ws.asyncLinks && ws.asyncLinks.length > 0) {
+          ws.asyncLinks.forEach(function(lnk) { content += lnk.label; });
+        } else {
+          content += "<em style=\"opacity:.5\">Content not yet available</em>";
+        }
       } else if (isActive && id === "04" && ws.touchpoint) {
         content += "<span class=\"gl-dw-topic\">" + ws.touchpoint + " &middot; " + (ws.touchpointDuration || "1h") + "</span>";
         content += ws.touchpointDesc || "";
@@ -1685,15 +1813,17 @@ function openWeekModal(weekNum) {
     pt.forEach(function(t){ b += "<li>" + t + "</li>"; });
     b += "</ul></div>";
   }
-  if (ws.asyncTopics && ws.asyncTopics.length) {
+  // Async content section — show links if available, otherwise "not yet available" for weeks 1-4
+  var hasAsync = (ws.asyncLinks && ws.asyncLinks.length > 0) || (ws.week >= 1 && ws.week <= 4);
+  if (hasAsync) {
     var asU = isItemUnlocked(weekNum, "async") || isAdmin(user);
-    b += "<div class=\"wm-row\"><span class=\"wm-label lbl-async\">Async content" + (asU?"":" &#128274;") + "</span><ul>";
-    ws.asyncTopics.forEach(function(t){ b += "<li>" + t + "</li>"; });
-    b += "</ul>";
+    b += "<div class=\"wm-row\"><span class=\"wm-label lbl-async\">Async content" + (asU?"":" &#128274;") + "</span>";
     if (asU && ws.asyncLinks && ws.asyncLinks.length) {
       ws.asyncLinks.forEach(function(lnk){
-        b += "<a href=\"" + lnk.url + "\" target=\"_blank\" style=\"display:inline-flex;align-items:center;gap:.35rem;margin-top:.5rem;font-size:.74rem;font-weight:600;color:var(--blue)\">&#128196; " + lnk.label + " &rarr;</a>";
+        b += "<a href=\"" + lnk.url + "\" target=\"_blank\" style=\"display:inline-flex;align-items:center;gap:.35rem;margin-top:.3rem;font-size:.76rem;font-weight:600;color:var(--blue)\">&#128196; " + lnk.label + " &rarr;</a><br>";
       });
+    } else if (asU) {
+      b += "<p class=\"async-placeholder\">Content not yet available — will be added soon.</p>";
     }
     b += "</div>";
   }
@@ -1703,10 +1833,14 @@ function openWeekModal(weekNum) {
   if (ws.event) {
     b += "<div class=\"wm-row\"><span class=\"wm-label lbl-event\">" + ws.event + "</span><p>" + ws.eventDesc + "</p></div>";
   }
-  if (ws.deliverables) {
-    var dlU = isItemUnlocked(weekNum, "deliverables") || isAdmin(user);
-    b += "<div class=\"wm-row\"><span class=\"wm-label lbl-del\">Deliverables &amp; Forms" + (dlU?"":" &#128274;") + "</span><p>" + ws.deliverables.replace(/;/g,"<br>") + "</p>";
-    if (!dlU) b += "<p style=\"font-size:.7rem;opacity:.7;margin-top:.3rem\">Forms will be available when this item is unlocked.</p>";
+
+  // Forms for this week (with countdown timer)
+  var weekForms = getFormsForWeek(weekNum);
+  if (weekForms.length > 0) {
+    b += "<div class=\"wm-row\"><span class=\"wm-label lbl-del\">Forms</span>";
+    weekForms.forEach(function(f) {
+      b += buildFormCardHTML(f, user, "inline");
+    });
     b += "</div>";
   }
 
@@ -1756,19 +1890,27 @@ function renderCurrentWeek(user) {
   }
   h += "</div>";
 
-  h += "<div class=\"cw-card\"><h3><span class=\"icon\">&#128203;</span> Deliverables &amp; Async</h3>";
-  if (ws.deliverables) {
-    ws.deliverables.split(";").forEach(function(d) {
-      h += "<div class=\"cw-card-item\"><div class=\"cw-status pending\"></div>" + d.trim() + "</div>";
+  h += "<div class=\"cw-card\"><h3><span class=\"icon\">&#128203;</span> Async Content &amp; Forms</h3>";
+  // Async links
+  var hasAsyncCW = (ws.asyncLinks && ws.asyncLinks.length > 0) || (ws.week >= 1 && ws.week <= 4);
+  if (hasAsyncCW) {
+    if (ws.asyncLinks && ws.asyncLinks.length > 0) {
+      ws.asyncLinks.forEach(function(lnk) {
+        h += "<div class=\"cw-card-item\"><div class=\"cw-status done\"></div><a href=\"" + lnk.url + "\" target=\"_blank\" style=\"color:var(--blue);font-weight:600\">&#128196; " + lnk.label + " &rarr;</a></div>";
+      });
+    } else {
+      h += "<div class=\"cw-card-item\"><div class=\"cw-status locked\"></div><span style=\"color:var(--muted);font-style:italic\">Async content not yet available</span></div>";
+    }
+  }
+  // Forms for this week
+  var cwForms = getFormsForWeek(ws.week);
+  if (cwForms.length > 0) {
+    cwForms.forEach(function(f) {
+      h += buildFormCardHTML(f, user, "inline");
     });
   }
-  if (ws.asyncTopics && ws.asyncTopics.length > 0) {
-    ws.asyncTopics.forEach(function(a) {
-      h += "<div class=\"cw-card-item\"><div class=\"cw-status " + (isItemUnlocked(ws.week, "async") ? "pending" : "locked") + "\"></div>Async: " + a + "</div>";
-    });
-  }
-  if (!ws.deliverables && (!ws.asyncTopics || ws.asyncTopics.length === 0)) {
-    h += "<div class=\"cw-card-item\">No deliverables this week.</div>";
+  if (!hasAsyncCW && cwForms.length === 0) {
+    h += "<div class=\"cw-card-item\">No content this week.</div>";
   }
   h += "</div></div>";
 
@@ -2590,155 +2732,6 @@ var FORMS_DEF = [
       }
     ]
   },
-  {
-    id: "mc02_post",
-    week: 2,
-    title: "Post-Class Survey — Masterclass #02",
-    subtitle: "Connectors + Prioritization",
-    desc: "Tell us about your experience in Masterclass #02 and your current use of Claude. Takes ~3 minutes.",
-    sections: [
-      {
-        title: "Section 1: Reflection on Class Content",
-        desc: "Please answer the following questions regarding the specific modules taught during this session. We are looking to evaluate the clarity of the complex topics discussed and your readiness to translate this theory into practical application.",
-        questions: [
-          {id:"q1", type:"likert", required:true,
-           label:"1. Considering your knowledge of Prompt Engineering so far, you:",
-           cols:["Strongly disagree","Partially disagree","Neutral","Partially agree","Strongly agree"],
-           rows:[
-             {label:"Know how to structure prompts using elements such as context, task, format, constraints, and examples to improve model performance.", sub:""},
-             {label:"Know how to refine prompts through iterative testing to troubleshoot and optimize results.", sub:""},
-             {label:"Understand the main stages of the data lifecycle (acquisition, storage, analysis, and presentation) and how they affect analytics and Generative AI results.", sub:""}
-           ]},
-          {id:"q2", type:"likert", required:true,
-           label:"2. Considering your knowledge of Connectors, Projects and Claude Skills so far, you:",
-           cols:["Strongly disagree","Partially disagree","Neutral","Partially agree","Strongly agree"],
-           rows:[
-             {label:"Know how to use connectors to retrieve, summarize, and consolidate information from multiple enterprise sources to support daily activities.", sub:""},
-             {label:"Recognize the value of using Projects as a tool for institutional memory, ensuring Claude 'remembers' the nuances and history of a specific case without having to provide the same context repeatedly.", sub:""},
-             {label:"Understand how to write instructions for a Claude Skill to ensure it adopts the specific tone, formatting, and analytical rigor required.", sub:""}
-           ]}
-        ]
-      },
-      {
-        title: "Section 2: Class Feedback",
-        desc: "Provide feedback on your satisfaction with different aspects of the class, including instructor quality, balance between theory and practice, engagement opportunities, instructional materials, and the relevance of the content to practical applications.",
-        questions: [
-          {id:"q3", type:"nps", required:true, label:"3. What is the likelihood that you would recommend this class to a colleague at Patria?"},
-          {id:"q4", type:"radio", required:true, label:"4. How familiar was the content presented in this class to you?",
-           options:[
-             "Completely new — I encountered these topics for the first time",
-             "Mostly new — I had little prior knowledge",
-             "Relatively familiar — I knew some concepts but learned new applications",
-             "Mostly familiar — It reinforced what I already knew",
-             "Completely familiar — I did not learn anything new"
-           ]},
-          {id:"q5", type:"likert", required:true,
-           label:"5. What is your level of satisfaction with the following aspects of this class?",
-           cols:["Very dissatisfied","Slightly dissatisfied","Neutral","Slightly satisfied","Very satisfied"],
-           rows:[
-             {label:"Instructors", sub:""},
-             {label:"Theory and practice — balance between conceptual and practical parts", sub:""},
-             {label:"Interaction — opportunities for participation and engagement", sub:""},
-             {label:"Materials — clarity and organization of slides and resources", sub:""},
-             {label:"Relevance of content — connection with real-world applications", sub:""}
-           ]},
-          {id:"q6", type:"radio", required:true, label:"6. Were your learning expectations met in this class?",
-           options:["Fell short of my expectations","Met my expectations","Exceeded my expectations"]},
-          {id:"q7", type:"text", required:false, label:"7. How can we improve future classes in this track? Please share any suggestions or feedback you may have."}
-        ]
-      },
-      {
-        title: "Masterclass #02: Claude Use",
-        desc: "To help us monitor the evolution of the AI Democratization Program, we'd like to understand how you have been using Claude in your day-to-day work. Please answer based on your usage over the past 7 days.",
-        questions: [
-          {id:"q8", type:"radio", required:true, label:"8. In the last week, how often did you use Generative AI tools for work-related activities?",
-           options:["Did not use","Once during the week","Used several times during the week","Every day of the week"]},
-          {id:"q9", type:"checkbox", required:true, label:"9. Which Claude feature(s) did you use?",
-           options:[
-             "Standard chat (Q&A / Text generation)",
-             "Research (Deep Research)",
-             "Projects",
-             "Artifacts",
-             "Claude Skills",
-             "Connectors (e.g., links, file integrations)",
-             "Secure file upload",
-             "Others"
-           ]},
-          {id:"q10", type:"text", required:false, label:"10. If you selected \"Others\" in the previous question, please specify which Claude feature(s) you used:"}
-        ]
-      }
-    ]
-  },
-  {
-    id: "mc03_post",
-    week: 3,
-    title: "Post-Class Survey — Masterclass #03",
-    subtitle: "Add-ins + AI Solution Design",
-    desc: "Tell us about your experience in Masterclass #03 and your current use of Claude. Takes ~3 minutes.",
-    sections: [
-      {
-        title: "Section 1: Reflection on Class Content",
-        desc: "Please answer the following questions regarding the specific modules taught during this session. We are evaluating the clarity of the topics discussed and your readiness to translate theory into practice.",
-        questions: [
-          {id:"q1", type:"likert", required:true,
-           label:"1. Considering your knowledge from Masterclass #03, you:",
-           cols:["Strongly disagree","Partially disagree","Neutral","Partially agree","Strongly agree"],
-           rows:[
-             {label:"Understand how AI is transforming operating models, from individual tool usage to human-agent orchestration, with new roles and workflows.", sub:""},
-             {label:"Can identify the human, organizational, and technical frictions that prevent AI initiatives from moving beyond pilots and generating measurable ROI.", sub:""},
-             {label:"Can map AI opportunities in your area's value chain and connect them to real Financial Services cases, preserving human accountability in critical decisions.", sub:""}
-           ]}
-        ]
-      },
-      {
-        title: "Section 2: Class Feedback",
-        desc: "Provide feedback on your satisfaction with different aspects of the class, including instructor quality, engagement opportunities, instructional materials, and the relevance of the content to practical applications.",
-        questions: [
-          {id:"q2", type:"nps", required:true, label:"2. What is the likelihood that you would recommend this class to a colleague at Patria?"},
-          {id:"q3", type:"radio", required:true, label:"3. How familiar was the content presented in this class to you?",
-           options:[
-             "Completely new — I encountered these topics for the first time",
-             "Mostly new — I had little prior knowledge",
-             "Relatively familiar — I knew some concepts but learned new applications",
-             "Mostly familiar — It reinforced what I already knew",
-             "Completely familiar — I did not learn anything new"
-           ]},
-          {id:"q4", type:"likert", required:true,
-           label:"4. What is your level of satisfaction with the following aspects of this class?",
-           cols:["Very dissatisfied","Slightly dissatisfied","Neutral","Slightly satisfied","Very satisfied"],
-           rows:[
-             {label:"Instructors", sub:""},
-             {label:"Interaction — opportunities for participation and engagement", sub:""},
-             {label:"Materials — clarity and organization of slides and resources", sub:""},
-             {label:"Relevance of content — connection with real-world applications", sub:""}
-           ]},
-          {id:"q5", type:"radio", required:true, label:"5. Were your learning expectations met in this class?",
-           options:["Fell short of my expectations","Met my expectations","Exceeded my expectations"]},
-          {id:"q6", type:"text", required:false, label:"6. How can we improve future classes in this track? Please share any suggestions or feedback you may have."}
-        ]
-      },
-      {
-        title: "Masterclass #03: Claude Use",
-        desc: "To help us monitor the evolution of the AI Democratization Program, we'd like to understand how you have been using Claude in your day-to-day work. Please answer based on your usage over the past 7 days.",
-        questions: [
-          {id:"q7", type:"radio", required:true, label:"7. In the last week, how often did you use Generative AI tools for work-related activities?",
-           options:["Did not use","Once during the week","Used several times during the week","Every day of the week"]},
-          {id:"q8", type:"checkbox", required:true, label:"8. Which Claude feature(s) did you use?",
-           options:[
-             "Standard chat (Q&A / Text generation)",
-             "Research (Deep Research)",
-             "Projects",
-             "Artifacts",
-             "Claude Skills",
-             "Connectors (e.g., links, file integrations)",
-             "Secure file upload",
-             "Others"
-           ]},
-          {id:"q9", type:"text", required:false, label:"9. If you selected \"Others\" in the previous question, please specify which Claude feature(s) you used:"}
-        ]
-      }
-    ]
-  }
 ];
 
 function getFormResponses() {
@@ -2753,34 +2746,28 @@ function userHasSubmitted(formId, email) {
 function renderForms(user) {
   var el = document.getElementById("tab-forms");
   var h = "";
-  h += "<div class=\"page-header\"><h1>Forms</h1><p>Post-class surveys and weekly activities — answer directly in the hub. On-time submissions earn 1 point.</p></div>";
+  h += "<div class=\"page-header\"><h1>Forms</h1><p>Post-class surveys — answer directly in the hub. On-time submissions earn 1 point.</p></div>";
   h += "<div class=\"form-list\">";
-  FORMS_DEF.forEach(function(f) {
-    var unlocked = f.alwaysOpen || isItemUnlocked(f.week, "form_" + f.id) || isAdmin(user);
-    var done = userHasSubmitted(f.id, user.email);
-    h += "<div class=\"form-card\">";
-    h += "<span class=\"fc-week\">Week " + f.week + " &middot; Post-class</span>";
-    h += "<h3>" + f.title + "</h3>";
-    h += "<p>" + f.subtitle + " — " + f.desc + "</p>";
-    h += "<div class=\"fc-foot\">";
-    if (done) {
-      h += "<span class=\"fc-status done-st\">&#10003; Submitted</span>";
-      h += "<button disabled>Answered</button>";
-    } else if (unlocked) {
-      h += "<span class=\"fc-status open-st\">Open</span>";
-      h += "<button onclick=\"openForm('" + f.id + "')\">Answer now &rarr;</button>";
-    } else {
-      h += "<span class=\"fc-status locked-fst\">&#128274; Locked</span>";
-      h += "<button disabled>Available in Week " + f.week + "</button>";
-    }
-    h += "</div></div>";
-  });
+  if (FORMS_DEF.length === 0) {
+    h += "<p style=\"font-size:.82rem;color:var(--muted);padding:1rem 0\">No forms available yet — check back soon.</p>";
+  } else {
+    FORMS_DEF.forEach(function(f) {
+      h += buildFormCardHTML(f, user, "full");
+    });
+  }
   h += "</div>";
   el.innerHTML = h;
 }
 
 // ═══ RENDER ONE FORM ═══
 var currentFormId = null;
+
+// Navigate to the Forms tab and open a specific form directly
+function goToForm(formId) {
+  showTab('forms');
+  openForm(formId);
+}
+
 function openForm(formId) {
   var f = FORMS_DEF.find(function(x){ return x.id === formId; });
   if (!f) return;
@@ -3136,6 +3123,7 @@ function renderProgress(user) {
   FORMS_DEF.forEach(function(f) {
     var submitted = myForms.some(function(r){ return r.formId === f.id; });
     var unlocked = f.alwaysOpen || isItemUnlocked(f.week, "form_" + f.id) || isAdm;
+    var cd = getFormCountdown(f.week);
     h += "<div class=\"prog-row\">";
     if (submitted) {
       h += "<span class=\"prog-row-icon\">&#9989;</span>";
@@ -3144,9 +3132,9 @@ function renderProgress(user) {
       h += "<span class=\"prog-row-pts pos\">+1 pt</span>";
     } else if (unlocked) {
       h += "<span class=\"prog-row-icon\">&#9898;</span>";
-      h += "<span class=\"prog-row-name\" style=\"opacity:.7\">" + f.title + "</span>";
-      h += "<span class=\"prog-row-meta\">Week " + f.week + " &middot; Open</span>";
-      h += "<span class=\"prog-row-pts pending\">pending</span>";
+      h += "<span class=\"prog-row-name\" style=\"opacity:.7;cursor:pointer\" onclick=\"goToForm('" + f.id + "')\">" + f.title + " &rarr;</span>";
+      h += "<span class=\"prog-row-meta\">Week " + f.week + "</span>";
+      h += "<span class=\"form-inline-cd " + cd.cls + "\" style=\"font-size:.58rem\">" + cd.text + "</span>";
     } else {
       h += "<span class=\"prog-row-icon\">&#128274;</span>";
       h += "<span class=\"prog-row-name\" style=\"opacity:.4\">" + f.title + "</span>";
@@ -3157,33 +3145,28 @@ function renderProgress(user) {
   });
   h += "</div>";
 
-  // Leaderboard — full width
+  // Your position — simple card (no full leaderboard)
   h += "<div class=\"prog-section full\">";
-  h += "<div class=\"prog-section-head\"><span class=\"prog-section-icon\">&#127941;</span><span class=\"prog-section-title\">" + cohortLabel + " Leaderboard</span>";
-  h += "<span class=\"prog-section-count\">Top 15</span></div>";
-  var top15 = cohortPeople.slice(0, 15);
-  if (top15.length === 0) {
-    h += "<div class=\"prog-empty\">No scores in this cohort yet. Points will appear here after attendance, forms, or agent results are imported.</div>";
-  } else {
-    top15.forEach(function(r, i) {
-      var isMe = cleanEmail(r.email || "") === email;
-      var medal = i === 0 ? "&#129351;" : (i === 1 ? "&#129352;" : (i === 2 ? "&#129353;" : (i+1)));
-      var cls = isMe ? " me" : (i === 0 ? " gold" : (i === 1 ? " silver" : (i === 2 ? " bronze" : "")));
-      h += "<div class=\"prog-lb-row" + cls + "\">";
-      h += "<span class=\"prog-lb-rk\">" + medal + "</span>";
-      h += "<span class=\"prog-lb-name\">" + (isMe ? "&#11088; " : "") + (r.name || r.email) + "</span>";
-      h += "<span class=\"prog-lb-pts\">" + (r.total || 0) + "</span>";
-      h += "</div>";
-    });
-    // Show my position if not in top 15
-    if (myRank > 15) {
-      h += "<div style=\"text-align:center;padding:.4rem;font-size:.65rem;color:var(--muted);letter-spacing:.5px\">&middot;&middot;&middot;</div>";
-      h += "<div class=\"prog-lb-row me\">";
-      h += "<span class=\"prog-lb-rk\">" + myRank + "</span>";
-      h += "<span class=\"prog-lb-name\">&#11088; " + user.name + "</span>";
-      h += "<span class=\"prog-lb-pts\">" + tot + "</span>";
-      h += "</div>";
+  h += "<div class=\"prog-section-head\"><span class=\"prog-section-icon\">&#127941;</span><span class=\"prog-section-title\">Your Position in " + cohortLabel + "</span></div>";
+  if (myRank > 0 && totalPeople > 0) {
+    h += "<div style=\"display:flex;align-items:center;gap:1.2rem;padding:.8rem 0\">";
+    h += "<div style=\"text-align:center;min-width:80px\">";
+    h += "<div style=\"font-size:2.5rem;font-weight:900;color:var(--navy);line-height:1\">#" + myRank + "</div>";
+    h += "<div style=\"font-size:.6rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-top:.2rem\">of " + totalPeople + " participants</div></div>";
+    h += "<div style=\"flex:1\">";
+    h += "<div style=\"background:var(--bg);border-radius:99px;height:12px;overflow:hidden;position:relative\">";
+    var rankPct = Math.max(3, Math.round((1 - (myRank - 1) / totalPeople) * 100));
+    h += "<div style=\"height:100%;border-radius:99px;background:linear-gradient(90deg,var(--cyan),var(--blue-light));width:" + rankPct + "%;transition:width .6s\"></div>";
+    h += "</div>";
+    h += "<div style=\"display:flex;justify-content:space-between;margin-top:.3rem;font-size:.58rem;color:var(--muted)\">";
+    h += "<span>Top " + pct + "%</span><span>" + tot + " pts</span></div>";
+    h += "</div></div>";
+    if (myRank <= 3) {
+      var medals = ["","&#129351; 1st place!","&#129352; 2nd place!","&#129353; 3rd place!"];
+      h += "<div style=\"text-align:center;padding:.5rem;font-size:1rem;font-weight:800;color:var(--navy)\">" + medals[myRank] + "</div>";
     }
+  } else {
+    h += "<div class=\"prog-empty\">No scores yet. Complete forms and attend sessions to earn points and see your ranking here!</div>";
   }
   h += "</div>";
 
