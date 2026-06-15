@@ -550,7 +550,7 @@ a{color:inherit;text-decoration:none}
 .async-placeholder{font-size:.74rem;color:var(--muted);font-style:italic;padding:.3rem 0}
 
 /* Form card — done state (greyed out) */
-.form-card.done-card{opacity:.55;filter:grayscale(.4);pointer-events:none}
+.form-card.done-card{opacity:.7;filter:grayscale(.35);pointer-events:none}
 .form-card.done-card h3{color:var(--muted)}
 .form-card.done-card .fc-week{color:var(--muted)}
 
@@ -1367,6 +1367,11 @@ function showTab(tabId) {
   if (tabId === "progress") {
     var u = getCurrentUser();
     if (u) renderProgress(u);
+  }
+  // Re-render current week tab on every open so form status is always fresh
+  if (tabId === "week") {
+    var u2 = getCurrentUser();
+    if (u2) renderCurrentWeek(u2);
   }
 }
 
@@ -2764,6 +2769,12 @@ var currentFormId = null;
 
 // Navigate to the Forms tab and open a specific form directly
 function goToForm(formId) {
+  var user = getCurrentUser();
+  if (user && userHasSubmitted(formId, user.email)) {
+    // Already answered — just go to forms tab to show the completed state
+    showTab('forms');
+    return;
+  }
   showTab('forms');
   openForm(formId);
 }
@@ -2900,7 +2911,13 @@ function submitForm() {
     return;
   }
 
-  // Save response locally
+  // Block duplicate submission
+  if (userHasSubmitted(f.id, user.email)) {
+    msgEl.className = "ff-msg err";
+    msgEl.textContent = "You have already submitted this form.";
+    setTimeout(function(){ renderForms(getCurrentUser()); }, 1200);
+    return;
+  }
   var responses = getFormResponses();
   var formResponse = {
     formId: f.id,
