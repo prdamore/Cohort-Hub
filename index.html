@@ -468,6 +468,68 @@ a{color:inherit;text-decoration:none}
 .form-card button:hover{background:var(--blue-deep)}
 .form-card button:disabled{background:var(--line);color:var(--muted);cursor:not-allowed}
 
+/* ═══ MY PROGRESS TAB ═══ */
+.prog-hero{background:radial-gradient(ellipse at 75% 20%,rgba(31,65,185,.38),transparent 50%),linear-gradient(135deg,#03051f 0%,#071042 50%,#0d257f 100%);border-radius:18px;padding:2rem 2.2rem 1.8rem;color:#fff;margin-bottom:1.5rem;position:relative;overflow:hidden}
+.prog-hero::before{content:'';position:absolute;top:-60px;right:-60px;width:280px;height:280px;background:radial-gradient(circle,rgba(70,232,224,.15) 0%,transparent 60%);pointer-events:none}
+.prog-hero-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:.8rem}
+.prog-hero-name{font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#bcd0ff}
+.prog-hero-pts{font-size:3rem;font-weight:900;letter-spacing:-.04em;line-height:1;margin-top:.3rem}
+.prog-hero-pts span{font-size:1rem;font-weight:400;opacity:.55;letter-spacing:0}
+.prog-rank-badge{border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:.6rem 1.2rem;background:rgba(255,255,255,.06);text-align:center;backdrop-filter:blur(4px)}
+.prog-rank-num{font-size:1.6rem;font-weight:900;color:var(--cyan);line-height:1}
+.prog-rank-label{font-size:.55rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:.15rem}
+.prog-bar-wrap{margin-top:.8rem}
+.prog-bar-labels{display:flex;justify-content:space-between;font-size:.58rem;color:rgba(255,255,255,.4);margin-bottom:.35rem}
+.prog-bar-track{background:rgba(255,255,255,.1);border-radius:99px;height:10px;overflow:hidden}
+.prog-bar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--cyan),var(--blue-light));transition:width .6s ease}
+
+.prog-cats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.5rem}
+.prog-cat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1rem;position:relative;overflow:hidden;transition:all .2s}
+.prog-cat:hover{box-shadow:0 6px 20px rgba(32,68,220,.08);transform:translateY(-1px)}
+.prog-cat-icon{font-size:1.5rem;margin-bottom:.5rem}
+.prog-cat-value{font-size:1.6rem;font-weight:900;color:var(--navy);line-height:1}
+.prog-cat-label{font-size:.62rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-top:.25rem}
+.prog-cat-sub{font-size:.6rem;color:var(--muted);margin-top:.3rem;line-height:1.4}
+.prog-cat-bar{margin-top:.6rem;background:var(--bg);border-radius:99px;height:5px;overflow:hidden}
+.prog-cat-bar-fill{height:100%;border-radius:99px;transition:width .5s ease}
+.prog-cat-bar-fill.att-fill{background:linear-gradient(90deg,#166534,#22c55e)}
+.prog-cat-bar-fill.frm-fill{background:linear-gradient(90deg,var(--blue-deep),var(--blue-light))}
+.prog-cat-bar-fill.del-fill{background:linear-gradient(90deg,var(--orange),#f59e0b)}
+.prog-cat-bar-fill.agt-fill{background:linear-gradient(90deg,var(--purple),#a855f7)}
+
+.prog-sections{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.prog-section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.2rem 1.4rem}
+.prog-section.full{grid-column:1/-1}
+.prog-section-head{display:flex;align-items:center;gap:.5rem;margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid var(--line)}
+.prog-section-icon{font-size:1.1rem}
+.prog-section-title{font-size:.88rem;font-weight:700;color:var(--navy)}
+.prog-section-count{margin-left:auto;font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.15rem .5rem;border-radius:4px;background:var(--soft);color:var(--blue)}
+
+.prog-row{display:flex;align-items:center;gap:.7rem;padding:.55rem 0;border-bottom:1px solid var(--line)}
+.prog-row:last-child{border-bottom:none}
+.prog-row-icon{font-size:.85rem;flex-shrink:0}
+.prog-row-name{flex:1;font-size:.78rem;font-weight:600;color:var(--ink)}
+.prog-row-meta{font-size:.65rem;color:var(--muted)}
+.prog-row-pts{font-size:.72rem;font-weight:800;padding:.2rem .5rem;border-radius:5px;flex-shrink:0}
+.prog-row-pts.pos{background:var(--greenBg);color:var(--green)}
+.prog-row-pts.zero{background:var(--redBg);color:var(--red)}
+.prog-row-pts.pending{background:var(--bg);color:var(--muted)}
+
+.prog-lb-row{display:grid;grid-template-columns:32px 1fr auto;align-items:center;gap:8px;padding:.5rem .6rem;border-radius:10px;margin-bottom:4px;transition:all .15s}
+.prog-lb-row:hover{background:var(--bg)}
+.prog-lb-row.me{background:var(--soft);border:1px solid var(--blue);font-weight:700}
+.prog-lb-row.gold{background:linear-gradient(90deg,rgba(250,204,21,.12),transparent)}
+.prog-lb-row.silver{background:linear-gradient(90deg,rgba(168,185,210,.12),transparent)}
+.prog-lb-row.bronze{background:linear-gradient(90deg,rgba(217,119,6,.10),transparent)}
+.prog-lb-rk{font-size:.82rem;font-weight:900;color:var(--muted);text-align:center}
+.prog-lb-row.gold .prog-lb-rk{color:#ca8a04}
+.prog-lb-row.silver .prog-lb-rk{color:#6b7280}
+.prog-lb-row.bronze .prog-lb-rk{color:#b45309}
+.prog-lb-name{font-size:.78rem;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.prog-lb-pts{font-size:.72rem;font-weight:900;color:var(--navy);background:var(--bg);padding:.2rem .55rem;border-radius:99px;text-align:center;min-width:38px}
+.prog-lb-row.me .prog-lb-pts{background:var(--navy);color:#fff}
+.prog-empty{font-size:.78rem;color:var(--muted);padding:.8rem 0;line-height:1.6}
+
 /* Form fill view */
 .ff-wrap{max-width:760px}
 .ff-head{background:var(--navy);border-radius:14px;padding:1.5rem 1.8rem;margin-bottom:1.2rem;position:relative;overflow:hidden}
@@ -715,6 +777,7 @@ a{color:inherit;text-decoration:none}
     <div class="nav-item" onclick="showTab('week')" data-tab="week"><span class="nav-icon">&#9889;</span><span>Current Week</span></div>
     <div class="nav-item" onclick="showTab('forms')" data-tab="forms"><span class="nav-icon">&#128221;</span><span>Forms</span></div>
     <div class="nav-item" onclick="showTab('materials')" data-tab="materials"><span class="nav-icon">&#128194;</span><span>Materials</span></div>
+    <div class="nav-item" onclick="showTab('progress')" data-tab="progress"><span class="nav-icon">&#127942;</span><span>My Progress</span></div>
     <div class="nav-item" onclick="showTab('faq')" data-tab="faq"><span class="nav-icon">&#10067;</span><span>FAQ</span></div>
     <div class="nav-item" onclick="showTab('admin')" data-tab="admin" id="navAdmin" style="display:none"><span class="nav-icon">&#9881;</span><span>Admin</span><span class="nav-badge">Admin</span></div>
   </div>
@@ -727,6 +790,7 @@ a{color:inherit;text-decoration:none}
   <div class="tab-page" id="tab-forms"></div>
   <div class="tab-page" id="tab-materials"></div>
   <div class="tab-page" id="tab-faq"></div>
+  <div class="tab-page" id="tab-progress"></div>
   <div class="tab-page" id="tab-admin"></div>
 </div>
 </div>
@@ -757,15 +821,19 @@ function getSB() {
   return _sb;
 }
 
-// Fire-and-forget async upsert — logs errors to console for debugging
+// Supabase helpers — check result.error (Supabase JS v2 does NOT throw on API errors)
 async function sbUpsert(table, row) {
   var client = getSB();
   if (!client) { console.warn("Supabase client not initialized"); return; }
   try { 
     var result = await client.from(table).upsert(row, {onConflict: "email"});
-    console.log("✓ Upserted to " + table, row);
+    if (result.error) {
+      console.error("✗ Upsert " + table + " error:", result.error.message, result.error.details);
+    } else {
+      console.log("✓ Upserted to " + table, row);
+    }
   } catch(e) { 
-    console.error("✗ Upsert " + table + " failed:", e.message);
+    console.error("✗ Upsert " + table + " exception:", e.message);
   }
 }
 async function sbInsert(table, row) {
@@ -773,9 +841,13 @@ async function sbInsert(table, row) {
   if (!client) { console.warn("Supabase client not initialized"); return; }
   try { 
     var result = await client.from(table).insert(row);
-    console.log("✓ Inserted to " + table, row);
+    if (result.error) {
+      console.error("✗ Insert " + table + " error:", result.error.message, result.error.details);
+    } else {
+      console.log("✓ Inserted to " + table, row);
+    }
   } catch(e) { 
-    console.error("✗ Insert " + table + " failed:", e.message);
+    console.error("✗ Insert " + table + " exception:", e.message);
   }
 }
 async function sbDelete(table, filter) {
@@ -783,9 +855,13 @@ async function sbDelete(table, filter) {
   if (!client) { console.warn("Supabase client not initialized"); return; }
   try { 
     var result = await client.from(table).delete().neq(filter.col, filter.val);
-    console.log("✓ Deleted from " + table);
+    if (result.error) {
+      console.error("✗ Delete " + table + " error:", result.error.message);
+    } else {
+      console.log("✓ Deleted from " + table);
+    }
   } catch(e) { 
-    console.error("✗ Delete " + table + " failed:", e.message);
+    console.error("✗ Delete " + table + " exception:", e.message);
   }
 }
 
@@ -809,6 +885,7 @@ var WEEK_SCHEDULE = [
     theory:"Theory session", theoryTopics:["Intro to AI & Claude","Prompt Engineering","Token usage","Claude Chat tools"], theoryDuration:"1h",
     practical:"Practical session", practicalTopics_c2:["Agenda generation flow for meetings, through to post-meeting content consolidation"], practicalTopics_c3:["Agenda generation flow for meetings, through to post-meeting content consolidation"], practicalDuration:"1h",
     asyncTopics:["Chain-of-Thought Prompting","Anthropic Model Specification"],
+    asyncLinks:[{label:"Supplementary Content — Prompt Engineering & Token Usage", url:"https://patriainvest.sharepoint.com/:u:/s/AIDemocratization-Cohort2/IQCObAcCk5dPTKw-PjZboKWuAb2X4k8neKxrBCCDakMoZ8k?e=NipfsJ"}],
     deliverables:"Mapped use cases (individual)"
   },
   {week:2, num:"W2", title:"Connectors + Prioritization", dates:"22/06 - 26/06", summary:"Connectors + Prioritization Criteria", objective:"Operate connectors with real Patria data",
@@ -1162,6 +1239,11 @@ function showTab(tabId) {
   if (tabEl) tabEl.classList.add("active");
   var navEl = document.querySelector('[data-tab="' + tabId + '"]');
   if (navEl) navEl.classList.add("active");
+  // Re-render progress tab on every open so points are always fresh
+  if (tabId === "progress") {
+    var u = getCurrentUser();
+    if (u) renderProgress(u);
+  }
 }
 
 
@@ -1193,6 +1275,7 @@ function enterApp() {
   renderForms(user);
   renderMaterials(user);
   renderFAQ(user);
+  renderProgress(user);
   if (isAdmin(user)) renderAdmin(user);
 
   showTab("home");
@@ -1606,7 +1689,13 @@ function openWeekModal(weekNum) {
     var asU = isItemUnlocked(weekNum, "async") || isAdmin(user);
     b += "<div class=\"wm-row\"><span class=\"wm-label lbl-async\">Async content" + (asU?"":" &#128274;") + "</span><ul>";
     ws.asyncTopics.forEach(function(t){ b += "<li>" + t + "</li>"; });
-    b += "</ul></div>";
+    b += "</ul>";
+    if (asU && ws.asyncLinks && ws.asyncLinks.length) {
+      ws.asyncLinks.forEach(function(lnk){
+        b += "<a href=\"" + lnk.url + "\" target=\"_blank\" style=\"display:inline-flex;align-items:center;gap:.35rem;margin-top:.5rem;font-size:.74rem;font-weight:600;color:var(--blue)\">&#128196; " + lnk.label + " &rarr;</a>";
+      });
+    }
+    b += "</div>";
   }
   if (ws.touchpoint) {
     b += "<div class=\"wm-row\"><span class=\"wm-label lbl-touch\">" + ws.touchpoint + " &middot; " + (ws.touchpointDuration||"1h") + "</span><p>" + ws.touchpointDesc + "</p></div>";
@@ -1708,6 +1797,11 @@ function renderMaterials(user) {
         if (ws.kickoffVideo) h += "<div class=\"admin-row\"><span class=\"label\">&#127909; Kickoff Recording</span><a href=\"" + ws.kickoffVideo + "\" target=\"_blank\" style=\"color:var(--blue);font-weight:600;font-size:.75rem\">Watch &rarr;</a></div>";
       } else {
         h += "<div class=\"admin-row\"><span class=\"label\">Materials available on SharePoint</span><a href=\"" + COHORT_LINKS[num].materials + "\" target=\"_blank\" style=\"color:var(--blue);font-weight:600;font-size:.75rem\">Open SharePoint &rarr;</a></div>";
+        if (ws.asyncLinks && ws.asyncLinks.length) {
+          ws.asyncLinks.forEach(function(lnk) {
+            h += "<div class=\"admin-row\"><span class=\"label\">&#128196; " + lnk.label + "</span><a href=\"" + lnk.url + "\" target=\"_blank\" style=\"color:var(--blue);font-weight:600;font-size:.75rem\">Download &rarr;</a></div>";
+          });
+        }
       }
     } else {
       h += "<div style=\"font-size:.78rem;color:var(--muted);padding:.5rem 0\">Content will be unlocked when this week begins.</div>";
@@ -1882,6 +1976,18 @@ function parseDuration(str) {
   return mins;
 }
 
+// Remove Teams suffixes like "(Externo)", "(External)", "(Guest)", "(Convidado)" etc.
+function cleanAttendanceName(name) {
+  if (!name) return "";
+  return name
+    .replace(/\s*\(externo\)\s*/gi, "")
+    .replace(/\s*\(external\)\s*/gi, "")
+    .replace(/\s*\(guest\)\s*/gi, "")
+    .replace(/\s*\(convidado\)\s*/gi, "")
+    .replace(/\s*\(visitante\)\s*/gi, "")
+    .trim();
+}
+
 function importAttendance() {
   var raw = document.getElementById("attTextarea").value.trim();
   var sessionMins = parseFloat(document.getElementById("attSessionMins").value);
@@ -1904,7 +2010,7 @@ function importAttendance() {
     var cols = line.split(/\t/);
     if (cols.length < 2) { ignored++; return; }
     // Find duration col and email col heuristically
-    var durCol = null, emailCol = null, name = cols[0].trim();
+    var durCol = null, emailCol = null, name = cleanAttendanceName(cols[0].trim());
     for (var i = 1; i < cols.length; i++) {
       var c = cols[i].trim();
       if (!durCol && /\d+\s*[hms]/.test(c) && !/\d{1,2}:\d{2}/.test(c.substring(0,5))) durCol = c;
@@ -1950,12 +2056,12 @@ function importAttendance() {
   // Sync attendance records to Supabase (fire-and-forget)
   (async function() {
     var client = getSB();
-    if (!client) return;
+    if (!client) { console.warn("Supabase not available for attendance sync"); return; }
     var toSync = [];
     lines.forEach(function(line) {
       var cols = line.split(/\t/);
       if (cols.length < 2) return;
-      var emailCol = null, durCol = null, name = cols[0].trim();
+      var emailCol = null, durCol = null, name = cleanAttendanceName(cols[0].trim());
       for (var i = 1; i < cols.length; i++) {
         var c = cols[i].trim();
         if (!durCol && /\d+\s*[hms]/.test(c) && !/\d{1,2}:\d{2}/.test(c.substring(0,5))) durCol = c;
@@ -1971,8 +2077,8 @@ function importAttendance() {
         cohort: sessionCohort,
         week: sessionWeek,
         meeting_name: meetingName,
-        duration_mins: mins,
-        session_mins: sessionMins,
+        duration_mins: Math.round(mins),
+        session_mins: Math.round(sessionMins),
         attended: pts > 0,
         points: pts,
         imported_at: new Date().toISOString()
@@ -1980,12 +2086,18 @@ function importAttendance() {
     });
     if (toSync.length > 0) {
       try {
-        await client.from("attendance_records").upsert(toSync, {onConflict: "email,meeting_name"});
-        console.log("✓ Synced " + toSync.length + " attendance records to Supabase");
-        resEl.innerHTML = resEl.innerHTML.replace("Syncing to Supabase...", "Synced to Supabase &#9989;");
+        // Use insert — the unique(email, meeting_name) constraint rejects duplicates automatically
+        var result = await client.from("attendance_records").insert(toSync);
+        if (result.error) {
+          console.error("✗ Attendance insert error:", result.error.message, result.error.details);
+          resEl.innerHTML = resEl.innerHTML.replace("Syncing to Supabase...", "Error: " + result.error.message);
+        } else {
+          console.log("✓ Synced " + toSync.length + " attendance records to Supabase");
+          resEl.innerHTML = resEl.innerHTML.replace("Syncing to Supabase...", "Synced to Supabase &#9989;");
+        }
       } catch(e) {
-        console.error("✗ Attendance sync failed:", e.message);
-        resEl.innerHTML = resEl.innerHTML.replace("Syncing to Supabase...", "Local only (Supabase offline)");
+        console.error("✗ Attendance sync exception:", e);
+        resEl.innerHTML = resEl.innerHTML.replace("Syncing to Supabase...", "Local only (Supabase exception)");
       }
     }
   })();
@@ -2095,10 +2207,12 @@ function importAgentResults() {
   // Sync agent results to Supabase (fire-and-forget, replace all)
   (async function() {
     var client = getSB();
-    if (!client) return;
+    if (!client) { console.warn("Supabase not available for agent sync"); return; }
     try {
       // Clear existing agent data first
-      await client.from("agent_results").delete().neq("email", "___never___");
+      var delResult = await client.from("agent_results").delete().neq("email", "___never___");
+      if (delResult.error) console.error("✗ Agent delete error:", delResult.error.message);
+      else console.log("✓ Cleared old agent data");
       // Insert fresh records
       var toSync = rows.filter(function(r){ return (r.email||r.e_mail||r.mail||"").trim(); }).map(function(r) {
         var email = (r.email || r.e_mail || r.mail || "").trim().toLowerCase();
@@ -2134,13 +2248,20 @@ function importAgentResults() {
         };
       });
       if (toSync.length > 0) {
-        await client.from("agent_results").insert(toSync);
-        console.log("✓ Synced " + toSync.length + " agent records to Supabase (all previous replaced)");
+        var insResult = await client.from("agent_results").insert(toSync);
+        if (insResult.error) {
+          console.error("✗ Agent insert error:", insResult.error.message, insResult.error.details);
+          resEl.innerHTML = resEl.innerHTML.replace("Syncing to Supabase...", "Error: " + insResult.error.message);
+        } else {
+          console.log("✓ Synced " + toSync.length + " agent records to Supabase");
+          resEl.innerHTML = resEl.innerHTML.replace("Syncing to Supabase...", "Synced to Supabase &#9989;");
+        }
+      } else {
+        resEl.innerHTML = resEl.innerHTML.replace("Syncing to Supabase...", "Synced (cleared) &#9989;");
       }
-      resEl.innerHTML = resEl.innerHTML.replace("Syncing to Supabase...", "Synced to Supabase &#9989;");
     } catch(e) {
-      console.error("✗ Agent results sync failed:", e.message);
-      resEl.innerHTML = resEl.innerHTML.replace("Syncing to Supabase...", "Local only (Supabase offline)");
+      console.error("✗ Agent sync exception:", e);
+      resEl.innerHTML = resEl.innerHTML.replace("Syncing to Supabase...", "Local only (exception)");
     }
   })();
 
@@ -2867,6 +2988,208 @@ function toggleAdminWeekDropdown(weekNum, ev) {
   adminOpenWeek = (adminOpenWeek === weekNum) ? null : weekNum;
   var user = getCurrentUser();
   if (user) renderAdmin(user);
+}
+
+// ═══ MY PROGRESS ═══
+function renderProgress(user) {
+  var el = document.getElementById("tab-progress");
+  if (!el || !user) return;
+
+  var store = getPointsStore();
+  var email = cleanEmail(user.email);
+  var isAdm = isAdmin(user);
+  var cohortNum = getUserCohort(user);
+  var cohortLabel = isAdm ? "Admin View" : (String(cohortNum) === "3" ? "Cohort 3" : "Cohort 2");
+
+  // Find my record in points store
+  var myRec = null;
+  Object.keys(store).forEach(function(k) {
+    var r = store[k];
+    if (cleanEmail(r.email || k) === email) myRec = r;
+  });
+  var att  = myRec ? (myRec.attendance  || 0) : 0;
+  var frm  = myRec ? (myRec.forms       || 0) : 0;
+  var del  = myRec ? (myRec.deliveries  || 0) : 0;
+  var agt  = myRec ? (myRec.agent       || 0) : 0;
+  var tot  = myRec ? (myRec.total       || 0) : 0;
+
+  // Gather all people from same cohort for ranking
+  var cohortPeople = [];
+  Object.keys(store).forEach(function(k) {
+    var r = store[k];
+    if (isAdm || String(r.cohort || "").indexOf(String(cohortNum)) !== -1) {
+      cohortPeople.push(r);
+    }
+  });
+  cohortPeople.sort(function(a,b){ return (b.total||0) - (a.total||0) || (a.name||"").localeCompare(b.name||""); });
+  
+  var myRank = 0;
+  var totalPeople = cohortPeople.length;
+  for (var i = 0; i < cohortPeople.length; i++) {
+    if (cleanEmail(cohortPeople[i].email || "") === email) { myRank = i + 1; break; }
+  }
+  var pct = totalPeople > 0 && myRank > 0 ? Math.round((1 - (myRank - 1) / totalPeople) * 100) : 0;
+
+  // Calculate max possible points for progress bar
+  var sessionsMax = 0;
+  cohortPeople.forEach(function(r) {
+    if (r.sessions) sessionsMax = Math.max(sessionsMax, r.sessions.length);
+  });
+  var formsOpen = FORMS_DEF.filter(function(f){ return f.alwaysOpen || isItemUnlocked(f.week, "form_" + f.id); }).length;
+  var maxAtt = sessionsMax * 5;
+  var maxFrm = formsOpen;
+  var maxPossible = Math.max(maxAtt + maxFrm + agt + del, tot, 1);
+  var barPct = Math.min(100, Math.round(tot / maxPossible * 100));
+
+  // Progress bar per category
+  var attBarPct = maxAtt > 0 ? Math.min(100, Math.round(att / maxAtt * 100)) : 0;
+  var frmBarPct = maxFrm > 0 ? Math.min(100, Math.round(frm / maxFrm * 100)) : 0;
+
+  var h = "";
+  h += "<div class=\"page-header\"><h1>My Progress</h1><p>" + cohortLabel + " &middot; Your personal score and ranking</p></div>";
+
+  // ── Hero card ──
+  h += "<div class=\"prog-hero\">";
+  h += "<div class=\"prog-hero-top\">";
+  h += "<div><div class=\"prog-hero-name\">" + user.name + " &middot; " + cohortLabel + "</div>";
+  h += "<div class=\"prog-hero-pts\">" + tot + " <span>total points</span></div></div>";
+  if (myRank > 0) {
+    h += "<div class=\"prog-rank-badge\">";
+    h += "<div class=\"prog-rank-num\">#" + myRank + "</div>";
+    h += "<div class=\"prog-rank-label\">of " + totalPeople + " &middot; top " + pct + "%</div>";
+    h += "</div>";
+  }
+  h += "</div>";
+
+  // Progress bar
+  h += "<div class=\"prog-bar-wrap\">";
+  h += "<div class=\"prog-bar-labels\"><span>0 pts</span><span>" + tot + " / " + maxPossible + " pts available</span></div>";
+  h += "<div class=\"prog-bar-track\"><div class=\"prog-bar-fill\" style=\"width:" + barPct + "%\"></div></div>";
+  h += "</div></div>";
+
+  // ── Category cards ──
+  h += "<div class=\"prog-cats\">";
+
+  h += "<div class=\"prog-cat\">";
+  h += "<div class=\"prog-cat-icon\">&#128203;</div>";
+  h += "<div class=\"prog-cat-value\">" + att + "</div>";
+  h += "<div class=\"prog-cat-label\">Attendance</div>";
+  h += "<div class=\"prog-cat-sub\">" + (myRec && myRec.sessions ? myRec.sessions.filter(function(s){return s.pts>0;}).length : 0) + " of " + sessionsMax + " sessions</div>";
+  h += "<div class=\"prog-cat-bar\"><div class=\"prog-cat-bar-fill att-fill\" style=\"width:" + attBarPct + "%\"></div></div>";
+  h += "</div>";
+
+  h += "<div class=\"prog-cat\">";
+  h += "<div class=\"prog-cat-icon\">&#128221;</div>";
+  h += "<div class=\"prog-cat-value\">" + frm + "</div>";
+  h += "<div class=\"prog-cat-label\">Forms</div>";
+  h += "<div class=\"prog-cat-sub\">" + frm + " of " + formsOpen + " submitted</div>";
+  h += "<div class=\"prog-cat-bar\"><div class=\"prog-cat-bar-fill frm-fill\" style=\"width:" + frmBarPct + "%\"></div></div>";
+  h += "</div>";
+
+  h += "<div class=\"prog-cat\">";
+  h += "<div class=\"prog-cat-icon\">&#128640;</div>";
+  h += "<div class=\"prog-cat-value\">" + del + "</div>";
+  h += "<div class=\"prog-cat-label\">Deliveries</div>";
+  h += "<div class=\"prog-cat-sub\">First Resolution &amp; Final Skill</div>";
+  h += "<div class=\"prog-cat-bar\"><div class=\"prog-cat-bar-fill del-fill\" style=\"width:0%\"></div></div>";
+  h += "</div>";
+
+  h += "<div class=\"prog-cat\">";
+  h += "<div class=\"prog-cat-icon\">&#129302;</div>";
+  h += "<div class=\"prog-cat-value\">" + agt + "</div>";
+  h += "<div class=\"prog-cat-label\">Agent</div>";
+  h += "<div class=\"prog-cat-sub\">AI agent gamification</div>";
+  h += "<div class=\"prog-cat-bar\"><div class=\"prog-cat-bar-fill agt-fill\" style=\"width:" + (agt > 0 ? "100" : "0") + "%\"></div></div>";
+  h += "</div>";
+
+  h += "</div>";
+
+  // ── Detail sections grid ──
+  h += "<div class=\"prog-sections\">";
+
+  // Attendance history
+  h += "<div class=\"prog-section\">";
+  h += "<div class=\"prog-section-head\"><span class=\"prog-section-icon\">&#128203;</span><span class=\"prog-section-title\">Attendance History</span>";
+  var mySessions = (myRec && myRec.sessions) ? myRec.sessions : [];
+  h += "<span class=\"prog-section-count\">" + mySessions.length + " session" + (mySessions.length !== 1 ? "s" : "") + "</span></div>";
+  if (mySessions.length > 0) {
+    mySessions.slice().reverse().forEach(function(s) {
+      var ok = s.pts > 0;
+      h += "<div class=\"prog-row\">";
+      h += "<span class=\"prog-row-icon\">" + (ok ? "&#9989;" : "&#10060;") + "</span>";
+      h += "<span class=\"prog-row-name\">" + (s.meeting || s.week) + "</span>";
+      h += "<span class=\"prog-row-meta\">" + s.mins + " min &middot; " + s.week + "</span>";
+      h += "<span class=\"prog-row-pts " + (ok ? "pos" : "zero") + "\">" + (ok ? "+5 pts" : "0 pts") + "</span>";
+      h += "</div>";
+    });
+  } else {
+    h += "<div class=\"prog-empty\">No attendance data yet. Points are awarded after each session is processed by the admin.</div>";
+  }
+  h += "</div>";
+
+  // Forms submitted
+  h += "<div class=\"prog-section\">";
+  h += "<div class=\"prog-section-head\"><span class=\"prog-section-icon\">&#128221;</span><span class=\"prog-section-title\">Forms</span>";
+  var myForms = getFormResponses().filter(function(r){ return cleanEmail(r.email) === email; });
+  h += "<span class=\"prog-section-count\">" + myForms.length + " submitted</span></div>";
+  // Show all forms with status
+  FORMS_DEF.forEach(function(f) {
+    var submitted = myForms.some(function(r){ return r.formId === f.id; });
+    var unlocked = f.alwaysOpen || isItemUnlocked(f.week, "form_" + f.id) || isAdm;
+    h += "<div class=\"prog-row\">";
+    if (submitted) {
+      h += "<span class=\"prog-row-icon\">&#9989;</span>";
+      h += "<span class=\"prog-row-name\">" + f.title + "</span>";
+      h += "<span class=\"prog-row-meta\">Week " + f.week + "</span>";
+      h += "<span class=\"prog-row-pts pos\">+1 pt</span>";
+    } else if (unlocked) {
+      h += "<span class=\"prog-row-icon\">&#9898;</span>";
+      h += "<span class=\"prog-row-name\" style=\"opacity:.7\">" + f.title + "</span>";
+      h += "<span class=\"prog-row-meta\">Week " + f.week + " &middot; Open</span>";
+      h += "<span class=\"prog-row-pts pending\">pending</span>";
+    } else {
+      h += "<span class=\"prog-row-icon\">&#128274;</span>";
+      h += "<span class=\"prog-row-name\" style=\"opacity:.4\">" + f.title + "</span>";
+      h += "<span class=\"prog-row-meta\" style=\"opacity:.4\">Week " + f.week + "</span>";
+      h += "<span class=\"prog-row-pts pending\">locked</span>";
+    }
+    h += "</div>";
+  });
+  h += "</div>";
+
+  // Leaderboard — full width
+  h += "<div class=\"prog-section full\">";
+  h += "<div class=\"prog-section-head\"><span class=\"prog-section-icon\">&#127941;</span><span class=\"prog-section-title\">" + cohortLabel + " Leaderboard</span>";
+  h += "<span class=\"prog-section-count\">Top 15</span></div>";
+  var top15 = cohortPeople.slice(0, 15);
+  if (top15.length === 0) {
+    h += "<div class=\"prog-empty\">No scores in this cohort yet. Points will appear here after attendance, forms, or agent results are imported.</div>";
+  } else {
+    top15.forEach(function(r, i) {
+      var isMe = cleanEmail(r.email || "") === email;
+      var medal = i === 0 ? "&#129351;" : (i === 1 ? "&#129352;" : (i === 2 ? "&#129353;" : (i+1)));
+      var cls = isMe ? " me" : (i === 0 ? " gold" : (i === 1 ? " silver" : (i === 2 ? " bronze" : "")));
+      h += "<div class=\"prog-lb-row" + cls + "\">";
+      h += "<span class=\"prog-lb-rk\">" + medal + "</span>";
+      h += "<span class=\"prog-lb-name\">" + (isMe ? "&#11088; " : "") + (r.name || r.email) + "</span>";
+      h += "<span class=\"prog-lb-pts\">" + (r.total || 0) + "</span>";
+      h += "</div>";
+    });
+    // Show my position if not in top 15
+    if (myRank > 15) {
+      h += "<div style=\"text-align:center;padding:.4rem;font-size:.65rem;color:var(--muted);letter-spacing:.5px\">&middot;&middot;&middot;</div>";
+      h += "<div class=\"prog-lb-row me\">";
+      h += "<span class=\"prog-lb-rk\">" + myRank + "</span>";
+      h += "<span class=\"prog-lb-name\">&#11088; " + user.name + "</span>";
+      h += "<span class=\"prog-lb-pts\">" + tot + "</span>";
+      h += "</div>";
+    }
+  }
+  h += "</div>";
+
+  h += "</div>"; // close prog-sections
+
+  el.innerHTML = h;
 }
 
 // ═══ INIT ═══
