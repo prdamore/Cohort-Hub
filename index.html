@@ -757,21 +757,36 @@ function getSB() {
   return _sb;
 }
 
-// Fire-and-forget async upsert — never blocks the UI, never throws to the user
+// Fire-and-forget async upsert — logs errors to console for debugging
 async function sbUpsert(table, row) {
   var client = getSB();
-  if (!client) return;
-  try { await client.from(table).upsert(row, {onConflict: "email"}); } catch(e) { /* silent */ }
+  if (!client) { console.warn("Supabase client not initialized"); return; }
+  try { 
+    var result = await client.from(table).upsert(row, {onConflict: "email"});
+    console.log("✓ Upserted to " + table, row);
+  } catch(e) { 
+    console.error("✗ Upsert " + table + " failed:", e.message);
+  }
 }
 async function sbInsert(table, row) {
   var client = getSB();
-  if (!client) return;
-  try { await client.from(table).insert(row); } catch(e) { /* silent */ }
+  if (!client) { console.warn("Supabase client not initialized"); return; }
+  try { 
+    var result = await client.from(table).insert(row);
+    console.log("✓ Inserted to " + table, row);
+  } catch(e) { 
+    console.error("✗ Insert " + table + " failed:", e.message);
+  }
 }
-async function sbUpsertNoConflict(table, row) {
+async function sbDelete(table, filter) {
   var client = getSB();
-  if (!client) return;
-  try { await client.from(table).upsert(row); } catch(e) { /* silent */ }
+  if (!client) { console.warn("Supabase client not initialized"); return; }
+  try { 
+    var result = await client.from(table).delete().neq(filter.col, filter.val);
+    console.log("✓ Deleted from " + table);
+  } catch(e) { 
+    console.error("✗ Delete " + table + " failed:", e.message);
+  }
 }
 
 // ═══ CONFIGURATION ═══
@@ -1966,8 +1981,10 @@ function importAttendance() {
     if (toSync.length > 0) {
       try {
         await client.from("attendance_records").upsert(toSync, {onConflict: "email,meeting_name"});
+        console.log("✓ Synced " + toSync.length + " attendance records to Supabase");
         resEl.innerHTML = resEl.innerHTML.replace("Syncing to Supabase...", "Synced to Supabase &#9989;");
       } catch(e) {
+        console.error("✗ Attendance sync failed:", e.message);
         resEl.innerHTML = resEl.innerHTML.replace("Syncing to Supabase...", "Local only (Supabase offline)");
       }
     }
@@ -2116,9 +2133,13 @@ function importAgentResults() {
           imported_at: new Date().toISOString()
         };
       });
-      if (toSync.length > 0) await client.from("agent_results").insert(toSync);
+      if (toSync.length > 0) {
+        await client.from("agent_results").insert(toSync);
+        console.log("✓ Synced " + toSync.length + " agent records to Supabase (all previous replaced)");
+      }
       resEl.innerHTML = resEl.innerHTML.replace("Syncing to Supabase...", "Synced to Supabase &#9989;");
     } catch(e) {
+      console.error("✗ Agent results sync failed:", e.message);
       resEl.innerHTML = resEl.innerHTML.replace("Syncing to Supabase...", "Local only (Supabase offline)");
     }
   })();
